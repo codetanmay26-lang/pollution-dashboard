@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./JudgeMode.css";
 
+const API_BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? 'http://localhost:8000' : '');
+
 const JudgeMode = () => {
   const { sessionId } = useParams();
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const JudgeMode = () => {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const res = await fetch(`/api/judge-sessions/${sessionId}`);
+        const res = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}`);
         if (res.ok) {
           const data = await res.json();
           setSession(data);
@@ -61,7 +63,7 @@ const JudgeMode = () => {
         setReveal(true);
 
         // Advance on backend
-        fetch(`/api/judge-sessions/${sessionId}/advance`, { method: "POST" });
+        fetch(`${API_BASE}/api/judge-sessions/${sessionId}/advance`, { method: "POST" });
 
         // Trigger website sync
         window.parent.postMessage(
