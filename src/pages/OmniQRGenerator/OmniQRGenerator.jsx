@@ -8,6 +8,7 @@ const OmniQRGenerator = () => {
   const navigate = useNavigate();
   const [sessionId, setSessionId] = useState(null);
   const [sessionState, setSessionState] = useState(null);
+  const [lastSyncAt, setLastSyncAt] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const qrRef = useRef();
@@ -58,10 +59,13 @@ const OmniQRGenerator = () => {
 
     const pollSession = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}`);
+        const res = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}?t=${Date.now()}`, {
+          cache: 'no-store'
+        });
         if (res.ok) {
           const data = await res.json();
           setSessionState(data);
+          setLastSyncAt(new Date());
         }
       } catch (err) {
         console.error('Session polling error:', err);
@@ -92,6 +96,7 @@ const OmniQRGenerator = () => {
   if (sessionId) {
     const qrImageUrl = `${API_BASE}/api/judge-sessions/${sessionId}/qr`;
     const approvedAction = sessionState?.approvedAction || sessionState?.sourceEstimate?.approvedAction || null;
+    const syncLabel = lastSyncAt ? lastSyncAt.toLocaleTimeString() : 'Waiting';
 
     return (
       <div style={{
@@ -105,6 +110,49 @@ const OmniQRGenerator = () => {
           <div style={{marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid rgba(81, 207, 102, 0.2)'}}>
             <h1 style={{fontSize: '28px', color: '#51cf66', margin: '0 0 8px 0'}}>Pollution Interaction Console</h1>
             <p style={{color: '#aaa', margin: '0'}}>QR Session {sessionId.substring(0, 8)}...</p>
+          </div>
+
+          <div style={{
+            marginBottom: '20px',
+            background: approvedAction ? 'rgba(59, 130, 246, 0.10)' : 'rgba(245, 158, 11, 0.08)',
+            border: approvedAction ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(245, 158, 11, 0.35)',
+            borderRadius: '10px',
+            padding: '12px 16px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '14px',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{fontSize: '13px', color: approvedAction ? '#bfdbfe' : '#fcd34d'}}>
+              <strong>{approvedAction ? 'Action Implemented' : 'Awaiting Approval'}</strong>
+              {' '}• Session {sessionId.substring(0, 8)} • Last Sync: {syncLabel}
+            </div>
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}?t=${Date.now()}`, { cache: 'no-store' });
+                  if (res.ok) {
+                    const data = await res.json();
+                    setSessionState(data);
+                    setLastSyncAt(new Date());
+                  }
+                } catch (err) {
+                  console.error('Manual refresh error:', err);
+                }
+              }}
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                color: '#e2e8f0',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '6px',
+                padding: '7px 12px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              Refresh Status
+            </button>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '40px', marginBottom: '30px'}}>
@@ -137,6 +185,10 @@ const OmniQRGenerator = () => {
                     {approvedAction ? 'Action Implemented' : 'Waiting for Mobile Action'}
                   </span>
                 </div>
+                <div style={{marginTop: '14px'}}>
+                  <div style={{fontSize: '11px', color: '#888', textTransform: 'uppercase', marginBottom: '4px'}}>Current Phase</div>
+                  <span style={{fontSize: '12px', color: '#cbd5e1'}}>{(sessionState?.currentPhase || 'ward_select').replace(/_/g, ' ')}</span>
+                </div>
               </div>
 
               <div style={{background: approvedAction ? 'rgba(59, 130, 246, 0.08)' : 'rgba(255, 255, 255, 0.03)', border: approvedAction ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '8px', padding: '20px', marginTop: '16px'}}>
@@ -162,7 +214,7 @@ const OmniQRGenerator = () => {
                   </>
                 ) : (
                   <p style={{margin: 0, color: '#94a3b8', fontSize: '12px'}}>
-                    No implemented action yet. Once mobile user taps <strong>Approve & Deploy</strong>, result appears here automatically.
+                    No implemented action yet. Keep this exact session page open. Once mobile user taps <strong>Approve & Deploy</strong>, result appears here automatically.
                   </p>
                 )}
               </div>
