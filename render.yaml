@@ -1,17 +1,12 @@
 services:
-  # Backend API Service
+  # Backend API Service (Docker-based for reliable geospatial support)
   - type: web
     name: delhi-pollution-api
-    env: python
+    runtime: docker
     plan: free
     region: oregon
-    buildCommand: |
-      apt-get update && apt-get install -y gdal-bin libgdal-dev libproj-dev proj-bin libgeos-dev libspatialindex-dev
-      pip install --upgrade pip
-      pip install -r Backend/requirements.txt
-    startCommand: python -m uvicorn Backend.main:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.13
       - key: PORT
         value: 10000
