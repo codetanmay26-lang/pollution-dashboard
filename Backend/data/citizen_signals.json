@@ -1,0 +1,85 @@
+[
+  {
+    "ticketId": "SIG-20260220-579F863B",
+    "ward": "Central Ridge Reserve Forest",
+    "signalType": "smoke",
+    "severity": "medium",
+    "note": "",
+    "source": "consumer_dashboard",
+    "status": "resolved",
+    "createdAt": "2026-02-20T19:43:55.999207",
+    "updatedAt": "2026-02-20T19:50:33.091534",
+    "events": [
+      {
+        "status": "submitted",
+        "actor": "consumer",
+        "note": "Signal submitted from consumer portal",
+        "timestamp": "2026-02-20T19:43:55.999215"
+      },
+      {
+        "status": "reviewed",
+        "actor": "government_ops",
+        "note": "Advanced to reviewed",
+        "timestamp": "2026-02-20T19:47:15.442900"
+      },
+      {
+        "status": "action_in_progress",
+        "actor": "government_ops",
+        "note": "Action triggered: Dispatch enforcement team to verify open burning source immediately.",
+        "timestamp": "2026-02-20T19:50:21.710098"
+      },
+      {
+        "status": "resolved",
+        "actor": "government_ops",
+        "note": "Advanced to resolved",
+        "timestamp": "2026-02-20T19:50:33.091552"
+      }
+    ]
+  },
+  {
+    "ticketId": "SIG-20260220-C549F863",
+    "ward": "Kaka Nagar",
+    "signalType": "smoke",
+    "severity": "medium",
+    "note": "Imediate dust",
+    "source": "consumer_dashboard",
+    "status": "resolved",
+    "createdAt": "2026-02-20T20:02:14.611836",
+    "updatedAt": "2026-02-20T20:19:56.776929",
+    "events": [
+      {
+        "status": "submitted",
+        "actor": "consumer",
+        "note": "Signal submitted from consumer portal",
+        "timestamp": "2026-02-20T20:02:14.611844"
+      },
+      {
+        "status": "action_in_progress",
+        "actor": "government_review",
+        "note": "Action triggered: Coordinate traffic, dust, and waste-burning enforcement in one operational window.",
+        "timestamp": "2026-02-20T20:03:08.524436"
+      },
+      {
+        "status": "resolved",
+        "actor": "government_review",
+        "note": "Progressed to resolved",
+        "timestamp": "2026-02-20T20:03:15.485153"
+      },
+      {
+        "status": "resolved",
+        "actor": "scan_sync",
+        "note": "Mission QR scanned (mission_qr)",
+        "timestamp": "2026-02-20T20:19:56.721435"
+      },
+      {
+        "status": "resolved",
+        "actor": "scan_sync",
+        "note": "Mission QR scanned (mission_qr)",
+        "timestamp": "2026-02-20T20:19:56.776944"
+      }
+    ],
+    "scanCount": 2,
+    "lastScannedAt": "2026-02-20T20:19:56.776929",
+    "lastScannedSource": "mission_qr"
+  }
+]

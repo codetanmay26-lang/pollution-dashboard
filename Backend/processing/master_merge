@@ -1,0 +1,15 @@
+from .traffic_proxy import compute_traffic_score
+from .industrial_proxy import compute_industrial_score
+from .aqi_processor import process_aqi
+
+def build_master_dataset():
+    aqi = process_aqi()
+    traffic = compute_traffic_score()
+    industry = compute_industrial_score()
+
+    df = aqi.merge(traffic, on="station").merge(industry, on="station")
+
+    df["vehicular_pct"] = df["traffic_score"] / (df["traffic_score"] + df["industrial_score"])
+    df["industrial_pct"] = df["industrial_score"] / (df["traffic_score"] + df["industrial_score"])
+
+    return df

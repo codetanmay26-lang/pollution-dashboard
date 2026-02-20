@@ -1,0 +1,187 @@
+[
+  {
+    "sessionId": "71c9a584-8563",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:09:23.546194",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:09:23.546205",
+    "expiresAt": "2026-02-20T22:09:23.546206"
+  },
+  {
+    "sessionId": "52576e61-5841",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:11:04.096491",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:11:04.096506",
+    "expiresAt": "2026-02-20T22:11:04.096509"
+  },
+  {
+    "sessionId": "d2159113-57c6",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:13:55.872255",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:13:55.872270",
+    "expiresAt": "2026-02-20T22:13:55.872272"
+  },
+  {
+    "sessionId": "22ff63b3-1d0f",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:14:36.160849",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:14:36.160860",
+    "expiresAt": "2026-02-20T22:14:36.160862"
+  },
+  {
+    "sessionId": "f7dcd393-d4ee",
+    "wardName": "West End Greens",
+    "currentPhase": "health_impact",
+    "phaseStartedAt": "2026-02-20T21:15:15.156221",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {
+      "why_ward_matters": "2026-02-20T21:15:06.813932",
+      "health_impact": "2026-02-20T21:15:15.156244"
+    },
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:14:59.160439",
+    "expiresAt": "2026-02-20T22:14:59.160443"
+  },
+  {
+    "sessionId": "aa3f17b4-301b",
+    "wardName": "West End Greens",
+    "currentPhase": "impact_theater",
+    "phaseStartedAt": "2026-02-20T21:16:08.256015",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {
+      "why_ward_matters": "2026-02-20T21:15:39.942438",
+      "health_impact": "2026-02-20T21:15:48.936498",
+      "action_ready": "2026-02-20T21:15:57.226496",
+      "impact_theater": "2026-02-20T21:16:08.256032"
+    },
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:15:24.194683",
+    "expiresAt": "2026-02-20T22:15:24.194686"
+  },
+  {
+    "sessionId": "b19d53c8-96b7",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:16:35.321244",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:16:35.321255",
+    "expiresAt": "2026-02-20T22:16:35.321257"
+  },
+  {
+    "sessionId": "f9c59455-1b33",
+    "wardName": "West End Greens",
+    "currentPhase": "why_ward_matters",
+    "phaseStartedAt": "2026-02-20T21:20:19.344242",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {
+      "why_ward_matters": "2026-02-20T21:20:19.344260"
+    },
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:19:54.316380",
+    "expiresAt": "2026-02-20T22:19:54.316384"
+  },
+  {
+    "sessionId": "8fbc35c5-3bcd",
+    "wardName": "West End Greens",
+    "currentPhase": "emergency_detection",
+    "phaseStartedAt": "2026-02-20T21:24:26.865737",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {},
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:24:26.865751",
+    "expiresAt": "2026-02-20T22:24:26.865753"
+  },
+  {
+    "sessionId": "e724247c-fab9",
+    "wardName": "West End Greens",
+    "currentPhase": "impact_theater",
+    "phaseStartedAt": "2026-02-20T22:44:51.256907",
+    "phases": [
+      "emergency_detection",
+      "why_ward_matters",
+      "health_impact",
+      "action_ready",
+      "impact_theater"
+    ],
+    "phaseTimestamps": {
+      "why_ward_matters": "2026-02-20T22:40:31.282840",
+      "health_impact": "2026-02-20T22:40:38.532819",
+      "action_ready": "2026-02-20T22:41:12.541975",
+      "impact_theater": "2026-02-20T22:44:51.256924"
+    },
+    "judgeCount": 1,
+    "createdAt": "2026-02-20T21:26:52.339606",
+    "expiresAt": "2026-02-20T22:26:52.339610"
+  }
+]

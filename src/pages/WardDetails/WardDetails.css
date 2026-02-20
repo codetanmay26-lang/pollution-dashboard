@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+
+.ward-details-page {
+  min-height: 100vh;
+  padding: 2rem clamp(1rem, 3vw, 2rem) 3rem;
+  color: #f6f8ff;
+  font-family: 'Manrope', sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 143, 90, 0.11), transparent 24%),
+    radial-gradient(circle at 89% 10%, rgba(74, 201, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #10182b 0%, #111c30 55%, #0f1729 100%);
+}
+
+.details-header,
+.overview-grid,
+.details-grid,
+.panel {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.details-header {
+  margin-bottom: 1rem;
+}
+
+.page-kicker {
+  margin: 0.8rem 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9eb2da;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.details-header h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3.1vw, 2.5rem);
+  line-height: 1.05;
+  font-family: 'Sora', sans-serif;
+}
+
+.header-note {
+  margin: 0.6rem 0 0;
+  max-width: 740px;
+  color: #c0c9db;
+}
+
+.btn-solid,
+.btn-ghost {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.68rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-solid {
+  color: #041120;
+  background: linear-gradient(110deg, #38bdf8, #90f4aa);
+}
+
+.btn-ghost {
+  color: #dbe7ff;
+  border-color: rgba(182, 202, 240, 0.3);
+  background: rgba(20, 31, 52, 0.65);
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.overview-card {
+  border-radius: 13px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: linear-gradient(160deg, rgba(21, 34, 58, 0.94), rgba(17, 28, 47, 0.72));
+  padding: 0.9rem;
+  opacity: 0;
+}
+
+.overview-card p {
+  margin: 0;
+  color: #b3c2df;
+  font-size: 0.85rem;
+}
+
+.overview-card h2 {
+  margin: 0.45rem 0 0.2rem;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+}
+
+.overview-card span {
+  color: #d2def4;
+  font-size: 0.8rem;
+}
+
+.band {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.band.good { background: rgba(144, 244, 170, 0.2); color: #90f4aa; }
+.band.moderate { background: rgba(74, 201, 255, 0.2); color: #9fe6ff; }
+.band.unhealthy { background: rgba(245, 158, 11, 0.2); color: #ffd387; }
+.band.very-unhealthy { background: rgba(249, 115, 22, 0.2); color: #ffc9a8; }
+.band.hazardous { background: rgba(239, 68, 68, 0.2); color: #ff9d9d; }
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.panel {
+  border-radius: 14px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: rgba(19, 30, 50, 0.78);
+  padding: 0.95rem;
+  opacity: 0;
+}
+
+.panel h3 {
+  margin: 0 0 0.75rem;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+}
+
+.stats-stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.stats-stack > div {
+  border-radius: 9px;
+  border: 1px solid rgba(182, 202, 240, 0.2);
+  background: rgba(15, 26, 44, 0.72);
+  padding: 0.62rem;
+}
+
+.stats-stack p {
+  margin: 0;
+  font-size: 0.74rem;
+  color: #9eb2da;
+}
+
+.stats-stack strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.05rem;
+}
+
+.source-stack {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.source-line {
+  display: grid;
+  grid-template-columns: 80px 1fr 44px;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.source-line span,
+.source-line em {
+  font-size: 0.8rem;
+  color: #d7e1f8;
+  font-style: normal;
+}
+
+.bar-track {
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(182, 202, 240, 0.15);
+}
+
+.bar-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4ac9ff, #90f4aa);
+}
+
+.actions-stack {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.actions-stack p {
+  margin: 0;
+  border-radius: 9px;
+  border: 1px solid rgba(182, 202, 240, 0.18);
+  background: rgba(15, 26, 44, 0.62);
+  padding: 0.62rem;
+  color: #c4d1eb;
+  font-size: 0.88rem;
+}
+
+.details-animate {
+  opacity: 0;
+}
+
+.ward-details-loading {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 0.9rem;
+  text-align: center;
+  color: #dce8ff;
+  background: #10182b;
+}
+
+.loading-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 4px solid rgba(74, 201, 255, 0.2);
+  border-top-color: #4ac9ff;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .overview-grid,
+  .details-grid,
+  .stats-stack {
+    grid-template-columns: 1fr;
+  }
+}

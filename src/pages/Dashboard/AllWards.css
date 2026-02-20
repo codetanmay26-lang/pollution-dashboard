@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+
+.all-wards-page {
+  min-height: 100vh;
+  padding: 2rem clamp(1rem, 3vw, 2rem) 3rem;
+  color: #f6f8ff;
+  font-family: 'Manrope', sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 143, 90, 0.11), transparent 24%),
+    radial-gradient(circle at 88% 15%, rgba(74, 201, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #0f1829 0%, #111c30 55%, #0f1728 100%);
+}
+
+.wards-header,
+.summary-row,
+.filters-row,
+.wards-list-wrapper,
+.no-results {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wards-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-kicker {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9eb2da;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.wards-header h1 {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.7rem, 3.1vw, 2.5rem);
+}
+
+.wards-header p {
+  margin: 0.7rem 0 0;
+  max-width: 720px;
+  color: #c0c9db;
+}
+
+.header-actions {
+  display: flex;
+}
+
+.btn-solid,
+.btn-ghost {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.68rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-solid {
+  color: #041120;
+  background: linear-gradient(110deg, #38bdf8, #90f4aa);
+}
+
+.btn-solid:hover {
+  transform: translateY(-2px);
+}
+
+.btn-solid.small {
+  padding: 0.38rem 0.62rem;
+  font-size: 0.78rem;
+}
+
+.btn-ghost {
+  color: #dbe7ff;
+  border-color: rgba(182, 202, 240, 0.3);
+  background: rgba(20, 31, 52, 0.65);
+}
+
+.btn-ghost:hover {
+  background: rgba(28, 44, 71, 0.95);
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.summary-row article {
+  border-radius: 12px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: rgba(19, 30, 50, 0.78);
+  padding: 0.8rem 0.9rem;
+}
+
+.summary-row p {
+  margin: 0;
+  color: #b3c2df;
+  font-size: 0.83rem;
+}
+
+.summary-row h3 {
+  margin: 0.42rem 0 0;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.6rem;
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.filters-row input,
+.filters-row select {
+  border-radius: 10px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: rgba(17, 30, 49, 0.78);
+  color: #edf2ff;
+  font-size: 0.9rem;
+  padding: 0.72rem 0.85rem;
+  outline: none;
+}
+
+.wards-list-wrapper {
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: rgba(14, 24, 40, 0.62);
+}
+
+.wards-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+}
+
+.wards-table th,
+.wards-table td {
+  text-align: left;
+  border-bottom: 1px solid rgba(182, 202, 240, 0.12);
+  padding: 0.5rem 0.58rem;
+  font-size: 0.84rem;
+}
+
+.wards-table th {
+  background: rgba(9, 17, 31, 0.96);
+  color: #9eb2da;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ward-table-row {
+  opacity: 0;
+}
+
+.ward-table-row.highlighted {
+  background: rgba(74, 201, 255, 0.12);
+}
+
+.ward-table-row:hover {
+  background: rgba(34, 52, 84, 0.56);
+}
+
+.ward-cell-name strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.ward-cell-name small {
+  color: #9eb2da;
+  font-size: 0.72rem;
+}
+
+.aqi-chip {
+  min-width: 48px;
+  text-align: center;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 800;
+  padding: 0.26rem 0.4rem;
+  display: inline-block;
+  font-size: 0.8rem;
+}
+
+.aqi-chip.good { background: #90f4aa; color: #10231a; }
+.aqi-chip.moderate { background: #4ac9ff; color: #052034; }
+.aqi-chip.unhealthy { background: #f59e0b; color: #221300; }
+.aqi-chip.very-unhealthy { background: #f97316; }
+.aqi-chip.hazardous { background: #ef4444; }
+
+.source-mini-bar {
+  display: flex;
+  height: 7px;
+  width: 100%;
+  min-width: 170px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(182, 202, 240, 0.14);
+}
+
+.source-mini-bar i {
+  display: block;
+  height: 100%;
+}
+
+.source-mini-bar .veh { background: #4ac9ff; }
+.source-mini-bar .ind { background: #ff8f5a; }
+.source-mini-bar .oth { background: #90f4aa; }
+
+.source-mini-text {
+  display: block;
+  margin-top: 0.2rem;
+  color: #afc0df;
+  font-size: 0.69rem;
+}
+
+.ward-actions-cell {
+  text-align: right;
+}
+
+.no-results {
+  margin-top: 1.2rem;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px solid rgba(182, 202, 240, 0.22);
+  background: rgba(19, 30, 50, 0.7);
+  padding: 1.5rem;
+}
+
+.no-results h3 {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+}
+
+.no-results p {
+  margin: 0.5rem 0 0;
+  color: #b8c7e3;
+}
+
+.wards-loading {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 0.9rem;
+  text-align: center;
+  color: #dce8ff;
+  background: #10182b;
+}
+
+.loading-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 4px solid rgba(74, 201, 255, 0.2);
+  border-top-color: #4ac9ff;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .summary-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filters-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .wards-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-row,
+  .filters-row {
+    grid-template-columns: 1fr;
+  }
+}

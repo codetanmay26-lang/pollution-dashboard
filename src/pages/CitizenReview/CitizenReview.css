@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+
+.review-page {
+  min-height: 100vh;
+  padding: 1.1rem clamp(1rem, 2vw, 1.8rem) 1.8rem;
+  color: #ecf3ff;
+  font-family: 'Manrope', sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 153, 99, 0.12), transparent 28%),
+    radial-gradient(circle at 88% 10%, rgba(74, 201, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #0f172a 0%, #111d33 46%, #0d1528 100%);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.review-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9cb4df;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.review-header h1 {
+  margin: 0.35rem 0 0;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.review-header p {
+  margin: 0.4rem 0 0;
+  color: #c2d2ed;
+}
+
+.review-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.review-btn {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0.55rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.review-btn.solid {
+  color: #081123;
+  background: linear-gradient(110deg, #38bdf8, #90f4aa);
+}
+
+.review-btn.ghost {
+  color: #d8e6ff;
+  border-color: rgba(182, 202, 240, 0.3);
+  background: rgba(20, 32, 54, 0.66);
+}
+
+.review-filters {
+  display: flex;
+  gap: 0.55rem;
+  margin-bottom: 0.6rem;
+}
+
+.review-filters label {
+  display: grid;
+  gap: 0.22rem;
+  color: #b8caea;
+  font-size: 0.8rem;
+}
+
+.review-filters select {
+  border-radius: 8px;
+  border: 1px solid rgba(179, 200, 239, 0.23);
+  background: rgba(11, 20, 36, 0.75);
+  color: #d8e6ff;
+  font-size: 0.78rem;
+  padding: 0.38rem 0.48rem;
+}
+
+.review-error {
+  margin: 0 0 0.55rem;
+  color: #ffb4b4;
+}
+
+.review-loading {
+  margin: 0.2rem 0 0.6rem;
+  color: #abc0e8;
+}
+
+.sync-banner {
+  margin: 0 0 0.55rem;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 201, 255, 0.45);
+  background: rgba(35, 89, 112, 0.32);
+  color: #bdefff;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.review-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.review-card {
+  border-radius: 13px;
+  border: 1px solid rgba(179, 200, 239, 0.24);
+  background: rgba(18, 30, 50, 0.76);
+  padding: 0.7rem;
+}
+
+.review-card.live-focus {
+  border-color: rgba(74, 201, 255, 0.65);
+  box-shadow: 0 0 0 1px rgba(74, 201, 255, 0.35), 0 0 22px rgba(74, 201, 255, 0.22);
+}
+
+.review-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.45rem;
+}
+
+.review-row-top strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.review-row-top p {
+  margin: 0.18rem 0 0;
+  color: #adc2e7;
+  font-size: 0.78rem;
+}
+
+.review-status {
+  border-radius: 999px;
+  padding: 0.18rem 0.48rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: rgba(74, 201, 255, 0.2);
+  color: #bdefff;
+}
+
+.review-status.resolved {
+  background: rgba(144, 244, 170, 0.2);
+  color: #9cf5b6;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.review-grid h3 {
+  margin: 0 0 0.24rem;
+  font-size: 0.86rem;
+}
+
+.review-grid p {
+  margin: 0.18rem 0 0;
+  color: #bdd0ef;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.review-grid ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+}
+
+.review-grid li {
+  color: #c8d9f4;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.review-ops {
+  margin-top: 0.52rem;
+  display: flex;
+  gap: 0.42rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1080px) {
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .review-header {
+    flex-direction: column;
+  }
+
+  .review-actions,
+  .review-filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .review-btn {
+    flex: 1;
+  }
+}

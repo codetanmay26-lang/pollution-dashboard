@@ -1,0 +1,5968 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2026-01-04T11:23:14Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/27035476",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0530328,
+          28.4698736
+        ]
+      },
+      "id": "way/27035476"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/28208819",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 5",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3216761,
+          28.588873
+        ]
+      },
+      "id": "way/28208819"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/28240487",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3230302,
+          28.5835275
+        ]
+      },
+      "id": "way/28240487"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/44350312",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0064114,
+          28.4560139
+        ]
+      },
+      "id": "way/44350312"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/70534891",
+        "addr:city": "Noida",
+        "addr:housenumber": "B-144",
+        "addr:postcode": "201301",
+        "addr:street": "Industrial Area, B Block, Sector 10,",
+        "description": "Founded in 2002 by Ankur and Priyanka Modi, AMPM has propelled itself to the forefront of Indian fashion and luxury. Widely known for its effortless elegance, AMPM provides a highly sophisticated collection of designs to equally discerning women in India",
+        "email": "care@ampm.in",
+        "image": "https://ampm.in/",
+        "industrial": "textile",
+        "is_in": "Noida",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "AMPM Fashions Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3322077,
+          28.5903783
+        ]
+      },
+      "id": "way/70534891"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/70534913",
+        "addr:city": "Noida",
+        "addr:housenumber": "E-20",
+        "addr:postcode": "201301",
+        "addr:street": "Sector-3",
+        "email": "info@ansumiti.com",
+        "industrial": "digital_marketing_agency",
+        "landuse": "industrial",
+        "mobile": "+91-8595818014",
+        "name": "Ansumiti Technosoft Pvt Ltd",
+        "website": "https://ansumiti.com/",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.318855,
+          28.5807818
+        ]
+      },
+      "id": "way/70534913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/70534966",
+        "addr:city": "Noida",
+        "addr:postcode": "201301",
+        "is_in": "Noida",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 9",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3273927,
+          28.5868583
+        ]
+      },
+      "id": "way/70534966"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/71221209",
+        "is_in": "Noida",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 11",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3346276,
+          28.5987051
+        ]
+      },
+      "id": "way/71221209"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/71295897",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 8",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3265003,
+          28.5944591
+        ]
+      },
+      "id": "way/71295897"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/71297383",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 7",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3165751,
+          28.5950136
+        ]
+      },
+      "id": "way/71297383"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/71435176",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 2",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.315235,
+          28.5849574
+        ]
+      },
+      "id": "way/71435176"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/71444961",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3123914,
+          28.5903643
+        ]
+      },
+      "id": "way/71444961"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/72004862",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3299054,
+          28.6511075
+        ]
+      },
+      "id": "way/72004862"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/74168430",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.335979,
+          28.6554478
+        ]
+      },
+      "id": "way/74168430"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/76700057",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.326962,
+          28.6550754
+        ]
+      },
+      "id": "way/76700057"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/76849193",
+        "barrier": "wall",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3009568,
+          28.6207551
+        ]
+      },
+      "id": "way/76849193"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/77001373",
+        "landuse": "industrial",
+        "name": "M.E.A. Stores",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3011768,
+          28.6010841
+        ]
+      },
+      "id": "way/77001373"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/78542610",
+        "landuse": "industrial",
+        "name": "Rithala Power Plant",
+        "plant:method": "combustion",
+        "plant:output:electricity": "108 MW",
+        "plant:source": "gas",
+        "power": "plant",
+        "source": "https://www.gem.wiki/Rithala_Gas_power_plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.101785,
+          28.7330743
+        ]
+      },
+      "id": "way/78542610"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/78799847",
+        "landuse": "industrial",
+        "man_made": "wastewater_plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1857227,
+          28.7279486
+        ]
+      },
+      "id": "way/78799847"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/80511305",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "man_made": "wastewater_plant",
+        "name": "Sewage Treatment Plant - Okhla",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2834582,
+          28.5471299
+        ]
+      },
+      "id": "way/80511305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/80511312",
+        "landuse": "industrial",
+        "name": "Tughlakabad Inland Container Depot",
+        "short_name": "ICD",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2890381,
+          28.5090709
+        ]
+      },
+      "id": "way/80511312"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/93076075",
+        "landuse": "industrial",
+        "name": "Rai Industrial Area",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0901312,
+          28.9305141
+        ]
+      },
+      "id": "way/93076075"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/130001856",
+        "landuse": "industrial",
+        "name": "Sanden Vikas Ltd.",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3070804,
+          28.4372618
+        ]
+      },
+      "id": "way/130001856"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/137191065",
+        "landuse": "industrial",
+        "name": "Imperial Auto",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3051942,
+          28.412729
+        ]
+      },
+      "id": "way/137191065"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/139071683",
+        "landuse": "industrial",
+        "name": "Pragati-I Combined Cycle Gas Power Station",
+        "operator": "Pragati Power Corporation Limited",
+        "plant:method": "combustion",
+        "plant:output:electricity": "330 MW",
+        "plant:source": "gas",
+        "plant:type": "combined_cycle",
+        "power": "plant",
+        "source": "http://ipgcl-ppcl.gov.in/powerstations.htm",
+        "wikidata": "Q7237615",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2524477,
+          28.6167647
+        ]
+      },
+      "id": "way/139071683"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/139071684",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2656932,
+          28.587865
+        ]
+      },
+      "id": "way/139071684"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/139071685",
+        "landuse": "industrial",
+        "name": "Indraprastha Gas Turbine Power Station",
+        "operator": "Indraprastha Power Generation Company Limited",
+        "plant:method": "combustion",
+        "plant:output:electricity": "270 MW",
+        "plant:source": "gas",
+        "plant:type": "combined_cycle",
+        "power": "plant",
+        "source": "http://ipgcl-ppcl.gov.in/powerstations.htm",
+        "wikidata": "Q5973021",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2502162,
+          28.6190348
+        ]
+      },
+      "id": "way/139071685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/139071814",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2498267,
+          28.6241058
+        ]
+      },
+      "id": "way/139071814"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/143671274",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0779102,
+          28.495985
+        ]
+      },
+      "id": "way/143671274"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/143933242",
+        "landuse": "industrial",
+        "name": "Ice factory",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3143228,
+          28.4184354
+        ]
+      },
+      "id": "way/143933242"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/150528513",
+        "fixme": "inexactly traced",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1097783,
+          28.8761295
+        ]
+      },
+      "id": "way/150528513"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/150532645",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0228998,
+          28.6773094
+        ]
+      },
+      "id": "way/150532645"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/153965502",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Seemapuri Depot",
+        "operator": "Delhi Transport Corporation",
+        "operator:wikidata": "Q3595653",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3306448,
+          28.6844696
+        ]
+      },
+      "id": "way/153965502"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/153965563",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1147218,
+          28.6849656
+        ]
+      },
+      "id": "way/153965563"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/153965565",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1283588,
+          28.6775017
+        ]
+      },
+      "id": "way/153965565"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/167422298",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Otsuka Venus Automotive India Pvt. Ltd.",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3060605,
+          28.4353881
+        ]
+      },
+      "id": "way/167422298"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/171500938",
+        "is_in": "Mangol Puri",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0990254,
+          28.6857512
+        ]
+      },
+      "id": "way/171500938"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/171606293",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1470055,
+          28.680936
+        ]
+      },
+      "id": "way/171606293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/171606321",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Wazirpur Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1560145,
+          28.6938707
+        ]
+      },
+      "id": "way/171606321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/171640519",
+        "is_in": "Mangol Puri",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0891596,
+          28.6858702
+        ]
+      },
+      "id": "way/171640519"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/172301971",
+        "landuse": "industrial",
+        "name": "Pragati-III Combined Cycle Power Plant",
+        "plant:method": "combustion",
+        "plant:output:electricity": "1500 MW",
+        "plant:source": "gas",
+        "plant:type": "combined_cycle",
+        "power": "plant",
+        "wikidata": "Q7237608",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0717398,
+          28.7964571
+        ]
+      },
+      "id": "way/172301971"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/172320149",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Sector 27A",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3072521,
+          28.4350808
+        ]
+      },
+      "id": "way/172320149"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/172701685",
+        "barrier": "wall",
+        "disused:power": "plant",
+        "landuse": "industrial",
+        "name": "Badarpur Thermal Power Station",
+        "plant:method": "combustion",
+        "plant:output:electricity": "720 MW",
+        "plant:source": "coal",
+        "source": "https://www.hindustantimes.com/delhi-news/badarpur-thermal-plant-delhi-s-biggest-power-generator-to-shut-down-from-october-15/story-6r1DhoDjb7G0yr48iv8IqI.html",
+        "wikidata": "Q4840630",
+        "wikipedia": "en:Badarpur Thermal Power Station",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3079125,
+          28.5044447
+        ]
+      },
+      "id": "way/172701685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/174497293",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Mother Dairy",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2875443,
+          28.6219191
+        ]
+      },
+      "id": "way/174497293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/188594023",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Sector 32",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3113269,
+          28.4511644
+        ]
+      },
+      "id": "way/188594023"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/188594928",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Sector 27C",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3041174,
+          28.4689049
+        ]
+      },
+      "id": "way/188594928"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/188594930",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Sector 35",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3093904,
+          28.4650015
+        ]
+      },
+      "id": "way/188594930"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/188600067",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Sector 27D",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3028035,
+          28.4813559
+        ]
+      },
+      "id": "way/188600067"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/188603028",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2984969,
+          28.4734011
+        ]
+      },
+      "id": "way/188603028"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/189598819",
+        "industrial": "communication",
+        "landuse": "industrial",
+        "name": "All India Radio SW",
+        "natural": "scrub",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1260113,
+          28.8223449
+        ]
+      },
+      "id": "way/189598819"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/190049556",
+        "industrial": "factory",
+        "landuse": "industrial",
+        "name": "Hero MotoCorp",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0148197,
+          28.4355872
+        ]
+      },
+      "id": "way/190049556"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/190049557",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0171732,
+          28.4324639
+        ]
+      },
+      "id": "way/190049557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/203111512",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8539248,
+          28.3952845
+        ]
+      },
+      "id": "way/203111512"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/204969676",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2850181,
+          28.5173529
+        ]
+      },
+      "id": "way/204969676"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/204969700",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Kushak Nallah Bus Depot",
+        "operator": "Delhi Transport Corporation",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2303329,
+          28.5793518
+        ]
+      },
+      "id": "way/204969700"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/204980210",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1206587,
+          28.7746815
+        ]
+      },
+      "id": "way/204980210"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/204980211",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1480303,
+          28.7958383
+        ]
+      },
+      "id": "way/204980211"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/204980217",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1456212,
+          28.7759479
+        ]
+      },
+      "id": "way/204980217"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206152771",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9838305,
+          28.6893744
+        ]
+      },
+      "id": "way/206152771"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206152775",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8880318,
+          28.7096077
+        ]
+      },
+      "id": "way/206152775"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206152781",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9207197,
+          28.6987843
+        ]
+      },
+      "id": "way/206152781"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206152782",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9378825,
+          28.6970213
+        ]
+      },
+      "id": "way/206152782"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206152783",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1298422,
+          28.8018358
+        ]
+      },
+      "id": "way/206152783"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/206564484",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1815835,
+          28.6434112
+        ]
+      },
+      "id": "way/206564484"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/215069454",
+        "amenity": "marketplace",
+        "landuse": "industrial",
+        "name": "Anaj Mandi",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9741432,
+          28.620259
+        ]
+      },
+      "id": "way/215069454"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/217961416",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9737578,
+          28.6190846
+        ]
+      },
+      "id": "way/217961416"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/239534922",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.305352,
+          28.4441765
+        ]
+      },
+      "id": "way/239534922"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/244846805",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2346935,
+          28.9481874
+        ]
+      },
+      "id": "way/244846805"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/261546480",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.132046,
+          28.7467127
+        ]
+      },
+      "id": "way/261546480"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/261665829",
+        "landuse": "industrial",
+        "name": "DSIIDC MLM Hub",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0310516,
+          28.6952785
+        ]
+      },
+      "id": "way/261665829"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262038315",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Kair Depot",
+        "operator": "Delhi Transport Corporation",
+        "operator:wikidata": "Q3595653",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9300966,
+          28.6201931
+        ]
+      },
+      "id": "way/262038315"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262501903",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1478844,
+          28.6560941
+        ]
+      },
+      "id": "way/262501903"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262501904",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Scooters India Ltd",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1495428,
+          28.6552529
+        ]
+      },
+      "id": "way/262501904"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262501905",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1459449,
+          28.6575865
+        ]
+      },
+      "id": "way/262501905"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262647904",
+        "landuse": "industrial",
+        "name": "Jwalapuri PVC Market",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0788232,
+          28.6715747
+        ]
+      },
+      "id": "way/262647904"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262673255",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1139479,
+          28.670842
+        ]
+      },
+      "id": "way/262673255"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/263369123",
+        "industrial": "communication",
+        "landuse": "industrial",
+        "name": "L-Band Radar and HF Transmitting Station",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0541652,
+          28.5275475
+        ]
+      },
+      "id": "way/263369123"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/263592614",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9626741,
+          28.6692156
+        ]
+      },
+      "id": "way/263592614"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/263667533",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9829522,
+          28.681379
+        ]
+      },
+      "id": "way/263667533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/263667538",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0071638,
+          28.6876606
+        ]
+      },
+      "id": "way/263667538"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/264282209",
+        "industrial": "water",
+        "landuse": "industrial",
+        "name": "Delhi Jal Board",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0588499,
+          28.54097
+        ]
+      },
+      "id": "way/264282209"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/264746031",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1338483,
+          28.6889489
+        ]
+      },
+      "id": "way/264746031"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265015896",
+        "landuse": "industrial",
+        "name": "Bawa Potteries",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1653199,
+          28.522042
+        ]
+      },
+      "id": "way/265015896"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265031889",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "man_made": "wastewater_treatment",
+        "name": "Delhi Jal Board",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2756915,
+          28.5638923
+        ]
+      },
+      "id": "way/265031889"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265165726",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1204826,
+          28.6525467
+        ]
+      },
+      "id": "way/265165726"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265401583",
+        "landuse": "industrial",
+        "man_made": "wastewater_plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0516554,
+          28.6571673
+        ]
+      },
+      "id": "way/265401583"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265426119",
+        "admin_level": "10",
+        "boundary": "administrative",
+        "landuse": "industrial",
+        "name": "Okhla Ph III",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2702101,
+          28.5513728
+        ]
+      },
+      "id": "way/265426119"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/265426120",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2797222,
+          28.5529175
+        ]
+      },
+      "id": "way/265426120"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/269435883",
+        "addr:city": "Bahadurgarh",
+        "addr:postcode": "124507",
+        "addr:street": "Modern Industrial Estate, Part-A",
+        "landuse": "industrial",
+        "name": "Modern Industrial Estate, Part-A",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9552533,
+          28.6928592
+        ]
+      },
+      "id": "way/269435883"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/269435884",
+        "addr:city": "Bahadurgarh",
+        "addr:postcode": "124507",
+        "addr:street": "Modern Industrial Estate, Part-B",
+        "landuse": "industrial",
+        "name": "Modern Industrial Estate, Part-B",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9533438,
+          28.6835976
+        ]
+      },
+      "id": "way/269435884"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/277894737",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3305742,
+          28.6750676
+        ]
+      },
+      "id": "way/277894737"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/277955572",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "British Era Textile Industry",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.202605,
+          28.6776449
+        ]
+      },
+      "id": "way/277955572"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/283808810",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Cold Storage",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3321596,
+          28.6297662
+        ]
+      },
+      "id": "way/283808810"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287054776",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Inland Container Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3168548,
+          28.6364928
+        ]
+      },
+      "id": "way/287054776"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287054778",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "operator": "Tata Motors Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3157829,
+          28.6374653
+        ]
+      },
+      "id": "way/287054778"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287054784",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3163257,
+          28.6401521
+        ]
+      },
+      "id": "way/287054784"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287054787",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3157997,
+          28.6397075
+        ]
+      },
+      "id": "way/287054787"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287054788",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3160381,
+          28.640478
+        ]
+      },
+      "id": "way/287054788"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/290140349",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Delhi Jal Board",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22356,
+          28.7126661
+        ]
+      },
+      "id": "way/290140349"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/290150874",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Delhi Jal Board",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2297433,
+          28.7110716
+        ]
+      },
+      "id": "way/290150874"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/290620909",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "MCD Workshop",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1975221,
+          28.7033437
+        ]
+      },
+      "id": "way/290620909"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/290664335",
+        "barrier": "wall",
+        "industrial": "communication",
+        "landuse": "industrial",
+        "name": "All India Radio",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1992096,
+          28.7120556
+        ]
+      },
+      "id": "way/290664335"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/291408829",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1920747,
+          28.6801699
+        ]
+      },
+      "id": "way/291408829"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/291408830",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1932624,
+          28.6780745
+        ]
+      },
+      "id": "way/291408830"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/291654386",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Delhi Transport Corporation Mayapuri Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1298784,
+          28.6352896
+        ]
+      },
+      "id": "way/291654386"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/291719141",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Delhi Milk Scheme",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1556573,
+          28.6568483
+        ]
+      },
+      "id": "way/291719141"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296571981",
+        "landuse": "industrial",
+        "name": "B-2",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2690486,
+          28.7823211
+        ]
+      },
+      "id": "way/296571981"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296571983",
+        "landuse": "industrial",
+        "name": "A-3/4",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2608444,
+          28.7854837
+        ]
+      },
+      "id": "way/296571983"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296571986",
+        "landuse": "industrial",
+        "name": "A-5/6",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2552995,
+          28.7879761
+        ]
+      },
+      "id": "way/296571986"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296571990",
+        "landuse": "industrial",
+        "name": "B-3",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2623312,
+          28.7809061
+        ]
+      },
+      "id": "way/296571990"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296571991",
+        "landuse": "industrial",
+        "name": "A-2",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2627188,
+          28.78805
+        ]
+      },
+      "id": "way/296571991"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296659103",
+        "landuse": "industrial",
+        "name": "Inland Container Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3114592,
+          28.7468793
+        ]
+      },
+      "id": "way/296659103"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296659105",
+        "landuse": "industrial",
+        "name": "Inland Container Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3137264,
+          28.7527529
+        ]
+      },
+      "id": "way/296659105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296659108",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2874167,
+          28.718078
+        ]
+      },
+      "id": "way/296659108"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296733621",
+        "landuse": "industrial",
+        "name": "A-1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2721345,
+          28.7879694
+        ]
+      },
+      "id": "way/296733621"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296733622",
+        "landuse": "industrial",
+        "name": "A-7",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2419824,
+          28.7873587
+        ]
+      },
+      "id": "way/296733622"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/296733623",
+        "landuse": "industrial",
+        "name": "B-1",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2744326,
+          28.785682
+        ]
+      },
+      "id": "way/296733623"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/300260618",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Rohini DTC Depot",
+        "operator": "DTC",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1121261,
+          28.7157573
+        ]
+      },
+      "id": "way/300260618"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/345666867",
+        "landuse": "industrial",
+        "name": "Delhi Jal Board, Booster Pump station",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3370342,
+          28.6111631
+        ]
+      },
+      "id": "way/345666867"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/351110834",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0937325,
+          28.5259301
+        ]
+      },
+      "id": "way/351110834"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/403447939",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2767645,
+          28.5047441
+        ]
+      },
+      "id": "way/403447939"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419164558",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Sector 54 Gurgaon Metro Rail Depot",
+        "operator": "Rapid Metro Rail Gurgaon South Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1019995,
+          28.4327057
+        ]
+      },
+      "id": "way/419164558"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/419656566",
+        "barrier": "fence",
+        "landuse": "industrial",
+        "man_made": "works",
+        "name": "Maruti Suzuki India Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0694729,
+          28.4955945
+        ]
+      },
+      "id": "way/419656566"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406071",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0229374,
+          28.6870334
+        ]
+      },
+      "id": "way/427406071"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406073",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.051664,
+          28.6710092
+        ]
+      },
+      "id": "way/427406073"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406076",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0409932,
+          28.6764612
+        ]
+      },
+      "id": "way/427406076"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406079",
+        "landuse": "industrial",
+        "name": "Mundka Industrial Area",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0377563,
+          28.6854494
+        ]
+      },
+      "id": "way/427406079"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406083",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0263485,
+          28.6918818
+        ]
+      },
+      "id": "way/427406083"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/427406085",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0496477,
+          28.6809453
+        ]
+      },
+      "id": "way/427406085"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/464283160",
+        "disused:power": "plant",
+        "landuse": "industrial",
+        "name": "Rajghat Thermal Power Station",
+        "name:hi": "राजघाट ताप विद्युत केंद्र",
+        "operator": "Indraprastha Power Generation Company Limited",
+        "plant:method": "combustion",
+        "plant:source": "coal",
+        "wikidata": "Q7286122",
+        "wikipedia": "en:Rajghat Power Station",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2549769,
+          28.6375535
+        ]
+      },
+      "id": "way/464283160"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/464283162",
+        "alt_name": "Rajghat Depot",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Rajghat Bus Depot",
+        "name:en": "Rajghat Bus Depot",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "operator": "Delhi Transport Corporation",
+        "operator:en": "Delhi Transport Corporation",
+        "public_transport": "yes",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2532476,
+          28.6424527
+        ]
+      },
+      "id": "way/464283162"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/496730218",
+        "man_made": "works",
+        "name": "Pyare Lal Ashok Leyland"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1428523,
+          28.7786707
+        ]
+      },
+      "id": "node/496730218"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/501786872",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1446644,
+          28.6767469
+        ]
+      },
+      "id": "way/501786872"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/508950019",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8594587,
+          28.7347434
+        ]
+      },
+      "id": "way/508950019"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/508950020",
+        "addr:city": "Ashodha Chauki",
+        "landuse": "industrial",
+        "name": "Hindustan petroleum corporation limited",
+        "name:hi": "हिन्दुस्तान पेट्रोलियम कार्पोरेशन लिमिटेड",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8579714,
+          28.7316645
+        ]
+      },
+      "id": "way/508950020"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/605886399",
+        "addr:postcode": "110093",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Nand Nagri Bus Depot",
+        "operator": "Delhi Transport Corporation",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3057011,
+          28.6978089
+        ]
+      },
+      "id": "way/605886399"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/661784209",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3266027,
+          28.6501559
+        ]
+      },
+      "id": "way/661784209"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/662198577",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3290703,
+          28.7222435
+        ]
+      },
+      "id": "way/662198577"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/662198578",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3309881,
+          28.7267761
+        ]
+      },
+      "id": "way/662198578"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/662209741",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3186324,
+          28.7377245
+        ]
+      },
+      "id": "way/662209741"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/662209742",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3132694,
+          28.7345
+        ]
+      },
+      "id": "way/662209742"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704353283",
+        "addr:place": "Okhla",
+        "barrier": "wall",
+        "landuse": "industrial",
+        "name": "Flatted Factory Complex",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2657108,
+          28.5569377
+        ]
+      },
+      "id": "way/704353283"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740039353",
+        "landuse": "industrial",
+        "name": "Ramky Enviro Engineers Ltd (WtE)",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0692647,
+          28.7995328
+        ]
+      },
+      "id": "way/740039353"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740039354",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0671511,
+          28.7976888
+        ]
+      },
+      "id": "way/740039354"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740040078",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1103047,
+          28.7722161
+        ]
+      },
+      "id": "way/740040078"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740063769",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1279341,
+          28.7842539
+        ]
+      },
+      "id": "way/740063769"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740063770",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1306244,
+          28.7786058
+        ]
+      },
+      "id": "way/740063770"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740082251",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1337469,
+          28.7639366
+        ]
+      },
+      "id": "way/740082251"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740082532",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.132956,
+          28.7695603
+        ]
+      },
+      "id": "way/740082532"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740082695",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.13118,
+          28.7688976
+        ]
+      },
+      "id": "way/740082695"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/740098655",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2781894,
+          28.7900039
+        ]
+      },
+      "id": "way/740098655"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157316",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1294813,
+          28.7685951
+        ]
+      },
+      "id": "way/741157316"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157319",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1261423,
+          28.7694853
+        ]
+      },
+      "id": "way/741157319"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157321",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1279728,
+          28.7715404
+        ]
+      },
+      "id": "way/741157321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157322",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1355531,
+          28.7732817
+        ]
+      },
+      "id": "way/741157322"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157323",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1330639,
+          28.7739081
+        ]
+      },
+      "id": "way/741157323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/741157324",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1369627,
+          28.7807781
+        ]
+      },
+      "id": "way/741157324"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/742055079",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1236674,
+          28.8382232
+        ]
+      },
+      "id": "way/742055079"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/742055797",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0852628,
+          28.7486599
+        ]
+      },
+      "id": "way/742055797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/742055798",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.081699,
+          28.7526856
+        ]
+      },
+      "id": "way/742055798"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/742055799",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.07577,
+          28.7483538
+        ]
+      },
+      "id": "way/742055799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/742055803",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1115384,
+          28.7476253
+        ]
+      },
+      "id": "way/742055803"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/751261162",
+        "landuse": "industrial",
+        "name": "ISRO Earth Station",
+        "office": "research",
+        "operator": "Space Applications Centre",
+        "website": "https://www.sac.gov.in",
+        "wikipedia": "en:Indian_Space_Research_Organisation;en:Space_Applications_Centre",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1807589,
+          28.6087706
+        ]
+      },
+      "id": "way/751261162"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/770265124",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1276503,
+          28.8336991
+        ]
+      },
+      "id": "way/770265124"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/773679120",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8733294,
+          28.705044
+        ]
+      },
+      "id": "way/773679120"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/798088011",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0910535,
+          28.5246616
+        ]
+      },
+      "id": "way/798088011"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/798088017",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.093011,
+          28.5248666
+        ]
+      },
+      "id": "way/798088017"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/798088018",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.091871,
+          28.5256703
+        ]
+      },
+      "id": "way/798088018"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/798088019",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0914956,
+          28.5243447
+        ]
+      },
+      "id": "way/798088019"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/798088025",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0930503,
+          28.5259462
+        ]
+      },
+      "id": "way/798088025"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802289924",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3100461,
+          28.4374728
+        ]
+      },
+      "id": "way/802289924"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802304535",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3416436,
+          28.6541072
+        ]
+      },
+      "id": "way/802304535"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802304536",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3329434,
+          28.6506451
+        ]
+      },
+      "id": "way/802304536"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802304540",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3307456,
+          28.648527
+        ]
+      },
+      "id": "way/802304540"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802305208",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.348828,
+          28.6621075
+        ]
+      },
+      "id": "way/802305208"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802305209",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3420952,
+          28.666139
+        ]
+      },
+      "id": "way/802305209"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802305210",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3458395,
+          28.6652699
+        ]
+      },
+      "id": "way/802305210"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802305211",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3432947,
+          28.6630798
+        ]
+      },
+      "id": "way/802305211"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/802305212",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3404877,
+          28.6555206
+        ]
+      },
+      "id": "way/802305212"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/816967277",
+        "addr:postcode": "110041",
+        "addr:street": "Near Ghevra More, Tikrikalan, Rohtak Road, New Delhi",
+        "landuse": "industrial",
+        "name": "Indian Oil Tikri Bottling Plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9908618,
+          28.6882371
+        ]
+      },
+      "id": "way/816967277"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/816968754",
+        "addr:postcode": "110044",
+        "addr:street": "Madanpur Khadar Opp. Kalindi Kunj",
+        "landuse": "industrial",
+        "name": "Indian Oil Madanpur Khadar Bottling Plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3091291,
+          28.5367314
+        ]
+      },
+      "id": "way/816968754"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/824913098",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8252495,
+          28.4690898
+        ]
+      },
+      "id": "way/824913098"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/844463482",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8067154,
+          28.4798528
+        ]
+      },
+      "id": "way/844463482"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/844463485",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8019618,
+          28.4693177
+        ]
+      },
+      "id": "way/844463485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/844463490",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9224943,
+          28.4319753
+        ]
+      },
+      "id": "way/844463490"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/859811753",
+        "industrial": "factory",
+        "landuse": "industrial",
+        "name": "indus",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0707179,
+          28.4628335
+        ]
+      },
+      "id": "way/859811753"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/906721185",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 6",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3200465,
+          28.593758
+        ]
+      },
+      "id": "way/906721185"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/906721186",
+        "landuse": "industrial",
+        "layer": "-5",
+        "name": "Sector 6",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3164153,
+          28.591527
+        ]
+      },
+      "id": "way/906721186"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/915216118",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2881196,
+          28.4576617
+        ]
+      },
+      "id": "way/915216118"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/915216728",
+        "is_in": "Faridabad",
+        "landuse": "industrial",
+        "name": "Gurukul Industrial Area",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2985599,
+          28.4779324
+        ]
+      },
+      "id": "way/915216728"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770579",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8027914,
+          28.7558579
+        ]
+      },
+      "id": "way/919770579"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770580",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8159209,
+          28.7550126
+        ]
+      },
+      "id": "way/919770580"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770581",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8127574,
+          28.7542874
+        ]
+      },
+      "id": "way/919770581"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770582",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.816186,
+          28.744026
+        ]
+      },
+      "id": "way/919770582"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770583",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8263539,
+          28.7365955
+        ]
+      },
+      "id": "way/919770583"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770584",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8247536,
+          28.7411179
+        ]
+      },
+      "id": "way/919770584"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770585",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8343233,
+          28.7386148
+        ]
+      },
+      "id": "way/919770585"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770586",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8351836,
+          28.7387017
+        ]
+      },
+      "id": "way/919770586"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770587",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8349269,
+          28.7360347
+        ]
+      },
+      "id": "way/919770587"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770588",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8436763,
+          28.7345377
+        ]
+      },
+      "id": "way/919770588"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770589",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8316258,
+          28.8194582
+        ]
+      },
+      "id": "way/919770589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770590",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8347602,
+          28.8222687
+        ]
+      },
+      "id": "way/919770590"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770591",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8561982,
+          28.8441792
+        ]
+      },
+      "id": "way/919770591"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770592",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8576292,
+          28.8474366
+        ]
+      },
+      "id": "way/919770592"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919770593",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8542978,
+          28.840656
+        ]
+      },
+      "id": "way/919770593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824626",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8936719,
+          28.7261203
+        ]
+      },
+      "id": "way/919824626"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824627",
+        "addr:city": "Ashodha Chauki",
+        "landuse": "industrial",
+        "name": "Hindustan petroleum corporation limited",
+        "name:hi": "हिन्दुस्तान पेट्रोलियम कार्पोरेशन लिमिटेड",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8579924,
+          28.7282216
+        ]
+      },
+      "id": "way/919824627"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824629",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8396642,
+          28.7423245
+        ]
+      },
+      "id": "way/919824629"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824630",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8370912,
+          28.7422155
+        ]
+      },
+      "id": "way/919824630"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824631",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8348134,
+          28.7412991
+        ]
+      },
+      "id": "way/919824631"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824632",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8335086,
+          28.7413881
+        ]
+      },
+      "id": "way/919824632"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824633",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8407133,
+          28.7392875
+        ]
+      },
+      "id": "way/919824633"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824634",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8376292,
+          28.7351598
+        ]
+      },
+      "id": "way/919824634"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824635",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8368528,
+          28.7354666
+        ]
+      },
+      "id": "way/919824635"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824636",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8276159,
+          28.7401621
+        ]
+      },
+      "id": "way/919824636"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824639",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8133028,
+          28.7499009
+        ]
+      },
+      "id": "way/919824639"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/919824640",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8123652,
+          28.7502403
+        ]
+      },
+      "id": "way/919824640"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/962448479",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9257894,
+          28.4339518
+        ]
+      },
+      "id": "way/962448479"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/970800871",
+        "landuse": "industrial",
+        "name": "Transformer",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1846261,
+          28.6880784
+        ]
+      },
+      "id": "way/970800871"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/971421003",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2649077,
+          28.8339355
+        ]
+      },
+      "id": "way/971421003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/971502566",
+        "landuse": "industrial",
+        "name": "Birla Mill Textiles",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1998136,
+          28.6783995
+        ]
+      },
+      "id": "way/971502566"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/973151455",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1054698,
+          28.8962017
+        ]
+      },
+      "id": "way/973151455"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/973151462",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1037774,
+          28.8850396
+        ]
+      },
+      "id": "way/973151462"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989819115",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2567968,
+          28.8669756
+        ]
+      },
+      "id": "way/989819115"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989819116",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2559178,
+          28.859574
+        ]
+      },
+      "id": "way/989819116"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989819120",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.264148,
+          28.8446795
+        ]
+      },
+      "id": "way/989819120"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989819121",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2678771,
+          28.836502
+        ]
+      },
+      "id": "way/989819121"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989819140",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240552,
+          28.6903783
+        ]
+      },
+      "id": "way/989819140"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989825519",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2873954,
+          28.7864268
+        ]
+      },
+      "id": "way/989825519"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/989825520",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2918894,
+          28.7856651
+        ]
+      },
+      "id": "way/989825520"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/992790900",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0017864,
+          28.6236768
+        ]
+      },
+      "id": "way/992790900"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/992790901",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9947311,
+          28.6222214
+        ]
+      },
+      "id": "way/992790901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1003041200",
+        "description": "25850",
+        "landuse": "industrial",
+        "plant:method": "photovoltaic",
+        "plant:output:electricity": "yes",
+        "plant:source": "solar",
+        "plant:type": "solar_photovoltaic_panel",
+        "power": "plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2505265,
+          28.6235533
+        ]
+      },
+      "id": "way/1003041200"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1003651272",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Cluster Bus Depot (Bawana Sector - 1, Delhi)",
+        "name:hi": "क्लस्टर बस डिपो (बवाना सेक्टर - 1, दिल्ली)",
+        "operator": "DIMTS",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0407136,
+          28.7955039
+        ]
+      },
+      "id": "way/1003651272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1007606949",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1263077,
+          28.5551267
+        ]
+      },
+      "id": "way/1007606949"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1090260743",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.140114,
+          28.486631
+        ]
+      },
+      "id": "way/1090260743"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1138670570",
+        "industrial": "factory",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1717895,
+          28.7293189
+        ]
+      },
+      "id": "way/1138670570"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1144702727",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8544038,
+          28.7253554
+        ]
+      },
+      "id": "way/1144702727"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1149207609",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1432195,
+          28.8098781
+        ]
+      },
+      "id": "way/1149207609"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1157344789",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1673015,
+          28.7331453
+        ]
+      },
+      "id": "way/1157344789"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1159082618",
+        "barrier": "wall",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "Electric Bus Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1804295,
+          28.7242368
+        ]
+      },
+      "id": "way/1159082618"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162466560",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3494061,
+          28.6757243
+        ]
+      },
+      "id": "way/1162466560"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162466564",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3448442,
+          28.6633303
+        ]
+      },
+      "id": "way/1162466564"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162466565",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3501713,
+          28.6609415
+        ]
+      },
+      "id": "way/1162466565"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162466568",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3511248,
+          28.6680013
+        ]
+      },
+      "id": "way/1162466568"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162572218",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0932504,
+          28.533673
+        ]
+      },
+      "id": "way/1162572218"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162572219",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0936608,
+          28.535537
+        ]
+      },
+      "id": "way/1162572219"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162572220",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.094723,
+          28.5363334
+        ]
+      },
+      "id": "way/1162572220"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162572222",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1003878,
+          28.5358545
+        ]
+      },
+      "id": "way/1162572222"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162580674",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0877761,
+          28.8369625
+        ]
+      },
+      "id": "way/1162580674"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162581301",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.089506,
+          28.8392354
+        ]
+      },
+      "id": "way/1162581301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586307",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1139982,
+          28.8124282
+        ]
+      },
+      "id": "way/1162586307"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586309",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1391349,
+          28.8057363
+        ]
+      },
+      "id": "way/1162586309"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586310",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1353682,
+          28.806117
+        ]
+      },
+      "id": "way/1162586310"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586311",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1408681,
+          28.8006314
+        ]
+      },
+      "id": "way/1162586311"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586313",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1417692,
+          28.790947
+        ]
+      },
+      "id": "way/1162586313"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162586314",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1341317,
+          28.788865
+        ]
+      },
+      "id": "way/1162586314"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162599123",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.054632,
+          28.7967872
+        ]
+      },
+      "id": "way/1162599123"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162599124",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0496964,
+          28.7990611
+        ]
+      },
+      "id": "way/1162599124"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162625780",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1491771,
+          28.7384769
+        ]
+      },
+      "id": "way/1162625780"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639285",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1395506,
+          28.8686067
+        ]
+      },
+      "id": "way/1162639285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639286",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1285412,
+          28.8606133
+        ]
+      },
+      "id": "way/1162639286"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639287",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1259424,
+          28.8699577
+        ]
+      },
+      "id": "way/1162639287"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639288",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1404667,
+          28.8819355
+        ]
+      },
+      "id": "way/1162639288"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639289",
+        "landuse": "industrial",
+        "name": "Singhu",
+        "name:en": "Singu",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1246702,
+          28.8815613
+        ]
+      },
+      "id": "way/1162639289"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639291",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1530664,
+          28.8030523
+        ]
+      },
+      "id": "way/1162639291"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639292",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.147069,
+          28.807821
+        ]
+      },
+      "id": "way/1162639292"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639293",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1520417,
+          28.8104274
+        ]
+      },
+      "id": "way/1162639293"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639296",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1700528,
+          28.7571888
+        ]
+      },
+      "id": "way/1162639296"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639299",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1794942,
+          28.7721614
+        ]
+      },
+      "id": "way/1162639299"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639300",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1825599,
+          28.7655454
+        ]
+      },
+      "id": "way/1162639300"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639301",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1906281,
+          28.7577556
+        ]
+      },
+      "id": "way/1162639301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639302",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1959415,
+          28.7586185
+        ]
+      },
+      "id": "way/1162639302"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639303",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1919182,
+          28.7593497
+        ]
+      },
+      "id": "way/1162639303"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1162639304",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1932754,
+          28.7579014
+        ]
+      },
+      "id": "way/1162639304"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1163433896",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0312538,
+          28.5404593
+        ]
+      },
+      "id": "way/1163433896"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1163433897",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.031616,
+          28.5453343
+        ]
+      },
+      "id": "way/1163433897"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1163433898",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.053653,
+          28.5543086
+        ]
+      },
+      "id": "way/1163433898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1163975934",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9143122,
+          28.5366798
+        ]
+      },
+      "id": "way/1163975934"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1164818074",
+        "industrial": "grinding_mill",
+        "landuse": "industrial",
+        "name": "Pali Stone Crusher Zone I",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2297775,
+          28.398283
+        ]
+      },
+      "id": "way/1164818074"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1164886887",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1919316,
+          28.4590755
+        ]
+      },
+      "id": "way/1164886887"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1164886888",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2015526,
+          28.4552411
+        ]
+      },
+      "id": "way/1164886888"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1164904271",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2074663,
+          28.4641972
+        ]
+      },
+      "id": "way/1164904271"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1165055515",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2525043,
+          28.4947683
+        ]
+      },
+      "id": "way/1165055515"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1165662007",
+        "depot": "bus",
+        "industrial": "depot",
+        "landuse": "industrial",
+        "name": "City Bus Depot Sector 52/53",
+        "operator": "Gurugram Metropolitan City Bus Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1014009,
+          28.4321679
+        ]
+      },
+      "id": "way/1165662007"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1174697495",
+        "alt_name": "Rohini Sector 37 Depot 1",
+        "bus": "yes",
+        "capacity": "150",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Rohini Sector 37 Bus Depot 1",
+        "name:en": "Rohini Sector 37 Bus Depot 1",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "operator": "Delhi Transport Corporation",
+        "operator:en": "Delhi Transport Corporation",
+        "public_transport": "yes",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0535825,
+          28.7462698
+        ]
+      },
+      "id": "way/1174697495"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1176576163",
+        "landuse": "industrial",
+        "name": "Parvati Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1614248,
+          28.7223319
+        ]
+      },
+      "id": "way/1176576163"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1186489190",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0856061,
+          28.9543363
+        ]
+      },
+      "id": "way/1186489190"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1186489196",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1019622,
+          28.9330853
+        ]
+      },
+      "id": "way/1186489196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246332",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.346185,
+          28.754275
+        ]
+      },
+      "id": "way/1191246332"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246333",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3453116,
+          28.7555121
+        ]
+      },
+      "id": "way/1191246333"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246334",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3408091,
+          28.7594791
+        ]
+      },
+      "id": "way/1191246334"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246335",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3450093,
+          28.7589213
+        ]
+      },
+      "id": "way/1191246335"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246336",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3488558,
+          28.7642831
+        ]
+      },
+      "id": "way/1191246336"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246339",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3466265,
+          28.7636484
+        ]
+      },
+      "id": "way/1191246339"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1191246340",
+        "landuse": "industrial",
+        "man_made": "kiln",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3456353,
+          28.7613672
+        ]
+      },
+      "id": "way/1191246340"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1197493040",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8139637,
+          28.4700924
+        ]
+      },
+      "id": "way/1197493040"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1198073376",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2995268,
+          28.6566951
+        ]
+      },
+      "id": "way/1198073376"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1198073377",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3007939,
+          28.6569604
+        ]
+      },
+      "id": "way/1198073377"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1260639571",
+        "description": "12500",
+        "landuse": "industrial",
+        "plant:method": "photovoltaic",
+        "plant:output:electricity": "yes",
+        "plant:source": "solar",
+        "plant:type": "solar_photovoltaic_panel",
+        "power": "plant",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2483345,
+          28.7093586
+        ]
+      },
+      "id": "way/1260639571"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1286855146",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2808428,
+          28.5081041
+        ]
+      },
+      "id": "way/1286855146"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1318605608",
+        "alt_name": "Burari Depot 1",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Burari Bus Depot 1",
+        "name:en": "Burari Bus Depot 1",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "operator": "Delhi Transport Corporation",
+        "operator:en": "Delhi Transport Corporation",
+        "public_transport": "yes",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1921918,
+          28.7327216
+        ]
+      },
+      "id": "way/1318605608"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1353096687",
+        "industrial": "warehouse",
+        "landuse": "industrial",
+        "name": "Area Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1260395,
+          28.6048043
+        ]
+      },
+      "id": "way/1353096687"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1360902088",
+        "alt_name": "Rohini Sector 37 Depot 2",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Rohini Sector 37 Bus Depot 2",
+        "name:en": "Rohini Sector 37 Bus Depot 2",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "operator": "Delhi Transport Corporation",
+        "operator:en": "Delhi Transport Corporation",
+        "public_transport": "yes",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0543636,
+          28.7477132
+        ]
+      },
+      "id": "way/1360902088"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1360904231",
+        "alt_name": "Burari Depot 2",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Burari Bus Depot 2",
+        "name:en": "Burari Bus Depot 2",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "operator": "Delhi Transport Corporation",
+        "operator:en": "Delhi Transport Corporation",
+        "public_transport": "yes",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1930943,
+          28.7342079
+        ]
+      },
+      "id": "way/1360904231"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1360907369",
+        "alt_name": "Delhi Airport",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Delhi Airport Bus Depot",
+        "name:en": "Delhi Airport Bus Depot",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0887209,
+          28.560339
+        ]
+      },
+      "id": "way/1360907369"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1360907370",
+        "alt_name": "Delhi Airport",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Delhi Airport Bus Depot",
+        "name:en": "Delhi Airport Bus Depot",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0853139,
+          28.5610954
+        ]
+      },
+      "id": "way/1360907370"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1360907371",
+        "alt_name": "Delhi Airport",
+        "bus": "yes",
+        "depot": "bus",
+        "industrial": "bus_depot",
+        "landuse": "industrial",
+        "name": "Delhi Airport Bus Depot",
+        "name:en": "Delhi Airport Bus Depot",
+        "note": "Prospective editors are encouraged to contact the surveyors prior to editing.",
+        "source": "Irasus Technologies Private Limited;JBM Green Energy Systems Private Limited",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.086373,
+          28.5640436
+        ]
+      },
+      "id": "way/1360907371"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1364436963",
+        "landuse": "industrial",
+        "name": "IMT Kharkhoda",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9352887,
+          28.8319041
+        ]
+      },
+      "id": "way/1364436963"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1365512492",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0679829,
+          28.4969802
+        ]
+      },
+      "id": "way/1365512492"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1395282848",
+        "landuse": "industrial",
+        "name": "Maersk",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8011864,
+          28.4341512
+        ]
+      },
+      "id": "way/1395282848"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1409695443",
+        "landuse": "industrial",
+        "name": "Rico Auto Industries Ltd",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0042882,
+          28.4256663
+        ]
+      },
+      "id": "way/1409695443"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1420299077",
+        "industrial": "warehouse",
+        "landuse": "industrial",
+        "name": "Food Corporation of India Mayapuri Depot",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1297881,
+          28.6306173
+        ]
+      },
+      "id": "way/1420299077"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424598797",
+        "addr:block": "Z",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "36",
+        "addr:postcode": "110020",
+        "addr:suburb": "Okhla Industrial Area Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2782849,
+          28.541119
+        ]
+      },
+      "id": "way/1424598797"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424598799",
+        "addr:block": "Z",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "38",
+        "addr:postcode": "110020",
+        "addr:suburb": "Okhla Industrial Area Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2780653,
+          28.541461
+        ]
+      },
+      "id": "way/1424598799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424598804",
+        "addr:block": "Z",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "37",
+        "addr:postcode": "110020",
+        "addr:suburb": "Okhla Industrial Area Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2781744,
+          28.5412855
+        ]
+      },
+      "id": "way/1424598804"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424598806",
+        "addr:block": "Z",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "40",
+        "addr:place": "Harkesh Nagar",
+        "addr:postcode": "110020",
+        "addr:suburb": "Okhla Industrial Area Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2778421,
+          28.5418025
+        ]
+      },
+      "id": "way/1424598806"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424598808",
+        "addr:block": "Z",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "39",
+        "addr:postcode": "110020",
+        "addr:suburb": "Okhla Industrial Area Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2779582,
+          28.541626
+        ]
+      },
+      "id": "way/1424598808"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605645",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "30",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "name": "Iki Chic Private Limited",
+        "name:hi": "इकी चिक प्राइवेट लिमिटेड",
+        "note": "Seems to be a manufacturer of clothes.",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2774618,
+          28.5412337
+        ]
+      },
+      "id": "way/1424605645"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605646",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "28",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2773363,
+          28.5414422
+        ]
+      },
+      "id": "way/1424605646"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605647",
+        "industrial": "warehouse",
+        "landuse": "industrial",
+        "name": "Delhivery",
+        "name:en": "Delhivery",
+        "name:hi": "डेल्हीवरी",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2779698,
+          28.5403732
+        ]
+      },
+      "id": "way/1424605647"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605648",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "29",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2773973,
+          28.5413424
+        ]
+      },
+      "id": "way/1424605648"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605649",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "33",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2777034,
+          28.540859
+        ]
+      },
+      "id": "way/1424605649"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605653",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "32",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.277598,
+          28.5410216
+        ]
+      },
+      "id": "way/1424605653"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605656",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "27",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2772724,
+          28.541543
+        ]
+      },
+      "id": "way/1424605656"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1424605658",
+        "addr:block": "Y",
+        "addr:city": "New Delhi",
+        "addr:housenumber": "31",
+        "addr:postcode": "110020",
+        "addr:state": "DL",
+        "addr:suburb": "Okhla Phase 2",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2775299,
+          28.5411289
+        ]
+      },
+      "id": "way/1424605658"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1427912946",
+        "industrial": "construction",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2333002,
+          28.5293765
+        ]
+      },
+      "id": "way/1427912946"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1462771383",
+        "landuse": "industrial",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9194647,
+          28.4289909
+        ]
+      },
+      "id": "way/1462771383"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3972678475",
+        "addr:city": "Bahadurgarh",
+        "addr:housenumber": "655-656",
+        "addr:postcode": "124507",
+        "addr:street": "Modern Industrial Estate, Part-A",
+        "level": "2",
+        "man_made": "works",
+        "name": "Rohit Industries Group Private Limited",
+        "phone": "+91-8586923422,23",
+        "website": "https://www.rigpl.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.954694,
+          28.691576
+        ]
+      },
+      "id": "node/3972678475"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4976468647",
+        "addr:city": "Baahadurgarh",
+        "addr:housenumber": "Barahi",
+        "addr:postcode": "124525",
+        "addr:street": "Aasaudha Raod",
+        "man_made": "works",
+        "name": "Ramdas Bhatta",
+        "operator": "Ramdas",
+        "product": "bricks"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8878048,
+          28.7361944
+        ]
+      },
+      "id": "node/4976468647"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6468953783",
+        "man_made": "works"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0534208,
+          28.4149485
+        ]
+      },
+      "id": "node/6468953783"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6587421898",
+        "addr:city": "faridabad",
+        "addr:housenumber": "13/3",
+        "addr:street": "Mathura Road",
+        "man_made": "works",
+        "name": "Himgiri Textiles",
+        "operator": "Ajay Saboo",
+        "product": "Peach_finsih;textiles;printing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3073518,
+          28.4643523
+        ]
+      },
+      "id": "node/6587421898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8834022653",
+        "man_made": "works",
+        "name": "CORONET ENGRS FACTORY"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1009379,
+          28.8936463
+        ]
+      },
+      "id": "node/8834022653"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10228035994",
+        "addr:city": "Badarpur, New Delhi, Delhi",
+        "addr:postcode": "110044",
+        "addr:street": "Mathura Road",
+        "contact:website": "www.gladicomotocorp.com",
+        "man_made": "works",
+        "name": "Gladico Motocorp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3030891,
+          28.4918112
+        ]
+      },
+      "id": "node/10228035994"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10939758192",
+        "addr:housenumber": "194",
+        "addr:street": "Gali #4",
+        "building": "residential",
+        "building:levels": "2",
+        "man_made": "works",
+        "note": "A workshop where plastic parts are fabricated.",
+        "roof:shape": "flat"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1618505,
+          28.7521263
+        ]
+      },
+      "id": "node/10939758192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10989528395",
+        "addr:block": "EE",
+        "addr:city": "Delhi",
+        "addr:housenumber": "42",
+        "addr:neighbourhood": "Swami Shraddhanand Colony",
+        "addr:postcode": "110042",
+        "addr:street": "Tandoor Wali Gali",
+        "contact:mobile": "+91-9999-361084;+91-9654-514812;+91-9999-276498",
+        "man_made": "works",
+        "name": "Hansraj and Sons",
+        "product": "tandoor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1538854,
+          28.7443758
+        ]
+      },
+      "id": "node/10989528395"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11021593710",
+        "addr:city": "Delhi",
+        "addr:full": "Plot No. C-463/64, Jain Colony, Rajiv Nagar, Bhalaswa Dairy, Delhi - 110042",
+        "addr:hamlet": "Jain Colony",
+        "addr:housenumber": "463;464",
+        "addr:neighbourhood": "Rajiv Nagar",
+        "addr:postcode": "110042",
+        "addr:suburb": "Bhalaswa Dairy",
+        "contact:email": "himalayanengineerings@gmail.com",
+        "contact:mobile": "+91-88022-86577;+91-82873-91431",
+        "man_made": "works",
+        "name": "Himalayan Engineering Services",
+        "note": "\"Manufacturers of all types of HVAC GI ducts\"",
+        "office": "company",
+        "product": "machinery"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1645738,
+          28.7476917
+        ]
+      },
+      "id": "node/11021593710"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11697651133",
+        "man_made": "works"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2898996,
+          28.7358805
+        ]
+      },
+      "id": "node/11697651133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11698050895",
+        "man_made": "works",
+        "name": "ishant container line"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2766133,
+          28.5047341
+        ]
+      },
+      "id": "node/11698050895"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12713991931",
+        "contact:mobile": "+91-98181-21356;+91-93127-59267",
+        "man_made": "works",
+        "name": "Servotron"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2910357,
+          28.6236193
+        ]
+      },
+      "id": "node/12713991931"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13413957328",
+        "man_made": "works",
+        "name": "Aaradhya Enterpeises"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.996541,
+          28.6198939
+        ]
+      },
+      "id": "node/13413957328"
+    }
+  ]
+}

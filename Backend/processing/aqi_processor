@@ -1,0 +1,6 @@
+from .load_data import load_aqi
+
+def process_aqi():
+    aqi = load_aqi()
+    station_avg = aqi.groupby("location")["AQI"].mean().reset_index()
+    return station_avg
