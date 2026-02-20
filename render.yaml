@@ -2,11 +2,10 @@ services:
   # Backend API Service (Docker-based for reliable geospatial support)
   - type: web
     name: delhi-pollution-api
-    runtime: docker
+    env: docker
     plan: free
     region: oregon
     dockerfilePath: ./Dockerfile
-    dockerContext: .
     envVars:
       - key: PORT
         value: 10000
