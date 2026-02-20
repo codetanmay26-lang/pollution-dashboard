@@ -69,7 +69,7 @@ const OmniQRGenerator = () => {
   };
 
   if (sessionId) {
-    const qrImageUrl = `/api/judge-sessions/${sessionId}/qr`;
+    const qrImageUrl = `${API_BASE}/api/judge-sessions/${sessionId}/qr`;
 
     return (
       <div style={{
