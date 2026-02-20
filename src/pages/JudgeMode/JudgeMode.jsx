@@ -76,15 +76,49 @@ const JudgeMode = () => {
     return "Hazardous";
   };
 
-  const handleSourceChange = (source, value) => {
-    const numValue = parseInt(value);
-    setSourceEstimate(prev => ({ ...prev, [source]: numValue }));
+  const handleSourceChange = (changedSource, newValue) => {
+    const numValue = parseInt(newValue);
+    
+    // Auto-normalize: distribute remaining percentage across other sources
+    const remaining = 100 - numValue;
+    const otherSources = ['vehicular', 'industrial', 'construction', 'seasonal'].filter(s => s !== changedSource);
+    
+    // Calculate current total of other sources
+    const otherTotal = otherSources.reduce((sum, source) => sum + sourceEstimate[source], 0);
+    
+    // Create new estimates with auto-normalization
+    const newEstimates = { [changedSource]: numValue };
+    
+    if (otherTotal === 0) {
+      // If others are all 0, distribute equally
+      const perSource = Math.floor(remaining / 3);
+      const remainder = remaining - (perSource * 3);
+      otherSources.forEach((source, idx) => {
+        newEstimates[source] = perSource + (idx === 0 ? remainder : 0);
+      });
+    } else {
+      // Distribute proportionally based on current ratios
+      let distributed = 0;
+      otherSources.forEach((source, idx) => {
+        if (idx === otherSources.length - 1) {
+          // Last source gets the remainder to ensure exact 100%
+          newEstimates[source] = remaining - distributed;
+        } else {
+          const proportion = sourceEstimate[source] / otherTotal;
+          const value = Math.round(remaining * proportion);
+          newEstimates[source] = value;
+          distributed += value;
+        }
+      });
+    }
+    
+    setSourceEstimate(newEstimates);
     
     // Send to backend for live sync with main dashboard
     fetch(`${API_BASE}/api/judge-sessions/${sessionId}/source-estimate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...sourceEstimate, [source]: numValue })
+      body: JSON.stringify(newEstimates)
     }).catch(err => console.error('Sync error:', err));
   };
 
@@ -129,8 +163,8 @@ const JudgeMode = () => {
     return (
       <div className="judge-container">
         <div className="judge-header">
-          <h1>Crisis Decision Theater</h1>
-          <p>Select a high-risk ward for intervention</p>
+          <h1>Pollution Analysis Center</h1>
+          <p>Select a high-risk ward for source attribution analysis</p>
         </div>
 
         <div className="ward-grid">
@@ -201,7 +235,10 @@ const JudgeMode = () => {
             </div>
           </div>
 
-          <p className="detective-challenge">Estimate pollution contribution from each source<br/>Drag sliders to allocate 100%</p>
+          <p className="detective-challenge">
+            Estimate pollution contribution from each source<br/>
+            <strong>Drag any slider — others adjust automatically!</strong>
+          </p>
 
           <div className="source-sliders">
             {[
@@ -231,15 +268,13 @@ const JudgeMode = () => {
             ))}
           </div>
 
-          <div className={`total-badge ${isValid ? 'valid' : 'invalid'}`}>
-            Total: {total}% {isValid ? '(Valid)' : '(Must equal 100%)'}
+          <div className="total-badge valid">
+            ✓ Total: {total}% — Ready for Analysis
           </div>
 
           <button
             className="action-btn primary reveal-btn"
             onClick={revealAIAnalysis}
-            disabled={!isValid}
-            style={{ opacity: isValid ? 1 : 0.5 }}
           >
             Reveal AI Analysis →
           </button>

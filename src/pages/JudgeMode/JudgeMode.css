@@ -720,6 +720,7 @@ button {
   min-width: 55px;
   text-align: right;
   color: #60a5fa;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .source-slider {
@@ -770,22 +771,26 @@ button {
   text-align: center;
   padding: 16px;
   border-radius: 12px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 25px;
   transition: all 0.3s ease;
 }
 
 .total-badge.valid {
-  background: rgba(81, 207, 102, 0.2);
+  background: rgba(81, 207, 102, 0.15);
   border: 2px solid #51cf66;
   color: #51cf66;
+  animation: subtleGlow 2s ease-in-out infinite;
 }
 
-.total-badge.invalid {
-  background: rgba(245, 158, 11, 0.2);
-  border: 2px solid #f59e0b;
-  color: #f59e0b;
+@keyframes subtleGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(81, 207, 102, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(81, 207, 102, 0.4);
+  }
 }
 
 .reveal-btn {
@@ -801,13 +806,13 @@ button {
   transition: all 0.3s ease;
 }
 
-.reveal-btn:not(:disabled):hover {
+.reveal-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
 }
 
-.reveal-btn:disabled {
-  cursor: not-allowed;
+.reveal-btn:active {
+  transform: translateY(0);
 }
 
 /* ===== COMPARISON SCREEN ===== */
