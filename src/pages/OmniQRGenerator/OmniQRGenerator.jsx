@@ -13,7 +13,11 @@ const OmniQRGenerator = () => {
 
   useEffect(() => {
     console.log('OmniQRGenerator mounted, sessionId:', sessionId);
-  }, [sessionId]);
+    // Auto-create session on mount
+    if (!sessionId && !loading) {
+      createJudgeSession();
+    }
+  }, []);
 
   const createJudgeSession = async () => {
     console.log('Creating judge session...');
@@ -51,14 +55,8 @@ const OmniQRGenerator = () => {
     if (sessionId && qrRef.current) {
       const link = document.createElement("a");
       link.href = qrRef.current.src;
-      link.download = `judge-session-${sessionId}.png`;
+      link.download = `crisis-session-${sessionId}.png`;
       link.click();
-    }
-  };
-
-  const launchDemo = () => {
-    if (sessionId) {
-      navigate(`/judge/${sessionId}`);
     }
   };
 
@@ -81,24 +79,24 @@ const OmniQRGenerator = () => {
       }}>
         <div style={{maxWidth: '1200px', margin: '0 auto'}}>
           <div style={{marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid rgba(81, 207, 102, 0.2)'}}>
-            <h1 style={{fontSize: '28px', color: '#51cf66', margin: '0 0 8px 0'}}>Decision Theater</h1>
-            <p style={{color: '#aaa', margin: '0'}}>Session {sessionId.substring(0, 8)}...</p>
+            <h1 style={{fontSize: '28px', color: '#51cf66', margin: '0 0 8px 0'}}>Crisis Command Portal</h1>
+            <p style={{color: '#aaa', margin: '0'}}>Intervention Session {sessionId.substring(0, 8)}...</p>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '40px', marginBottom: '30px'}}>
             <div>
-              <h2 style={{color: '#fff', marginTop: 0}}>Session QR Code</h2>
-              <p style={{color: '#aaa'}}>Share this code with judges</p>
+              <h2 style={{color: '#fff', marginTop: 0}}>Mobile Intervention QR</h2>
+              <p style={{color: '#aaa'}}>Scan with mobile device to access ward crisis dashboard</p>
               <div style={{background: '#fff', padding: '16px', borderRadius: '8px', display: 'inline-block'}}>
                 <img
                   ref={qrRef}
                   src={qrImageUrl}
-                  alt="Judge Session QR"
+                  alt="Crisis Intervention QR"
                   style={{width: '300px', height: '300px', display: 'block'}}
                   onError={(e) => console.error('QR load error:', e)}
                 />
               </div>
-              <p style={{color: '#888', fontSize: '12px', marginTop: '12px'}}>Scan to initiate theater</p>
+              <p style={{color: '#888', fontSize: '12px', marginTop: '12px'}}>Opens interactive ward selection & action approval interface</p>
             </div>
 
             <div>
@@ -120,27 +118,12 @@ const OmniQRGenerator = () => {
 
           <div style={{display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '20px', flexWrap: 'wrap'}}>
             <button
-              onClick={launchDemo}
+              onClick={downloadQR}
               style={{
                 background: 'linear-gradient(135deg, #51cf66, #a0f77d)',
                 color: '#000',
                 padding: '12px 28px',
                 border: 'none',
-                borderRadius: '8px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                fontSize: '14px'
-              }}
-            >
-              Launch Demo
-            </button>
-            <button
-              onClick={downloadQR}
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                color: '#51cf66',
-                padding: '12px 28px',
-                border: '1px solid rgba(81, 207, 102, 0.3)',
                 borderRadius: '8px',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -195,14 +178,17 @@ const OmniQRGenerator = () => {
       background: 'linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%)',
       color: '#fff',
       padding: '40px 20px',
-      fontFamily: "'Manrope', sans-serif"
+      fontFamily: "'Manrope', sans-serif",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }}>
-      <div style={{maxWidth: '900px', margin: '0 auto'}}>
-        <h1 style={{fontSize: '32px', fontWeight: 700, color: '#fff', marginBottom: '12px', fontFamily: "'Sora', sans-serif"}}>
-          Judge Portal
+      <div style={{maxWidth: '500px', textAlign: 'center'}}>
+        <h1 style={{fontSize: '32px', fontWeight: 700, color: '#51cf66', marginBottom: '12px', fontFamily: "'Sora', sans-serif"}}>
+          Creating Crisis Session...
         </h1>
         <p style={{fontSize: '14px', color: '#aaa', marginTop: 0, marginBottom: '30px'}}>
-          Create synchronized judge experiences with live ecosystem engagement.
+          Generating QR code for mobile decision theater
         </p>
 
         {error && (
@@ -215,75 +201,39 @@ const OmniQRGenerator = () => {
             color: '#ff8888'
           }}>
             <strong>Error:</strong> {error}
+            <button
+              onClick={createJudgeSession}
+              style={{
+                background: '#ff6b6b',
+                color: '#fff',
+                padding: '8px 16px',
+                border: 'none',
+                borderRadius: '4px',
+                marginTop: '12px',
+                cursor: 'pointer',
+                display: 'block',
+                margin: '12px auto 0'
+              }}
+            >
+              Retry
+            </button>
           </div>
         )}
 
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '20px',
-          marginBottom: '40px'
-        }}>
-          {[
-            { title: 'Auto-Detection', desc: 'System identifies top 3 at-risk wards' },
-            { title: 'Cinematic Sequence', desc: '45-second automated presentation flow' },
-            { title: 'Real-time Sync', desc: 'Website auto-sync at each phase' },
-            { title: 'Health Impact', desc: 'Estimates vulnerable population benefits' },
-            { title: 'Model Integration', desc: 'Trained forecast and policy models' },
-            { title: 'Dashboard Control', desc: 'Command center with real-time tracking' }
-          ].map((feature, i) => (
-            <div
-              key={i}
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(81, 207, 102, 0.2)',
-                borderRadius: '10px',
-                padding: '20px',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(81, 207, 102, 0.08)';
-                e.currentTarget.style.borderColor = 'rgba(81, 207, 102, 0.5)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                e.currentTarget.style.borderColor = 'rgba(81, 207, 102, 0.2)';
-              }}
-            >
-              <h3 style={{fontSize: '14px', color: '#51cf66', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.5px'}}>
-                {feature.title}
-              </h3>
-              <p style={{fontSize: '13px', color: '#ccc', margin: 0, lineHeight: '1.6'}}>
-                {feature.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div style={{textAlign: 'center'}}>
-          <button
-            onClick={createJudgeSession}
-            disabled={loading}
-            style={{
-              background: 'linear-gradient(135deg, #51cf66, #a0f77d)',
-              color: '#000',
-              padding: '14px 40px',
-              border: 'none',
-              borderRadius: '8px',
-              fontWeight: 700,
-              cursor: loading ? 'not-allowed' : 'pointer',
-              opacity: loading ? 0.6 : 1,
-              fontSize: '14px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}
-          >
-            {loading ? "Creating Session..." : "Create Judge Session"}
-          </button>
-          <p style={{marginTop: '16px', color: '#888', fontSize: '13px', margin: '16px 0 0 0'}}>
-            Press to create and receive QR code for distribution.
-          </p>
-        </div>
+          width: '60px',
+          height: '60px',
+          border: '4px solid rgba(81, 207, 102, 0.2)',
+          borderTop: '4px solid #51cf66',
+          borderRadius: '50%',
+          margin: '0 auto',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+        <style>{`
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
       </div>
     </div>
   );

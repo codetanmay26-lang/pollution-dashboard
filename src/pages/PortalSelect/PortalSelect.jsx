@@ -102,14 +102,14 @@ const PortalSelect = () => {
             One platform with two focused experiences: government operations intelligence and consumer personal protection insights.
           </p>
           <div className="portal-demo-section">
-            <p className="demo-label">Demo & Showcase</p>
+            <p className="demo-label">Crisis Intervention</p>
             <button 
               className="portal-btn-showcase" 
               onClick={() => navigate('/omniqr')}
             >
-              Open Judge Portal
+              Open Crisis Command Portal
             </button>
-            <p className="demo-hint">Experience the decision theater judge synchronization ecosystem</p>
+            <p className="demo-hint">Generate QR code for mobile ward intervention sessions</p>
           </div>
         </section>
       </main>

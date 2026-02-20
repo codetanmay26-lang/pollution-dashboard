@@ -373,17 +373,17 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-page">
-      {/* Judge Session Active Banner */}
+      {/* Crisis Intervention Session Active Banner */}
       {activeSession && judgeSessionData && (
         <div className="judge-session-banner dash-reveal">
           <div className="banner-content">
-            <span className="banner-icon">🎭</span>
+            <span className="banner-icon">🎯</span>
             <div className="banner-text">
-              <h3>Decision Theater Active</h3>
-              <p>Judge session: {judgeSessionData.wardName} • Phase: {judgeSessionData.currentPhase?.replace(/_/g, ' ')}</p>
+              <h3>Crisis Intervention Active</h3>
+              <p>Mobile session: {judgeSessionData.wardName} • Phase: {judgeSessionData.currentPhase?.replace(/_/g, ' ')}</p>
             </div>
             <div className="banner-action">
-              <span className="judge-count">{judgeSessionData.judgeCount} watching</span>
+              <span className="judge-count">{judgeSessionData.judgeCount} connected</span>
             </div>
           </div>
         </div>
