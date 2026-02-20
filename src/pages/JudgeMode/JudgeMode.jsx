@@ -370,6 +370,32 @@ const JudgeMode = () => {
         totalImpact: aiAnalysis?.totalImpact || 0
       };
 
+      const persistApprovedAction = async () => {
+        const persistRes = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/source-estimate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...sourceEstimate,
+            approvedAction: {
+              wardName: actionPayload.wardName,
+              actions: actionPayload.actions,
+              expectedImpact: actionPayload.totalImpact,
+              status: 'deployed',
+              timestamp: new Date().toISOString()
+            }
+          })
+        });
+
+        if (!persistRes.ok) {
+          throw new Error(`source-estimate failed: ${persistRes.status}`);
+        }
+
+        const phaseRes = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/advance`, { method: 'POST' });
+        if (!phaseRes.ok) {
+          throw new Error(`advance failed: ${phaseRes.status}`);
+        }
+      };
+
       try {
         const response = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/approve-action`, {
           method: 'POST',
@@ -378,6 +404,8 @@ const JudgeMode = () => {
         });
 
         if (response.ok) {
+          // Keep QR laptop screen backward-compatible and instantly updated.
+          await persistApprovedAction();
           alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the same laptop QR session page (Pollution Interaction Console).\nThe implemented action appears in Live Action Feed.`);
           setCurrentView("ward-select");
           return;
@@ -388,30 +416,13 @@ const JudgeMode = () => {
         console.error("Action approval error:", err);
 
         try {
-          // Backward-compatible fallback for older backend:
-          // persist deployment payload through existing source-estimate endpoint.
-          await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/source-estimate`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              ...sourceEstimate,
-              approvedAction: {
-                wardName: actionPayload.wardName,
-                actions: actionPayload.actions,
-                expectedImpact: actionPayload.totalImpact,
-                status: 'deployed',
-                timestamp: new Date().toISOString()
-              }
-            })
-          });
-
-          // Push phase change so dashboard polling reflects progress.
-          await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/advance`, { method: 'POST' });
+          // Backward-compatible fallback for older backend
+          await persistApprovedAction();
 
           alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the same laptop QR session page (Pollution Interaction Console).\nImplemented action is shown there (compatibility mode).`);
         } catch (fallbackErr) {
           console.error("Compatibility deploy failed:", fallbackErr);
-          alert("Action approval saved on mobile, but backend sync is pending until Render deploy completes.");
+          alert(`Deploy sync failed for session ${sessionId?.slice(0, 8)}.\nPlease keep same QR session open and retry once.\n(${fallbackErr.message})`);
         } finally {
           setCurrentView("ward-select");
         }

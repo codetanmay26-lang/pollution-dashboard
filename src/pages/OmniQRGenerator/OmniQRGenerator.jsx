@@ -74,7 +74,7 @@ const OmniQRGenerator = () => {
     };
 
     pollSession();
-    const intervalId = setInterval(pollSession, 1200);
+    const intervalId = setInterval(pollSession, 500);
 
     return () => clearInterval(intervalId);
   }, [sessionId]);
