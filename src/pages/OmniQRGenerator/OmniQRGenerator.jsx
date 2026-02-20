@@ -7,6 +7,7 @@ const API_BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? 'http:/
 const OmniQRGenerator = () => {
   const navigate = useNavigate();
   const [sessionId, setSessionId] = useState(null);
+  const [sessionState, setSessionState] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const qrRef = useRef();
@@ -36,6 +37,7 @@ const OmniQRGenerator = () => {
         const data = await res.json();
         console.log('Session created:', data);
         setSessionId(data.sessionId);
+        setSessionState(data);
       } else {
         const errorData = await res.text();
         const errorMsg = `Server error (${res.status}): ${errorData || res.statusText}`;
@@ -50,6 +52,27 @@ const OmniQRGenerator = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const pollSession = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setSessionState(data);
+        }
+      } catch (err) {
+        console.error('Session polling error:', err);
+      }
+    };
+
+    pollSession();
+    const intervalId = setInterval(pollSession, 1200);
+
+    return () => clearInterval(intervalId);
+  }, [sessionId]);
 
   const downloadQR = () => {
     if (sessionId && qrRef.current) {
@@ -68,6 +91,7 @@ const OmniQRGenerator = () => {
 
   if (sessionId) {
     const qrImageUrl = `${API_BASE}/api/judge-sessions/${sessionId}/qr`;
+    const approvedAction = sessionState?.approvedAction || sessionState?.sourceEstimate?.approvedAction || null;
 
     return (
       <div style={{
@@ -79,14 +103,14 @@ const OmniQRGenerator = () => {
       }}>
         <div style={{maxWidth: '1200px', margin: '0 auto'}}>
           <div style={{marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid rgba(81, 207, 102, 0.2)'}}>
-            <h1 style={{fontSize: '28px', color: '#51cf66', margin: '0 0 8px 0'}}>Crisis Command Portal</h1>
-            <p style={{color: '#aaa', margin: '0'}}>Intervention Session {sessionId.substring(0, 8)}...</p>
+            <h1 style={{fontSize: '28px', color: '#51cf66', margin: '0 0 8px 0'}}>Pollution Interaction Console</h1>
+            <p style={{color: '#aaa', margin: '0'}}>QR Session {sessionId.substring(0, 8)}...</p>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '40px', marginBottom: '30px'}}>
             <div>
               <h2 style={{color: '#fff', marginTop: 0}}>Mobile Intervention QR</h2>
-              <p style={{color: '#aaa'}}>Scan with mobile device to access ward crisis dashboard</p>
+              <p style={{color: '#aaa'}}>Scan with mobile device to access source analysis flow</p>
               <div style={{background: '#fff', padding: '16px', borderRadius: '8px', display: 'inline-block'}}>
                 <img
                   ref={qrRef}
@@ -109,9 +133,38 @@ const OmniQRGenerator = () => {
                 <div>
                   <div style={{fontSize: '11px', color: '#888', textTransform: 'uppercase', marginBottom: '4px'}}>Status</div>
                   <span style={{display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', background: 'rgba(81, 207, 102, 0.2)', border: '1px solid rgba(81, 207, 102, 0.4)', borderRadius: '4px', fontSize: '12px', color: '#51cf66'}}>
-                    <span style={{width: '6px', height: '6px', background: '#51cf66', borderRadius: '50%'}}></span> Active
+                    <span style={{width: '6px', height: '6px', background: '#51cf66', borderRadius: '50%'}}></span>
+                    {approvedAction ? 'Action Implemented' : 'Waiting for Mobile Action'}
                   </span>
                 </div>
+              </div>
+
+              <div style={{background: approvedAction ? 'rgba(59, 130, 246, 0.08)' : 'rgba(255, 255, 255, 0.03)', border: approvedAction ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '8px', padding: '20px', marginTop: '16px'}}>
+                <h3 style={{fontSize: '14px', color: approvedAction ? '#60a5fa' : '#94a3b8', margin: '0 0 14px 0', textTransform: 'uppercase'}}>
+                  Live Action Feed
+                </h3>
+
+                {approvedAction ? (
+                  <>
+                    <p style={{margin: '0 0 10px 0', color: '#dbeafe', fontSize: '13px'}}>
+                      <strong>{approvedAction.wardName}</strong> action plan implemented.
+                    </p>
+                    <p style={{margin: '0 0 12px 0', color: '#93c5fd', fontSize: '12px'}}>
+                      Expected AQI improvement: <strong>-{approvedAction.expectedImpact || 0}</strong>
+                    </p>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                      {(approvedAction.actions || []).slice(0, 4).map((item, idx) => (
+                        <div key={idx} style={{background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px', padding: '8px 10px', fontSize: '12px', color: '#cbd5e1'}}>
+                          {idx + 1}. {item.text || item}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <p style={{margin: 0, color: '#94a3b8', fontSize: '12px'}}>
+                    No implemented action yet. Once mobile user taps <strong>Approve & Deploy</strong>, result appears here automatically.
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -148,7 +201,10 @@ const OmniQRGenerator = () => {
               Copy Link
             </button>
             <button
-              onClick={() => setSessionId(null)}
+              onClick={() => {
+                setSessionId(null);
+                setSessionState(null);
+              }}
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 color: '#51cf66',
@@ -185,10 +241,10 @@ const OmniQRGenerator = () => {
     }}>
       <div style={{maxWidth: '500px', textAlign: 'center'}}>
         <h1 style={{fontSize: '32px', fontWeight: 700, color: '#51cf66', marginBottom: '12px', fontFamily: "'Sora', sans-serif"}}>
-          Creating Crisis Session...
+          Creating QR Session...
         </h1>
         <p style={{fontSize: '14px', color: '#aaa', marginTop: 0, marginBottom: '30px'}}>
-          Generating QR code for mobile decision theater
+          Generating QR code for mobile source analysis
         </p>
 
         {error && (

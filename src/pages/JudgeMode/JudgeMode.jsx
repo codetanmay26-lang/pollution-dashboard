@@ -378,7 +378,7 @@ const JudgeMode = () => {
         });
 
         if (response.ok) {
-          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the dashboard to see live updates.`);
+          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the laptop QR page (Pollution Interaction Console).\nThe implemented action now appears there in Live Action Feed.`);
           setCurrentView("ward-select");
           return;
         }
@@ -408,7 +408,7 @@ const JudgeMode = () => {
           // Push phase change so dashboard polling reflects progress.
           await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/advance`, { method: 'POST' });
 
-          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nDashboard updated using compatibility mode.`);
+          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the laptop QR page (Pollution Interaction Console).\nImplemented action is shown there (compatibility mode).`);
         } catch (fallbackErr) {
           console.error("Compatibility deploy failed:", fallbackErr);
           alert("Action approval saved on mobile, but backend sync is pending until Render deploy completes.");
