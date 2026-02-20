@@ -389,11 +389,6 @@ const JudgeMode = () => {
         if (!persistRes.ok) {
           throw new Error(`source-estimate failed: ${persistRes.status}`);
         }
-
-        const phaseRes = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/advance`, { method: 'POST' });
-        if (!phaseRes.ok) {
-          throw new Error(`advance failed: ${phaseRes.status}`);
-        }
       };
 
       try {
@@ -404,8 +399,7 @@ const JudgeMode = () => {
         });
 
         if (response.ok) {
-          // Keep QR laptop screen backward-compatible and instantly updated.
-          await persistApprovedAction();
+          // Fast path on newer backend: single deploy call only.
           alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the same laptop QR session page (Pollution Interaction Console).\nThe implemented action appears in Live Action Feed.`);
           setCurrentView("ward-select");
           return;
