@@ -5,7 +5,10 @@ services:
     env: python
     plan: free
     region: oregon
-    buildCommand: bash render-build.sh
+    buildCommand: |
+      apt-get update && apt-get install -y gdal-bin libgdal-dev libproj-dev proj-bin libgeos-dev libspatialindex-dev
+      pip install --upgrade pip
+      pip install -r Backend/requirements.txt
     startCommand: python -m uvicorn Backend.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
