@@ -283,7 +283,7 @@ const JudgeMode = () => {
     );
   }
 
-  // Comparison Screen (Judge vs AI)
+  // Comparison Screen (Judge vs AI) + Health + Actions - All in One
   if (currentView === "comparison") {
     const calculateAccuracy = () => {
       if (!aiAnalysis) return 0;
@@ -305,16 +305,40 @@ const JudgeMode = () => {
       return "Significant Variance from AI Prediction";
     };
 
+    const handleApproveAction = async () => {
+      try {
+        const response = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}/approve-action`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            wardName: selectedWard?.name,
+            actions: aiAnalysis?.actions || [],
+            totalImpact: aiAnalysis?.totalImpact || 0
+          })
+        });
+        
+        if (response.ok) {
+          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the dashboard to see live updates.`);
+          setCurrentView("ward-select");
+        }
+      } catch (err) {
+        console.error("Action approval error:", err);
+        alert("Action plan approved locally. Dashboard sync pending.");
+        setCurrentView("ward-select");
+      }
+    };
+
     return (
       <div className="judge-container">
         <div className="judge-nav">
           <button className="back-btn" onClick={() => setCurrentView("detective")}>
             ← Back
           </button>
-          <div className="nav-title">Analysis Comparison</div>
+          <div className="nav-title">Complete Analysis & Action Plan</div>
         </div>
 
         <div className="comparison-content">
+          {/* ACCURACY SCORE */}
           <div className="accuracy-hero">
             <div className="accuracy-score" style={{ color: accuracy >= 75 ? '#51cf66' : '#f59e0b' }}>
               {accuracy}%
@@ -322,6 +346,8 @@ const JudgeMode = () => {
             <div className="accuracy-label">{getMessage()}</div>
           </div>
 
+          {/* SOURCE COMPARISON TABLE */}
+          <div className="section-header">Source Attribution Comparison</div>
           <div className="comparison-table">
             <div className="comparison-header">
               <div className="col-label">Source</div>
@@ -355,6 +381,7 @@ const JudgeMode = () => {
             })}
           </div>
 
+          {/* AI INSIGHT */}
           {aiAnalysis?.insight && (
             <div className="ai-insight">
               <div className="insight-badge">AI ANALYSIS</div>
@@ -364,180 +391,59 @@ const JudgeMode = () => {
             </div>
           )}
 
+          {/* HEALTH RISKS SECTION */}
+          {aiAnalysis?.healthRisks && aiAnalysis.healthRisks.length > 0 && (
+            <>
+              <div className="section-header">Predicted Health Impacts</div>
+              <div className="health-risks-grid">
+                {aiAnalysis.healthRisks.map((risk, idx) => (
+                  <div key={idx} className="health-risk-card">
+                    <div className="risk-header">
+                      <span className="risk-name">{risk.risk}</span>
+                      <span className={`risk-severity ${risk.severity}`}>
+                        {risk.severity.toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="risk-population">
+                      {risk.population.toLocaleString()} people at risk
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* RECOMMENDED ACTIONS SECTION */}
+          {aiAnalysis?.actions && aiAnalysis.actions.length > 0 && (
+            <>
+              <div className="section-header">AI-Recommended Actions</div>
+              <div className="actions-list-compact">
+                {aiAnalysis.actions.map((action, idx) => (
+                  <div key={idx} className="action-item-compact">
+                    <div className="action-number-compact">{idx + 1}</div>
+                    <div className="action-content">
+                      <div className="action-text-compact">{action.text}</div>
+                      <div className="action-impact">{action.impact}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {aiAnalysis.totalImpact > 0 && (
+                <div className="total-impact-badge">
+                  Expected Total Reduction: <strong>-{aiAnalysis.totalImpact} AQI points</strong>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ACTION BUTTONS */}
           <div className="action-buttons">
-            <button className="action-btn primary" onClick={() => setCurrentView("overview")}>
-              Continue to Overview →
+            <button className="action-btn success-large" onClick={handleApproveAction}>
+              ✓ Approve & Deploy Action Plan
             </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Overview Screen
-  if (currentView === "overview") {
-    return (
-      <div className="judge-container">
-        <div className="judge-nav">
-          <button className="back-btn" onClick={() => setCurrentView("ward-select")}>
-            ← Back
-          </button>
-          <div className="nav-title">{selectedWard?.name}</div>
-        </div>
-
-        <div className="overview-content">
-          <div className="hero-aqi">
-            <div className="hero-label">Current Air Quality</div>
-            <div className="hero-value" style={{ color: getAqiColor(wardData?.currentAqi || 0) }}>
-              {wardData?.currentAqi || 0}
-            </div>
-            <div className="hero-band" style={{ background: getAqiColor(wardData?.currentAqi || 0) }}>
-              {getAqiBand(wardData?.currentAqi || 0)}
-            </div>
-          </div>
-
-          <div className="forecast-cards">
-            <div className="forecast-card">
-              <div className="forecast-time">24 Hours</div>
-              <div className="forecast-aqi" style={{ color: getAqiColor(wardData?.forecast24 || 0) }}>
-                {wardData?.forecast24 || 0}
-              </div>
-              <div className="forecast-change">
-                {wardData?.delta24 > 0 ? "↑" : "↓"} {Math.abs(wardData?.delta24 || 0)}
-              </div>
-            </div>
-            <div className="forecast-card">
-              <div className="forecast-time">72 Hours</div>
-              <div className="forecast-aqi" style={{ color: getAqiColor(wardData?.forecast72 || 0) }}>
-                {wardData?.forecast72 || 0}
-              </div>
-              <div className="forecast-change">
-                {wardData?.delta72 > 0 ? "↑" : "↓"} {Math.abs(wardData?.delta72 || 0)}
-              </div>
-            </div>
-          </div>
-
-          <div className="action-buttons">
-            <button className="action-btn primary" onClick={() => setCurrentView("health")}>
-              👥 Health Impact
-            </button>
-            <button className="action-btn primary" onClick={() => setCurrentView("action")}>
-              ⚡ Recommended Actions
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Health Impact Screen
-  if (currentView === "health") {
-    const population = session?.wardStatus?.populationEstimate || 500000;
-    const vulnerable = session?.wardStatus?.vulnerableCount || 75000;
-    const beneficiaries = session?.healthImpact?.estimatedBeneficiaries || 45000;
-
-    return (
-      <div className="judge-container">
-        <div className="judge-nav">
-          <button className="back-btn" onClick={() => setCurrentView("overview")}>
-            ← Back
-          </button>
-          <div className="nav-title">Health Impact</div>
-        </div>
-
-        <div className="health-content">
-          <div className="impact-hero">
-            <div className="impact-number">{beneficiaries.toLocaleString()}</div>
-            <div className="impact-label">People Protected</div>
-          </div>
-
-          <div className="health-stats">
-            <div className="health-stat">
-              <div className="stat-icon">👨‍👩‍👧‍👦</div>
-              <div className="stat-info">
-                <div className="stat-num">{population.toLocaleString()}</div>
-                <div className="stat-text">Total Population</div>
-              </div>
-            </div>
-            <div className="health-stat">
-              <div className="stat-icon">⚠️</div>
-              <div className="stat-info">
-                <div className="stat-num">{vulnerable.toLocaleString()}</div>
-                <div className="stat-text">Vulnerable Groups</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="impact-chart">
-            <div className="chart-bar" style={{ width: `${(beneficiaries / population) * 100}%` }}>
-              <span>{Math.round((beneficiaries / population) * 100)}% benefit</span>
-            </div>
-          </div>
-
-          <button className="action-btn primary" onClick={() => setCurrentView("action")}>
-            View Actions →
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Action Plan Screen
-  if (currentView === "action") {
-    const actions = session?.modelAction?.recommendedActions || [
-      "Enforce traffic restrictions in high-density areas",
-      "Activate emergency dust control measures",
-      "Deploy mobile air purifiers in vulnerable zones"
-    ];
-
-    return (
-      <div className="judge-container">
-        <div className="judge-nav">
-          <button className="back-btn" onClick={() => setCurrentView("overview")}>
-            ← Back
-          </button>
-          <div className="nav-title">Action Plan</div>
-        </div>
-
-        <div className="action-content">
-          <div className="playbook-badge" style={{ background: "#f59e0b" }}>
-            {session?.modelAction?.playbook || "Mixed Local Mitigation"}
-          </div>
-
-          <div className="urgency-indicator" style={{ 
-            background: session?.modelAction?.urgency === "high" ? "#ef4444" : "#f59e0b" 
-          }}>
-            <span className="urgency-icon">⚡</span>
-            <span className="urgency-text">
-              {(session?.modelAction?.urgency || "high").toUpperCase()} PRIORITY
-            </span>
-          </div>
-
-          <div className="actions-list">
-            {actions.map((action, idx) => (
-              <div key={idx} className="action-item" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="action-number">{idx + 1}</div>
-                <div className="action-text">{action}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="impact-estimate">
-            <div className="estimate-label">Expected AQI Reduction</div>
-            <div className="estimate-value">
-              -{session?.impact?.estimatedAqiReduction || 35} points
-            </div>
-          </div>
-
-          <div className="action-buttons">
-            <button className="action-btn success" onClick={() => {
-              alert("Action plan approved! Implementation initiated.");
-              setCurrentView("ward-select");
-            }}>
-              ✓ Approve & Deploy
-            </button>
-            <button className="action-btn secondary" onClick={() => setCurrentView("overview")}>
-              Review Again
+            <button className="action-btn secondary" onClick={() => setCurrentView("detective")}>
+              Revise Estimates
             </button>
           </div>
         </div>

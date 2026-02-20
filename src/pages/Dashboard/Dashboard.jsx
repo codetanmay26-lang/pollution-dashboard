@@ -373,17 +373,29 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-page">
-      {/* Crisis Intervention Session Active Banner */}
+      {/* Mobile Analysis Session Active Banner */}
       {activeSession && judgeSessionData && (
-        <div className="judge-session-banner dash-reveal">
+        <div className={`judge-session-banner dash-reveal ${judgeSessionData.approvedAction ? 'action-deployed' : ''}`}>
           <div className="banner-content">
-            <span className="banner-icon">🎯</span>
+            <span className="banner-icon">{judgeSessionData.approvedAction ? '✓' : '🎯'}</span>
             <div className="banner-text">
-              <h3>Crisis Intervention Active</h3>
-              <p>Mobile session: {judgeSessionData.wardName} • Phase: {judgeSessionData.currentPhase?.replace(/_/g, ' ')}</p>
+              <h3>{judgeSessionData.approvedAction ? 'Action Plan Deployed' : 'Pollution Analysis Active'}</h3>
+              {judgeSessionData.approvedAction ? (
+                <p>
+                  <strong>{judgeSessionData.approvedAction.wardName}</strong> • 
+                  {judgeSessionData.approvedAction.actions?.length || 0} interventions deployed • 
+                  Expected: <span className="impact-value">-{judgeSessionData.approvedAction.expectedImpact} AQI</span>
+                </p>
+              ) : (
+                <p>Mobile session: {judgeSessionData.wardName} • Phase: {judgeSessionData.currentPhase?.replace(/_/g, ' ')}</p>
+              )}
             </div>
             <div className="banner-action">
-              <span className="judge-count">{judgeSessionData.judgeCount} connected</span>
+              {judgeSessionData.approvedAction ? (
+                <span className="deployment-status">ACTIVE</span>
+              ) : (
+                <span className="judge-count">{judgeSessionData.judgeCount} connected</span>
+              )}
             </div>
           </div>
         </div>

@@ -1854,11 +1854,37 @@ async def update_source_estimate(session_id: str, estimates: dict):
     raise HTTPException(status_code=404, detail="Session not found")
 
 
+@app.post("/api/judge-sessions/{session_id}/approve-action")
+async def approve_action_plan(session_id: str, action_data: dict):
+    """
+    Approve and deploy action plan. Updates session with action details
+    so the dashboard can display the approved intervention.
+    """
+    sessions = _load_judge_sessions()
+    for session in sessions:
+        if session.get("sessionId") == session_id:
+            session["approvedAction"] = {
+                "wardName": action_data.get("wardName"),
+                "actions": action_data.get("actions", []),
+                "expectedImpact": action_data.get("totalImpact", 0),
+                "timestamp": datetime.now().isoformat(),
+                "status": "deployed"
+            }
+            _save_judge_sessions(sessions)
+            return {
+                "status": "approved",
+                "message": f"Action plan deployed for {action_data.get('wardName')}",
+                "deployment": session["approvedAction"]
+            }
+    
+    raise HTTPException(status_code=404, detail="Session not found")
+
+
 @app.get("/api/source-analysis/{ward_name}")
 async def get_source_analysis(ward_name: str):
     """
-    AI-powered pollution source attribution analysis.
-    Returns estimated contribution percentages from different sources.
+    AI-powered pollution source attribution analysis with health risks and actions.
+    Returns estimated contribution percentages from different sources + recommendations.
     """
     try:
         # Load dataset
@@ -1874,18 +1900,28 @@ async def get_source_analysis(ward_name: str):
                 "industrial": 48,
                 "construction": 12,
                 "seasonal": 8,
-                "insight": f"AI analysis based on Delhi-wide patterns. Ward-specific data not available."
+                "insight": f"AI analysis based on Delhi-wide patterns. Ward-specific data not available.",
+                "healthRisks": [
+                    {"risk": "Respiratory Issues", "population": 45000, "severity": "high"},
+                    {"risk": "Cardiovascular Stress", "population": 23000, "severity": "moderate"},
+                    {"risk": "Child Development Impact", "population": 12000, "severity": "high"}
+                ],
+                "actions": [
+                    {"text": "Traffic restrictions during peak hours", "impact": "15 AQI reduction"},
+                    {"text": "Industrial emission controls", "impact": "20 AQI reduction"},
+                    {"text": "Emergency dust suppression", "impact": "8 AQI reduction"}
+                ],
+                "totalImpact": 43
             }
         
         ward_row = ward_row.iloc[0]
+        aqi = ward_row.get('AQI', 200)
         
         # Calculate source attribution based on available data
-        # Using traffic_proxy and industry_proxy from your dataset
         traffic_proxy = ward_row.get('traffic_proxy', 0.5)
         industry_proxy = ward_row.get('industry_proxy', 0.3)
         
         # Normalize to create realistic percentages
-        # Higher proxy values = higher contribution
         vehicular_base = min(60, max(15, int(traffic_proxy * 60)))
         industrial_base = min(60, max(10, int(industry_proxy * 70)))
         
@@ -1903,7 +1939,7 @@ async def get_source_analysis(ward_name: str):
         vehicular = round((vehicular_base / total) * 100)
         industrial = round((industrial_base / total) * 100)
         construction = round((construction_base / total) * 100)
-        seasonal = 100 - vehicular - industrial - construction  # Ensure total = 100
+        seasonal = 100 - vehicular - industrial - construction
         
         # Generate contextual insight
         dominant = max([
@@ -1920,12 +1956,85 @@ async def get_source_analysis(ward_name: str):
             "construction": f"Multiple construction sites detected. Dust particles from ongoing projects elevate PM2.5 and PM10 levels."
         }
         
+        # Calculate health risks based on AQI
+        population = 500000  # Average ward population
+        vulnerable_pct = 0.15 if aqi > 200 else 0.10
+        
+        health_risks = []
+        if aqi > 150:
+            health_risks.append({
+                "risk": "Respiratory Distress",
+                "population": int(population * 0.09),
+                "severity": "high" if aqi > 250 else "moderate"
+            })
+        if aqi > 100:
+            health_risks.append({
+                "risk": "Cardiovascular Stress",
+                "population": int(population * 0.05),
+                "severity": "moderate"
+            })
+        health_risks.append({
+            "risk": "Child Development Impact",
+            "population": int(population * 0.03),
+            "severity": "high" if aqi > 200 else "moderate"
+        })
+        if aqi > 200:
+            health_risks.append({
+                "risk": "Elderly Complications",
+                "population": int(population * 0.04),
+                "severity": "high"
+            })
+        
+        # Generate recommended actions based on dominant sources
+        actions = []
+        total_impact = 0
+        
+        if vehicular >= 30:
+            impact = min(20, int(vehicular * 0.5))
+            actions.append({
+                "text": "Odd-even vehicle restrictions during peak hours",
+                "impact": f"{impact} AQI reduction"
+            })
+            total_impact += impact
+        
+        if industrial >= 25:
+            impact = min(25, int(industrial * 0.6))
+            actions.append({
+                "text": "Emergency industrial emission controls",
+                "impact": f"{impact} AQI reduction"
+            })
+            total_impact += impact
+        
+        if construction >= 15:
+            impact = min(10, int(construction * 0.7))
+            actions.append({
+                "text": "Water spraying on construction sites",
+                "impact": f"{impact} AQI reduction"
+            })
+            total_impact += impact
+        
+        if seasonal >= 15:
+            actions.append({
+                "text": "Deploy mobile air purifiers in schools/hospitals",
+                "impact": "12 AQI reduction"
+            })
+            total_impact += 12
+        
+        # Always add public advisory
+        actions.append({
+            "text": "Issue health advisory for vulnerable groups",
+            "impact": "Protective measure"
+        })
+        
         return {
             "vehicular": vehicular,
             "industrial": industrial,
             "construction": construction,
             "seasonal": seasonal,
-            "insight": insights.get(dominant[0], "Mixed sources contribute to pollution levels.")
+            "insight": insights.get(dominant[0], "Mixed sources contribute to pollution levels."),
+            "healthRisks": health_risks,
+            "actions": actions,
+            "totalImpact": total_impact
         }
         
     except Exception as e:
@@ -1936,7 +2045,16 @@ async def get_source_analysis(ward_name: str):
             "industrial": 40,
             "construction": 15,
             "seasonal": 10,
-            "insight": "AI analysis based on Delhi pollution patterns. Industrial and vehicular emissions are primary contributors."
+            "insight": "AI analysis based on Delhi pollution patterns. Industrial and vehicular emissions are primary contributors.",
+            "healthRisks": [
+                {"risk": "Respiratory Issues", "population": 45000, "severity": "high"},
+                {"risk": "Cardiovascular Stress", "population": 23000, "severity": "moderate"}
+            ],
+            "actions": [
+                {"text": "Traffic restrictions during peak hours", "impact": "15 AQI reduction"},
+                {"text": "Industrial emission controls", "impact": "20 AQI reduction"}
+            ],
+            "totalImpact": 35
         }
 
 
