@@ -12,6 +12,7 @@ const OmniQRGenerator = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const qrRef = useRef();
+  const liveFeedRef = useRef(null);
 
   useEffect(() => {
     console.log('OmniQRGenerator mounted, sessionId:', sessionId);
@@ -191,9 +192,9 @@ const OmniQRGenerator = () => {
                 </div>
               </div>
 
-              <div style={{background: approvedAction ? 'rgba(59, 130, 246, 0.08)' : 'rgba(255, 255, 255, 0.03)', border: approvedAction ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '8px', padding: '20px', marginTop: '16px'}}>
+              <div ref={liveFeedRef} style={{background: approvedAction ? 'rgba(59, 130, 246, 0.08)' : 'rgba(255, 255, 255, 0.03)', border: approvedAction ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid rgba(255, 255, 255, 0.12)', borderRadius: '8px', padding: '20px', marginTop: '16px'}}>
                 <h3 style={{fontSize: '14px', color: approvedAction ? '#60a5fa' : '#94a3b8', margin: '0 0 14px 0', textTransform: 'uppercase'}}>
-                  Live Action Feed
+                  Pollution Action Console
                 </h3>
 
                 {approvedAction ? (
@@ -251,6 +252,21 @@ const OmniQRGenerator = () => {
               }}
             >
               Copy Link
+            </button>
+            <button
+              onClick={() => liveFeedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              style={{
+                background: 'rgba(59, 130, 246, 0.18)',
+                color: '#93c5fd',
+                padding: '12px 28px',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                borderRadius: '8px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}
+            >
+              Open Action Console
             </button>
             <button
               onClick={() => {
