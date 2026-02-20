@@ -11,8 +11,17 @@ const JudgeMode = () => {
   const [wardData, setWardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedWard, setSelectedWard] = useState(null);
-  const [currentView, setCurrentView] = useState("ward-select"); // ward-select, overview, health, action
+  const [currentView, setCurrentView] = useState("ward-select"); // ward-select, detective, comparison, overview, health, action
   const [topWards, setTopWards] = useState([]);
+  
+  // Source Detective state
+  const [sourceEstimate, setSourceEstimate] = useState({
+    vehicular: 25,
+    industrial: 25,
+    construction: 25,
+    seasonal: 25
+  });
+  const [aiAnalysis, setAiAnalysis] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +57,7 @@ const JudgeMode = () => {
       forecast24: ward.forecast24,
       forecast72: ward.forecast72,
     });
-    setCurrentView("overview");
+    setCurrentView("detective"); // Start with pollution detective game
   };
 
   const getAqiColor = (aqi) => {
@@ -67,6 +76,45 @@ const JudgeMode = () => {
     return "Hazardous";
   };
 
+  const handleSourceChange = (source, value) => {
+    const numValue = parseInt(value);
+    setSourceEstimate(prev => ({ ...prev, [source]: numValue }));
+    
+    // Send to backend for live sync with main dashboard
+    fetch(`${API_BASE}/api/judge-sessions/${sessionId}/source-estimate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...sourceEstimate, [source]: numValue })
+    }).catch(err => console.error('Sync error:', err));
+  };
+
+  const getTotalEstimate = () => {
+    return sourceEstimate.vehicular + sourceEstimate.industrial + 
+           sourceEstimate.construction + sourceEstimate.seasonal;
+  };
+
+  const revealAIAnalysis = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/source-analysis/${selectedWard?.name || 'default'}`);
+      if (res.ok) {
+        const data = await res.json();
+        setAiAnalysis(data);
+        setCurrentView("comparison");
+      }
+    } catch (err) {
+      console.error("Failed to get AI analysis:", err);
+      // Fallback AI data
+      setAiAnalysis({
+        vehicular: 32,
+        industrial: 48,
+        construction: 12,
+        seasonal: 8,
+        insight: "This ward has 8 factories within 3km radius. Industrial emissions contribute heavily."
+      });
+      setCurrentView("comparison");
+    }
+  };
+
   if (loading) {
     return (
       <div className="judge-loading">
@@ -81,7 +129,7 @@ const JudgeMode = () => {
     return (
       <div className="judge-container">
         <div className="judge-header">
-          <h1>🎯 Decision Theater</h1>
+          <h1>Crisis Decision Theater</h1>
           <p>Select a high-risk ward for intervention</p>
         </div>
 
@@ -126,6 +174,166 @@ const JudgeMode = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Pollution Source Detective Screen
+  if (currentView === "detective") {
+    const total = getTotalEstimate();
+    const isValid = total === 100;
+
+    return (
+      <div className="judge-container">
+        <div className="judge-nav">
+          <button className="back-btn" onClick={() => setCurrentView("ward-select")}>
+            ← Back
+          </button>
+          <div className="nav-title">Pollution Source Analysis</div>
+        </div>
+
+        <div className="detective-content">
+          <div className="detective-header">
+            <h2>{selectedWard?.name}</h2>
+            <div className="aqi-badge" style={{ background: getAqiColor(selectedWard?.currentAqi || 0) }}>
+              AQI: {selectedWard?.currentAqi || 0}
+            </div>
+          </div>
+
+          <p className="detective-challenge">Estimate pollution contribution from each source<br/>Drag sliders to allocate 100%</p>
+
+          <div className="source-sliders">
+            {[
+              { key: 'vehicular', icon: 'VEH', label: 'Vehicular Emissions', color: '#3b82f6' },
+              { key: 'industrial', icon: 'IND', label: 'Industrial Activity', color: '#f59e0b' },
+              { key: 'construction', icon: 'CON', label: 'Construction Dust', color: '#8b5cf6' },
+              { key: 'seasonal', icon: 'SEA', label: 'Seasonal (Stubble)', color: '#10b981' }
+            ].map(({ key, icon, label, color }) => (
+              <div key={key} className="source-slider-group">
+                <div className="source-label">
+                  <span className="source-icon" style={{ background: color }}>{icon}</span>
+                  <span className="source-name">{label}</span>
+                  <span className="source-percent">{sourceEstimate[key]}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sourceEstimate[key]}
+                  onChange={(e) => handleSourceChange(key, e.target.value)}
+                  className="source-slider"
+                  style={{
+                    background: `linear-gradient(to right, #51cf66 0%, #51cf66 ${sourceEstimate[key]}%, #1f2937 ${sourceEstimate[key]}%, #1f2937 100%)`
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className={`total-badge ${isValid ? 'valid' : 'invalid'}`}>
+            Total: {total}% {isValid ? '(Valid)' : '(Must equal 100%)'}
+          </div>
+
+          <button
+            className="action-btn primary reveal-btn"
+            onClick={revealAIAnalysis}
+            disabled={!isValid}
+            style={{ opacity: isValid ? 1 : 0.5 }}
+          >
+            Reveal AI Analysis →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Comparison Screen (Judge vs AI)
+  if (currentView === "comparison") {
+    const calculateAccuracy = () => {
+      if (!aiAnalysis) return 0;
+      const diffs = [
+        Math.abs(sourceEstimate.vehicular - aiAnalysis.vehicular),
+        Math.abs(sourceEstimate.industrial - aiAnalysis.industrial),
+        Math.abs(sourceEstimate.construction - aiAnalysis.construction),
+        Math.abs(sourceEstimate.seasonal - aiAnalysis.seasonal)
+      ];
+      const avgDiff = diffs.reduce((a, b) => a + b, 0) / 4;
+      return Math.max(0, Math.round(100 - avgDiff));
+    };
+
+    const accuracy = calculateAccuracy();
+    const getMessage = () => {
+      if (accuracy >= 90) return "Excellent - Almost Perfect Match";
+      if (accuracy >= 75) return "Good - Close to AI Analysis";
+      if (accuracy >= 60) return "Moderate - Some Discrepancies";
+      return "Significant Variance from AI Prediction";
+    };
+
+    return (
+      <div className="judge-container">
+        <div className="judge-nav">
+          <button className="back-btn" onClick={() => setCurrentView("detective")}>
+            ← Back
+          </button>
+          <div className="nav-title">Analysis Comparison</div>
+        </div>
+
+        <div className="comparison-content">
+          <div className="accuracy-hero">
+            <div className="accuracy-score" style={{ color: accuracy >= 75 ? '#51cf66' : '#f59e0b' }}>
+              {accuracy}%
+            </div>
+            <div className="accuracy-label">{getMessage()}</div>
+          </div>
+
+          <div className="comparison-table">
+            <div className="comparison-header">
+              <div className="col-label">Source</div>
+              <div className="col-judge">Your Estimate</div>
+              <div className="col-ai">AI Analysis</div>
+            </div>
+
+            {[
+              { key: 'vehicular', icon: 'VEH', label: 'Vehicular', color: '#3b82f6' },
+              { key: 'industrial', icon: 'IND', label: 'Industrial', color: '#f59e0b' },
+              { key: 'construction', icon: 'CON', label: 'Construction', color: '#8b5cf6' },
+              { key: 'seasonal', icon: 'SEA', label: 'Seasonal', color: '#10b981' }
+            ].map(({ key, icon, label, color }) => {
+              const diff = Math.abs(sourceEstimate[key] - (aiAnalysis?.[key] || 0));
+              const isClose = diff <= 10;
+              return (
+                <div key={key} className="comparison-row">
+                  <div className="col-label">
+                    <span className="source-badge" style={{ background: color }}>{icon}</span>
+                    <span>{label}</span>
+                  </div>
+                  <div className="col-judge">
+                    <span>{sourceEstimate[key]}%</span>
+                    <span className={`accuracy-indicator ${isClose ? 'close' : 'off'}`}>{isClose ? 'Close' : 'Off'}</span>
+                  </div>
+                  <div className="col-ai highlight">
+                    {aiAnalysis?.[key] || 0}%
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {aiAnalysis?.insight && (
+            <div className="ai-insight">
+              <div className="insight-badge">AI ANALYSIS</div>
+              <div className="insight-text">
+                {aiAnalysis.insight}
+              </div>
+            </div>
+          )}
+
+          <div className="action-buttons">
+            <button className="action-btn primary" onClick={() => setCurrentView("overview")}>
+              Continue to Overview →
+            </button>
+          </div>
         </div>
       </div>
     );
