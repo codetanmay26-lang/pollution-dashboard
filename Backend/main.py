@@ -1758,14 +1758,29 @@ async def get_judge_session_qr(session_id: str, request: Request):
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
     
-    # Generate QR code pointing to judge theater URL
+    # Generate QR code pointing to judge theater URL (frontend)
+    # Try multiple headers to get frontend URL
+    frontend_url = None
+    
+    # Try Origin header first (when CORS request)
     origin = request.headers.get("origin")
-    if origin:
-        qr_url = f"{origin}/judge/{session_id}"
-    else:
-        host = request.headers.get("host", "localhost:5173")
-        scheme = request.headers.get("x-forwarded-proto", "http")
-        qr_url = f"{scheme}://{host}/judge/{session_id}"
+    if origin and "vercel.app" in origin:
+        frontend_url = origin
+    
+    # Try Referer header as fallback
+    if not frontend_url:
+        referer = request.headers.get("referer")
+        if referer:
+            # Extract base URL from referer
+            from urllib.parse import urlparse
+            parsed = urlparse(referer)
+            frontend_url = f"{parsed.scheme}://{parsed.netloc}"
+    
+    # Final fallback: use environment variable or default
+    if not frontend_url:
+        frontend_url = os.getenv("FRONTEND_URL", "https://pollution-dashboard-ochre.vercel.app")
+    
+    qr_url = f"{frontend_url}/judge/{session_id}"
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
