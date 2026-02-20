@@ -403,7 +403,6 @@ const Dashboard = () => {
           <button className="btn-ghost" onClick={() => navigate('/solutions')}>Solutions</button>
           <button className="btn-ghost" onClick={() => navigate('/map')}>Map</button>
           <button className="btn-solid" onClick={() => navigate('/wards')}>All Wards</button>
-          <button className="btn-solid btn-omniqr" onClick={() => navigate('/omniqr')}>🎬 OmniQR</button>
         </div>
       </header>
 

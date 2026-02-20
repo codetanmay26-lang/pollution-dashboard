@@ -166,7 +166,7 @@
     "sessionId": "e724247c-fab9",
     "wardName": "West End Greens",
     "currentPhase": "impact_theater",
-    "phaseStartedAt": "2026-02-20T22:44:51.256907",
+    "phaseStartedAt": "2026-02-20T22:47:51.244669",
     "phases": [
       "emergency_detection",
       "why_ward_matters",
@@ -178,7 +178,7 @@
       "why_ward_matters": "2026-02-20T22:40:31.282840",
       "health_impact": "2026-02-20T22:40:38.532819",
       "action_ready": "2026-02-20T22:41:12.541975",
-      "impact_theater": "2026-02-20T22:44:51.256924"
+      "impact_theater": "2026-02-20T22:47:51.244690"
     },
     "judgeCount": 1,
     "createdAt": "2026-02-20T21:26:52.339606",

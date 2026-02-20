@@ -3,7 +3,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import anime from 'animejs/lib/anime.es.js';
 import './WardDetails.css';
 
-const API_BASE = import.meta.env.DEV ? 'https://delhi-pollution-2.onrender.com' : '';
+const API_BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? 'http://localhost:8000' : '');
 
 const getAqiBand = (aqi) => {
   if (aqi > 300) return { label: 'Hazardous', className: 'hazardous', color: '#ef4444' };

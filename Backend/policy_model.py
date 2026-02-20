@@ -113,14 +113,23 @@ def choose_playbook(cluster_rows):
     mean_veh = float(np.mean([row["vehicularPct"] for row in cluster_rows]))
     mean_ind = float(np.mean([row["industrialPct"] for row in cluster_rows]))
 
-    if mean_aqi >= 280 or mean_delta24 >= 18:
+    # Emergency Containment: High AQI or rapid deterioration
+    if mean_aqi >= 250 or mean_delta24 >= 12:
         return "Emergency Containment"
-    if mean_delta72 <= -18 and mean_aqi < 230:
+    
+    # Stabilization: Improving trend with moderate AQI
+    if mean_delta72 <= -12 and mean_aqi < 250:
         return "Stabilization and Monitoring"
-    if (mean_ind - mean_veh) >= 10 and mean_aqi >= 140:
+    
+    # Industrial Compliance: Industrial-dominant pollution
+    if (mean_ind - mean_veh) >= 5 and mean_aqi >= 120:
         return "Industrial Compliance"
-    if (mean_veh - mean_ind) >= 10 and mean_aqi >= 140 and mean_delta24 > -20:
+    
+    # Traffic Suppression: Traffic-dominant with rising/stable trend
+    if (mean_veh - mean_ind) >= 5 and mean_aqi >= 120 and mean_delta24 > -15:
         return "Traffic Suppression"
+    
+    # Mixed Local Mitigation: Balanced sources or moderate pollution
     return "Mixed Local Mitigation"
 
 

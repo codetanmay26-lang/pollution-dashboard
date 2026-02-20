@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import anime from 'animejs/lib/anime.es.js';
 import './MapView.css';
 
-const API_BASE = import.meta.env.DEV ? 'https://delhi-pollution-2.onrender.com' : '';
+const API_BASE = import.meta.env.VITE_API_BASE || (import.meta.env.DEV ? 'http://localhost:8000' : '');
 const MAP_WIDTH = 1200;
 const MAP_HEIGHT = 860;
 const MAP_PADDING = 36;

@@ -1243,6 +1243,48 @@ async def get_citizen_signal_review(
             forecast24 - current_aqi,
         )))
 
+        # Generate fallback solution if recommendation not found
+        if not recommendation:
+            signal_severity = str(row.get("severity", "medium")).lower()
+            vehicular_pct = safe_to_float(ward_base.get("vehicular_pct") if ward_base is not None else 0, 0)
+            industrial_pct = safe_to_float(ward_base.get("industrial_pct") if ward_base is not None else 0, 0)
+            
+            # Determine playbook based on AQI, severity, and source
+            if current_aqi >= 280 or signal_severity == "high":
+                fallback_playbook = "Emergency Containment"
+                fallback_urgency = "critical"
+                fallback_priority = 85
+            elif (vehicular_pct - industrial_pct) >= 10:
+                fallback_playbook = "Traffic Suppression"
+                fallback_urgency = "high" if current_aqi >= 200 else "moderate"
+                fallback_priority = min(75, int((current_aqi / 500.0) * 100))
+            elif (industrial_pct - vehicular_pct) >= 10:
+                fallback_playbook = "Industrial Compliance"
+                fallback_urgency = "high" if current_aqi >= 200 else "moderate"
+                fallback_priority = min(75, int((current_aqi / 500.0) * 100))
+            else:
+                fallback_playbook = "Mixed Local Mitigation"
+                fallback_urgency = "moderate" if current_aqi >= 150 else "watch"
+                fallback_priority = int((current_aqi / 500.0) * 100)
+            
+            # Get appropriate actions for playbook
+            from policy_model import PLAYBOOK_ACTIONS
+            fallback_actions = PLAYBOOK_ACTIONS.get(fallback_playbook, PLAYBOOK_ACTIONS["Mixed Local Mitigation"])[:3]
+            
+            model_solution = {
+                "playbook": fallback_playbook,
+                "urgency": fallback_urgency,
+                "priorityScore": fallback_priority,
+                "recommendedActions": fallback_actions,
+            }
+        else:
+            model_solution = {
+                "playbook": recommendation.get("playbook", "Mixed Local Mitigation"),
+                "urgency": recommendation.get("urgency", "watch"),
+                "priorityScore": int(round(safe_to_float(recommendation.get("priorityScore", 0), 0))),
+                "recommendedActions": recommendation.get("recommendedActions", []),
+            }
+
         items.append({
             "ticketId": row.get("ticketId"),
             "ward": row.get("ward"),
@@ -1262,12 +1304,7 @@ async def get_citizen_signal_review(
                 "trendDirection": recommendation.get("trendDirection") or forecast.get("trendDirection") or "stable",
                 "modelQuality": recommendation.get("modelQuality") or forecast.get("modelQuality") or "unavailable",
             },
-            "modelSolution": {
-                "playbook": recommendation.get("playbook", "Mixed Local Mitigation"),
-                "urgency": recommendation.get("urgency", "watch"),
-                "priorityScore": int(round(safe_to_float(recommendation.get("priorityScore", 0), 0))),
-                "recommendedActions": recommendation.get("recommendedActions", []),
-            },
+            "modelSolution": model_solution,
         })
 
     by_status = {}
