@@ -138,6 +138,10 @@ const Dashboard = () => {
   });
   
   const { sessionState: judgeSessionData } = usePollJudgeSession(activeSession, 500);
+  const approvedActionData =
+    judgeSessionData?.approvedAction ||
+    judgeSessionData?.sourceEstimate?.approvedAction ||
+    null;
 
   const fetchAllData = useCallback(async () => {
     try {
@@ -375,23 +379,23 @@ const Dashboard = () => {
     <div className="dashboard-page">
       {/* Mobile Analysis Session Active Banner */}
       {activeSession && judgeSessionData && (
-        <div className={`judge-session-banner dash-reveal ${judgeSessionData.approvedAction ? 'action-deployed' : ''}`}>
+        <div className={`judge-session-banner dash-reveal ${approvedActionData ? 'action-deployed' : ''}`}>
           <div className="banner-content">
-            <span className="banner-icon">{judgeSessionData.approvedAction ? '✓' : '🎯'}</span>
+            <span className="banner-icon">{approvedActionData ? '✓' : '🎯'}</span>
             <div className="banner-text">
-              <h3>{judgeSessionData.approvedAction ? 'Action Plan Deployed' : 'Pollution Analysis Active'}</h3>
-              {judgeSessionData.approvedAction ? (
+              <h3>{approvedActionData ? 'Action Plan Deployed' : 'Pollution Analysis Active'}</h3>
+              {approvedActionData ? (
                 <p>
-                  <strong>{judgeSessionData.approvedAction.wardName}</strong> • 
-                  {judgeSessionData.approvedAction.actions?.length || 0} interventions deployed • 
-                  Expected: <span className="impact-value">-{judgeSessionData.approvedAction.expectedImpact} AQI</span>
+                  <strong>{approvedActionData.wardName}</strong> • 
+                  {approvedActionData.actions?.length || 0} interventions deployed • 
+                  Expected: <span className="impact-value">-{approvedActionData.expectedImpact || 0} AQI</span>
                 </p>
               ) : (
                 <p>Mobile session: {judgeSessionData.wardName} • Phase: {judgeSessionData.currentPhase?.replace(/_/g, ' ')}</p>
               )}
             </div>
             <div className="banner-action">
-              {judgeSessionData.approvedAction ? (
+              {approvedActionData ? (
                 <span className="deployment-status">ACTIVE</span>
               ) : (
                 <span className="judge-count">{judgeSessionData.judgeCount} connected</span>
