@@ -32,6 +32,16 @@ except ImportError:
         build_personalized_consumer_insight,
     )
 
+# XGBoost forecast — drop-in replacement for ridge regression
+try:
+    from .xgb_inference import predict_aqi_forecast
+except ImportError:
+    try:
+        from xgb_inference import predict_aqi_forecast
+    except ImportError:
+        predict_aqi_forecast = None
+        print("[XGB] xgb_inference.py not found — ridge regression will be used")
+
 # --------------------------------------------------
 # PATH SETUP (ROBUST FOR LOCAL + RENDER)
 # --------------------------------------------------
@@ -46,6 +56,7 @@ WARD_DATA = pd.read_csv(DATA_DIR / "ward_level_aqi_complete.csv")
 AQI_TIMESERIES = pd.read_csv(DATA_DIR / "aqi.csv")
 AQI_TIMESERIES["datetime_ist"] = pd.to_datetime(
     AQI_TIMESERIES["date_ist"].astype(str) + " " + AQI_TIMESERIES["time_ist"].astype(str),
+    format="mixed",
     dayfirst=True,
     errors="coerce",
 )
@@ -76,7 +87,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # safe if not using cookies/auth
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -108,7 +119,7 @@ class CitizenSignalStatusUpdateInput(BaseModel):
 
 
 class JudgeSessionCreateInput(BaseModel):
-    wardIndex: int = 0  # 0, 1, 2 for crisis detection
+    wardIndex: int = 0
 
 
 # --------------------------------------------------
@@ -373,15 +384,8 @@ def add_hourly_weather_features(frame):
 
 def get_city_hourly_snapshot():
     numeric_columns = [
-        "aqi_index",
-        "temp_c",
-        "humidity",
-        "pressure_mb",
-        "windspeed_kph",
-        "pm2_5",
-        "pm10",
-        "co",
-        "no2",
+        "aqi_index", "temp_c", "humidity", "pressure_mb", "windspeed_kph",
+        "pm2_5", "pm10", "co", "no2",
     ]
     recent = AQI_TIMESERIES.dropna(subset=["datetime_ist"]).copy()
     if recent.empty:
@@ -404,15 +408,8 @@ def get_city_hourly_snapshot():
 
 def get_station_hourly_snapshot():
     numeric_columns = [
-        "aqi_index",
-        "temp_c",
-        "humidity",
-        "pressure_mb",
-        "windspeed_kph",
-        "pm2_5",
-        "pm10",
-        "co",
-        "no2",
+        "aqi_index", "temp_c", "humidity", "pressure_mb", "windspeed_kph",
+        "pm2_5", "pm10", "co", "no2",
     ]
     recent = AQI_TIMESERIES.dropna(subset=["datetime_ist", "location"]).copy()
     if recent.empty:
@@ -484,12 +481,7 @@ def build_weather_correlation_payload(city_hourly):
         return payload
 
     usable = city_hourly.dropna(
-        subset=[
-            "aqi_index",
-            "windspeed_kph",
-            "humidity",
-            "temp_inversion_proxy",
-        ]
+        subset=["aqi_index", "windspeed_kph", "humidity", "temp_inversion_proxy"]
     ).copy()
     if usable.empty:
         return payload
@@ -532,11 +524,9 @@ def build_weather_correlation_payload(city_hourly):
 def fit_ridge_regression(X, y, l2_penalty=1.0):
     X_values = np.asarray(X, dtype=float)
     y_values = np.asarray(y, dtype=float)
-
     X_design = np.column_stack([np.ones(X_values.shape[0]), X_values])
     reg = np.eye(X_design.shape[1], dtype=float) * float(l2_penalty)
     reg[0, 0] = 0.0
-
     lhs = X_design.T @ X_design + reg
     rhs = X_design.T @ y_values
     try:
@@ -560,6 +550,13 @@ def get_model_quality(mae):
     return "low"
 
 def build_aqi_forecast_payload(city_hourly):
+    # ── Try XGBoost first — falls back to ridge if models not found ───────────
+    if predict_aqi_forecast is not None:
+        xgb_result = predict_aqi_forecast(city_hourly)
+        if xgb_result is not None:
+            return xgb_result
+    # ── Ridge regression fallback (original code below) ───────────────────────
+
     default_payload = {
         "generatedAt": datetime.now().isoformat(),
         "latestObservedAt": None,
@@ -579,22 +576,10 @@ def build_aqi_forecast_payload(city_hourly):
         model_df[f"aqi_lag_{lag}"] = model_df["aqi_index"].shift(lag)
 
     feature_columns = [
-        "aqi_index",
-        "aqi_lag_1",
-        "aqi_lag_3",
-        "aqi_lag_6",
-        "aqi_lag_12",
-        "aqi_lag_24",
-        "temp_c",
-        "humidity",
-        "windspeed_kph",
-        "pressure_mb",
-        "temp_inversion_proxy",
-        "stagnation_proxy",
-        "hour_sin",
-        "hour_cos",
-        "dow_sin",
-        "dow_cos",
+        "aqi_index", "aqi_lag_1", "aqi_lag_3", "aqi_lag_6", "aqi_lag_12", "aqi_lag_24",
+        "temp_c", "humidity", "windspeed_kph", "pressure_mb",
+        "temp_inversion_proxy", "stagnation_proxy",
+        "hour_sin", "hour_cos", "dow_sin", "dow_cos",
     ]
 
     latest_features_df = model_df.dropna(subset=feature_columns)
@@ -769,8 +754,7 @@ def build_ward_forecast_insights(ward_data_clean, station_forecasts, city_foreca
     station_current_lookup = {}
     for _, row in station_snapshot.iterrows():
         station_current_lookup[normalize_ward_name(row.get("location"))] = safe_to_float(
-            row.get("aqi_index"),
-            0.0,
+            row.get("aqi_index"), 0.0,
         )
 
     city_points = city_forecast.get("points", [])
@@ -805,7 +789,6 @@ def build_ward_forecast_insights(ward_data_clean, station_forecasts, city_foreca
             predicted = int(round(np.clip(point.get("predictedAqi", 0) * scale, 0, 500)))
             lower = int(round(np.clip(point.get("lowerAqi", 0) * scale, 0, 500)))
             upper = int(round(np.clip(point.get("upperAqi", 0) * scale, 0, 500)))
-
             ward_points.append({
                 "horizonHours": int(point.get("horizonHours", 0)),
                 "forecastAt": point.get("forecastAt"),
@@ -882,20 +865,14 @@ def parse_kml_coordinates(text):
     return points
 
 def parse_kml_polygon_node(polygon_node):
-    outer_nodes = polygon_node.findall(
-        "k:outerBoundaryIs/k:LinearRing/k:coordinates", KML_NS
-    )
+    outer_nodes = polygon_node.findall("k:outerBoundaryIs/k:LinearRing/k:coordinates", KML_NS)
     if not outer_nodes:
         return None
-
     outer_ring = parse_kml_coordinates(outer_nodes[0].text)
     if len(outer_ring) < 4:
         return None
-
     rings = [outer_ring]
-    inner_nodes = polygon_node.findall(
-        "k:innerBoundaryIs/k:LinearRing/k:coordinates", KML_NS
-    )
+    inner_nodes = polygon_node.findall("k:innerBoundaryIs/k:LinearRing/k:coordinates", KML_NS)
     for inner in inner_nodes:
         hole = parse_kml_coordinates(inner.text)
         if len(hole) >= 4:
@@ -994,7 +971,6 @@ def ring_centroid(ring):
         lon = sum(point[0] for point in ring) / len(ring)
         lat = sum(point[1] for point in ring) / len(ring)
         return (lon, lat)
-
     cx = 0.0
     cy = 0.0
     for idx in range(len(ring) - 1):
@@ -1118,15 +1094,10 @@ def build_locality_samples(ward_lookup):
 # API ROUTES
 # --------------------------------------------------
 
-
 @app.get("/api/citizen-signals/summary")
 async def get_citizen_signal_summary(limit: int = 100):
     rows = _load_signals()
-    rows_sorted = sorted(
-        rows,
-        key=lambda item: item.get("createdAt", ""),
-        reverse=True,
-    )
+    rows_sorted = sorted(rows, key=lambda item: item.get("createdAt", ""), reverse=True)
     if limit > 0:
         rows_sorted = rows_sorted[: min(limit, 500)]
 
@@ -1140,21 +1111,13 @@ async def get_citizen_signal_summary(limit: int = 100):
 
     return {
         "signals": rows_sorted,
-        "counts": {
-            "total": len(rows),
-            "byStatus": by_status,
-            "bySeverity": by_severity,
-        },
+        "counts": {"total": len(rows), "byStatus": by_status, "bySeverity": by_severity},
         "lastUpdated": datetime.now().isoformat(),
     }
 
 
 @app.get("/api/citizen-signals/review")
-async def get_citizen_signal_review(
-    ward: str = "",
-    status: str = "",
-    limit: int = 100,
-):
+async def get_citizen_signal_review(ward: str = "", status: str = "", limit: int = 100):
     rows = _load_signals()
     ward_filter = normalize_ward_name(ward)
     status_filter = _normalize_signal_status(status) if status else ""
@@ -1167,37 +1130,20 @@ async def get_citizen_signal_review(
             continue
         filtered.append(row)
 
-    filtered = sorted(
-        filtered,
-        key=lambda item: item.get("createdAt", ""),
-        reverse=True,
-    )
+    filtered = sorted(filtered, key=lambda item: item.get("createdAt", ""), reverse=True)
     if limit > 0:
         filtered = filtered[: min(limit, 500)]
 
     try:
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
-
         station_correlations = build_station_weather_correlation_payloads()
-        ward_weather = build_ward_weather_insights(
-            ward_data_clean,
-            station_correlations,
-        )
-
+        ward_weather = build_ward_weather_insights(ward_data_clean, station_correlations)
         city_forecast = build_aqi_forecast_payload(city_hourly)
         station_forecasts = build_station_forecast_payloads()
-        ward_forecast = build_ward_forecast_insights(
-            ward_data_clean,
-            station_forecasts,
-            city_forecast,
-        )
-
+        ward_forecast = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
         recommendation_payload = generate_policy_recommendations(
-            ward_data_clean.to_dict("records"),
-            ward_weather,
-            ward_forecast,
-            cluster_count=4,
+            ward_data_clean.to_dict("records"), ward_weather, ward_forecast, cluster_count=4,
         )
         ward_recommendations = recommendation_payload.get("wardRecommendations", [])
     except Exception:
@@ -1205,18 +1151,9 @@ async def get_citizen_signal_review(
         ward_forecast = []
         ward_recommendations = []
 
-    ward_lookup = {
-        normalize_ward_name(row.get("name")): row
-        for _, row in ward_data_clean.iterrows()
-    }
-    forecast_lookup = {
-        normalize_ward_name(item.get("ward")): item
-        for item in ward_forecast
-    }
-    recommendation_lookup = {
-        normalize_ward_name(item.get("ward")): item
-        for item in ward_recommendations
-    }
+    ward_lookup = {normalize_ward_name(row.get("name")): row for _, row in ward_data_clean.iterrows()}
+    forecast_lookup = {normalize_ward_name(item.get("ward")): item for item in ward_forecast}
+    recommendation_lookup = {normalize_ward_name(item.get("ward")): item for item in ward_recommendations}
 
     items = []
     for row in filtered:
@@ -1237,19 +1174,16 @@ async def get_citizen_signal_review(
             point24 = get_forecast_point(forecast.get("points", []), 24) if forecast else None
             forecast24_raw = point24.get("predictedAqi") if point24 else current_aqi
         forecast24 = int(round(safe_to_float(forecast24_raw, current_aqi)))
-
         delta24 = int(round(safe_to_float(
             recommendation.get("delta24", forecast24 - current_aqi),
             forecast24 - current_aqi,
         )))
 
-        # Generate fallback solution if recommendation not found
         if not recommendation:
             signal_severity = str(row.get("severity", "medium")).lower()
             vehicular_pct = safe_to_float(ward_base.get("vehicular_pct") if ward_base is not None else 0, 0)
             industrial_pct = safe_to_float(ward_base.get("industrial_pct") if ward_base is not None else 0, 0)
-            
-            # Determine playbook based on AQI, severity, and source
+
             if current_aqi >= 280 or signal_severity == "high":
                 fallback_playbook = "Emergency Containment"
                 fallback_urgency = "critical"
@@ -1266,11 +1200,9 @@ async def get_citizen_signal_review(
                 fallback_playbook = "Mixed Local Mitigation"
                 fallback_urgency = "moderate" if current_aqi >= 150 else "watch"
                 fallback_priority = int((current_aqi / 500.0) * 100)
-            
-            # Get appropriate actions for playbook
+
             from policy_model import PLAYBOOK_ACTIONS
             fallback_actions = PLAYBOOK_ACTIONS.get(fallback_playbook, PLAYBOOK_ACTIONS["Mixed Local Mitigation"])[:3]
-            
             model_solution = {
                 "playbook": fallback_playbook,
                 "urgency": fallback_urgency,
@@ -1328,22 +1260,14 @@ async def get_citizen_signal_review(
     return {
         "items": items,
         "count": len(items),
-        "counts": {
-            "byStatus": by_status,
-        },
-        "sync": {
-            "latestScan": latest_scan,
-        },
+        "counts": {"byStatus": by_status},
+        "sync": {"latestScan": latest_scan},
         "lastUpdated": datetime.now().isoformat(),
     }
 
 
 @app.get("/api/citizen-signals")
-async def get_citizen_signals(
-    ward: str = "",
-    status: str = "",
-    limit: int = 100,
-):
+async def get_citizen_signals(ward: str = "", status: str = "", limit: int = 100):
     rows = _load_signals()
     ward_filter = normalize_ward_name(ward)
     status_filter = _normalize_signal_status(status) if status else ""
@@ -1356,18 +1280,11 @@ async def get_citizen_signals(
             continue
         filtered.append(row)
 
-    filtered = sorted(
-        filtered,
-        key=lambda item: item.get("createdAt", ""),
-        reverse=True,
-    )
+    filtered = sorted(filtered, key=lambda item: item.get("createdAt", ""), reverse=True)
     if limit > 0:
         filtered = filtered[: min(limit, 500)]
 
-    return {
-        "signals": filtered,
-        "count": len(filtered),
-    }
+    return {"signals": filtered, "count": len(filtered)}
 
 
 @app.post("/api/citizen-signals")
@@ -1398,23 +1315,14 @@ async def create_citizen_signal(payload: CitizenSignalInput):
         "scanCount": 0,
         "lastScannedAt": "",
         "lastScannedSource": "",
-        "events": [
-            _build_signal_event(
-                status="submitted",
-                actor="consumer",
-                note="Signal submitted from consumer portal",
-            )
-        ],
+        "events": [_build_signal_event(status="submitted", actor="consumer", note="Signal submitted from consumer portal")],
     }
 
     rows = _load_signals()
     rows.append(ticket)
     _save_signals(rows)
 
-    return {
-        "ticket": ticket,
-        "trackingPath": f"/ticket/{ticket_id}",
-    }
+    return {"ticket": ticket, "trackingPath": f"/ticket/{ticket_id}"}
 
 
 @app.get("/api/citizen-signals/{ticket_id}")
@@ -1422,10 +1330,7 @@ async def get_citizen_signal_ticket(ticket_id: str):
     rows = _load_signals()
     for row in rows:
         if str(row.get("ticketId")) == str(ticket_id):
-            return {
-                "ticket": row,
-                "trackingPath": f"/ticket/{ticket_id}",
-            }
+            return {"ticket": row, "trackingPath": f"/ticket/{ticket_id}"}
     raise HTTPException(status_code=404, detail="Ticket not found")
 
 
@@ -1440,20 +1345,17 @@ async def register_citizen_signal_scan(ticket_id: str, source: str = "qr_scan"):
 
         scan_count = int(safe_to_int(row.get("scanCount"), 0)) + 1
         scanned_at = datetime.now().isoformat()
-
         row["scanCount"] = scan_count
         row["lastScannedAt"] = scanned_at
         row["lastScannedSource"] = str(source or "qr_scan").strip() or "qr_scan"
         row["updatedAt"] = scanned_at
 
         events = row.get("events", [])
-        events.append(
-            _build_signal_event(
-                status=row.get("status", "submitted"),
-                actor="scan_sync",
-                note=f"Mission QR scanned ({row['lastScannedSource']})",
-            )
-        )
+        events.append(_build_signal_event(
+            status=row.get("status", "submitted"),
+            actor="scan_sync",
+            note=f"Mission QR scanned ({row['lastScannedSource']})",
+        ))
         row["events"] = events
         rows[index] = row
         found = row
@@ -1488,27 +1390,14 @@ async def get_citizen_signal_mission(ticket_id: str):
     ward_weather = build_ward_weather_insights(ward_data_clean, station_correlations)
     city_forecast = build_aqi_forecast_payload(city_hourly)
     station_forecasts = build_station_forecast_payloads()
-    ward_forecast = build_ward_forecast_insights(
-        ward_data_clean,
-        station_forecasts,
-        city_forecast,
-    )
+    ward_forecast = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
     recommendation_payload = generate_policy_recommendations(
-        ward_data_clean.to_dict("records"),
-        ward_weather,
-        ward_forecast,
-        cluster_count=4,
+        ward_data_clean.to_dict("records"), ward_weather, ward_forecast, cluster_count=4,
     )
 
     ward_key = normalize_ward_name(ticket.get("ward"))
-    ward_lookup = {
-        normalize_ward_name(row.get("name")): row
-        for _, row in ward_data_clean.iterrows()
-    }
-    forecast_lookup = {
-        normalize_ward_name(item.get("ward")): item
-        for item in ward_forecast
-    }
+    ward_lookup = {normalize_ward_name(row.get("name")): row for _, row in ward_data_clean.iterrows()}
+    forecast_lookup = {normalize_ward_name(item.get("ward")): item for item in ward_forecast}
     recommendation_lookup = {
         normalize_ward_name(item.get("ward")): item
         for item in recommendation_payload.get("wardRecommendations", [])
@@ -1519,20 +1408,18 @@ async def get_citizen_signal_mission(ticket_id: str):
     recommendation = recommendation_lookup.get(ward_key, {})
 
     current_aqi = int(round(safe_to_float(
-        forecast.get("currentAqi") if forecast.get("currentAqi") is not None else (ward_base.get("avg_AQI") if ward_base is not None else 0),
-        0,
+        forecast.get("currentAqi") if forecast.get("currentAqi") is not None
+        else (ward_base.get("avg_AQI") if ward_base is not None else 0), 0,
     )))
 
     point24 = get_forecast_point(forecast.get("points", []), 24) if forecast else None
     point72 = get_forecast_point(forecast.get("points", []), 72) if forecast else None
 
     forecast24 = int(round(safe_to_float(
-        recommendation.get("forecast24", point24.get("predictedAqi") if point24 else current_aqi),
-        current_aqi,
+        recommendation.get("forecast24", point24.get("predictedAqi") if point24 else current_aqi), current_aqi,
     )))
     forecast72 = int(round(safe_to_float(
-        recommendation.get("forecast72", point72.get("predictedAqi") if point72 else forecast24),
-        forecast24,
+        recommendation.get("forecast72", point72.get("predictedAqi") if point72 else forecast24), forecast24,
     )))
 
     delta24 = int(round(safe_to_float(recommendation.get("delta24", forecast24 - current_aqi), forecast24 - current_aqi)))
@@ -1584,13 +1471,11 @@ async def update_citizen_signal_status(ticket_id: str, payload: CitizenSignalSta
         row["status"] = next_status
         row["updatedAt"] = datetime.now().isoformat()
         events = row.get("events", [])
-        events.append(
-            _build_signal_event(
-                status=next_status,
-                actor=str(payload.actor or "ops"),
-                note=str(payload.note or "").strip(),
-            )
-        )
+        events.append(_build_signal_event(
+            status=next_status,
+            actor=str(payload.actor or "ops"),
+            note=str(payload.note or "").strip(),
+        ))
         row["events"] = events
         rows[index] = row
         break
@@ -1599,45 +1484,32 @@ async def update_citizen_signal_status(ticket_id: str, payload: CitizenSignalSta
         raise HTTPException(status_code=404, detail="Ticket not found")
 
     _save_signals(rows)
-    return {
-        "ticket": rows[found],
-    }
+    return {"ticket": rows[found]}
 
 
 # --------------------------------------------------
-# JUDGE SESSION ENDPOINTS (DECISION THEATER OMNIQR)
+# JUDGE SESSION ENDPOINTS
 # --------------------------------------------------
 
 def _build_crisis_detection():
-    """Detect top 3 at-risk wards for judge session."""
     ward_data_clean = build_ward_dataset()
     city_hourly = get_city_hourly_snapshot()
     station_forecasts = build_station_forecast_payloads()
     city_forecast = build_aqi_forecast_payload(city_hourly)
-    
-    ward_forecast = build_ward_forecast_insights(
-        ward_data_clean,
-        station_forecasts,
-        city_forecast,
-    )
-    forecast_lookup = {
-        normalize_ward_name(item.get("ward")): item
-        for item in ward_forecast
-    }
-    
+    ward_forecast = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
+    forecast_lookup = {normalize_ward_name(item.get("ward")): item for item in ward_forecast}
+
     wards_with_risk = []
     for _, row in ward_data_clean.iterrows():
         ward_key = normalize_ward_name(row.get("name"))
         forecast = forecast_lookup.get(ward_key, {})
         current_aqi = int(round(safe_to_float(
-            forecast.get("currentAqi") if forecast.get("currentAqi") is not None else row.get("avg_AQI", 0),
-            0,
+            forecast.get("currentAqi") if forecast.get("currentAqi") is not None else row.get("avg_AQI", 0), 0,
         )))
         point24 = get_forecast_point(forecast.get("points", []), 24) if forecast else None
         point72 = get_forecast_point(forecast.get("points", []), 72) if forecast else None
         forecast24 = int(round(safe_to_float(point24.get("predictedAqi") if point24 else current_aqi, current_aqi)))
         forecast72 = int(round(safe_to_float(point72.get("predictedAqi") if point72 else forecast24, forecast24)))
-        
         risk_score = current_aqi + max(0, forecast24 - current_aqi) * 2
         wards_with_risk.append({
             "name": row.get("name"),
@@ -1646,220 +1518,166 @@ def _build_crisis_detection():
             "forecast72": forecast72,
             "riskScore": risk_score,
         })
-    
-    top_wards = sorted(wards_with_risk, key=lambda x: x["riskScore"], reverse=True)[:3]
-    return top_wards
+
+    return sorted(wards_with_risk, key=lambda x: x["riskScore"], reverse=True)[:3]
 
 
 @app.post("/api/judge-sessions")
 async def create_judge_session(payload: JudgeSessionCreateInput):
-    """Create a new judge session (Decision Theater mode)."""
     sessions = _load_judge_sessions()
-    
     crisis_wards = _build_crisis_detection()
     ward_index = min(payload.wardIndex, len(crisis_wards) - 1) if crisis_wards else 0
     selected_ward = crisis_wards[ward_index] if crisis_wards else {"name": "Central Delhi", "currentAqi": 150}
-    
+
     session_id = str(uuid.uuid4())[:13]
-    
     session = {
         "sessionId": session_id,
         "wardName": selected_ward.get("name"),
         "currentPhase": "emergency_detection",
         "phaseStartedAt": datetime.now().isoformat(),
-        "phases": [
-            "emergency_detection",
-            "why_ward_matters",
-            "health_impact",
-            "action_ready",
-            "impact_theater",
-        ],
+        "phases": ["emergency_detection", "why_ward_matters", "health_impact", "action_ready", "impact_theater"],
         "phaseTimestamps": {},
         "judgeCount": 1,
         "createdAt": datetime.now().isoformat(),
         "expiresAt": (datetime.now() + timedelta(hours=1)).isoformat(),
     }
-    
+
     sessions.append(session)
     _save_judge_sessions(sessions)
-    
     return {"sessionId": session_id}
 
 
 @app.get("/api/judge-sessions/{session_id}")
 async def get_judge_session(session_id: str):
-    """Get current judge session state (for website sync)."""
     sessions = _load_judge_sessions()
     session = None
     for s in sessions:
         if s.get("sessionId") == session_id:
             session = s
             break
-    
+
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    
-    # Return simplified session data to avoid complex data processing
+
     return {
         "sessionId": session_id,
         "currentPhase": session.get("currentPhase", 0),
         "wardName": session.get("wardName", "Central Delhi"),
         "judgeCount": session.get("judgeCount", 1),
         "wardStatus": {
-            "currentAqi": 250,
-            "band": "Poor",
-            "forecast24": 240,
-            "forecast72": 230,
-            "delta24": -10,
-            "delta72": -20,
-            "populationEstimate": 500000,
-            "vulnerableCount": 75000,
+            "currentAqi": 250, "band": "Poor", "forecast24": 240, "forecast72": 230,
+            "delta24": -10, "delta72": -20, "populationEstimate": 500000, "vulnerableCount": 75000,
         },
         "healthImpact": {
-            "estimatedBeneficiaries": 45000,
-            "beneficiaryPercentage": 60,
+            "estimatedBeneficiaries": 45000, "beneficiaryPercentage": 60,
             "description": "Estimated 45,000 vulnerable residents benefit from action.",
         },
         "modelAction": {
-            "playbook": "Mixed Local Mitigation",
-            "urgency": "high",
-            "priorityScore": 85,
+            "playbook": "Mixed Local Mitigation", "urgency": "high", "priorityScore": 85,
             "recommendedActions": [
                 "Enforce traffic restrictions in high-density areas",
                 "Activate emergency dust control measures",
-                "Deploy mobile air purifiers in vulnerable zones"
+                "Deploy mobile air purifiers in vulnerable zones",
             ],
         },
-        "impact": {
-            "estimatedAqiReduction": 35,
-            "explain": "From forecast deltas + priority model.",
-        },
+        "impact": {"estimatedAqiReduction": 35, "explain": "From forecast deltas + priority model."},
     }
 
 
 @app.post("/api/judge-sessions/{session_id}/advance")
 async def advance_judge_session_phase(session_id: str):
-    """Advance to next phase in Decision Theater."""
     sessions = _load_judge_sessions()
     session = None
     session_idx = None
-    
+
     for idx, s in enumerate(sessions):
         if s.get("sessionId") == session_id:
             session = s
             session_idx = idx
             break
-    
+
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    
+
     phases = session.get("phases", [])
     current = session.get("currentPhase")
     current_idx = phases.index(current) if current in phases else 0
-    next_idx = min(current_idx + 1, len(phases) - 1)
-    
-    next_phase = phases[next_idx]
+    next_phase = phases[min(current_idx + 1, len(phases) - 1)]
+
     session["currentPhase"] = next_phase
     session["phaseStartedAt"] = datetime.now().isoformat()
-    
     timestamps = session.get("phaseTimestamps", {})
     timestamps[next_phase] = datetime.now().isoformat()
     session["phaseTimestamps"] = timestamps
-    
     sessions[session_idx] = session
     _save_judge_sessions(sessions)
-    
-    return {
-        "sessionId": session_id,
-        "currentPhase": next_phase,
-    }
+
+    return {"sessionId": session_id, "currentPhase": next_phase}
 
 
 @app.get("/api/crisis-detection")
 async def get_crisis_detection():
-    """Get top 3 at-risk wards for emergency decision theater."""
     top_wards = _build_crisis_detection()
     return {"crisisWards": top_wards}
 
 
 @app.get("/api/judge-sessions/{session_id}/qr")
 async def get_judge_session_qr(session_id: str, request: Request):
-    """Generate QR code image for judge session."""
     sessions = _load_judge_sessions()
     session = None
     for s in sessions:
         if s.get("sessionId") == session_id:
             session = s
             break
-    
+
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    
-    # Generate QR code pointing to judge theater URL (frontend)
-    # Try multiple headers to get frontend URL
+
     frontend_url = None
-    
-    # Try Origin header first (when CORS request)
     origin = request.headers.get("origin")
     if origin and "vercel.app" in origin:
         frontend_url = origin
-    
-    # Try Referer header as fallback
+
     if not frontend_url:
         referer = request.headers.get("referer")
         if referer:
-            # Extract base URL from referer
             from urllib.parse import urlparse
             parsed = urlparse(referer)
             frontend_url = f"{parsed.scheme}://{parsed.netloc}"
-    
-    # Final fallback: use environment variable or default
+
     if not frontend_url:
         frontend_url = os.getenv("FRONTEND_URL", "https://pollution-dashboard-ochre.vercel.app")
-    
+
     qr_url = f"{frontend_url}/judge/{session_id}"
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        box_size=10,
-        border=4,
-    )
+    qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4)
     qr.add_data(qr_url)
     qr.make(fit=True)
-    
     img = qr.make_image(fill_color="black", back_color="white")
-    
-    # Convert to PNG bytes
+
     img_bytes = io.BytesIO()
     img.save(img_bytes, format="PNG")
     img_bytes.seek(0)
-    
+
     return StreamingResponse(
         iter([img_bytes.getvalue()]),
         media_type="image/png",
-        headers={"Content-Disposition": f"inline; filename=omniqr_{session_id}.png"}
+        headers={"Content-Disposition": f"inline; filename=omniqr_{session_id}.png"},
     )
 
 
 @app.post("/api/judge-sessions/{session_id}/source-estimate")
 async def update_source_estimate(session_id: str, estimates: dict):
-    """Update judge's source pollution estimates for live dashboard sync."""
     sessions = _load_judge_sessions()
     for session in sessions:
         if session.get("sessionId") == session_id:
             session["sourceEstimate"] = estimates
             _save_judge_sessions(sessions)
             return {"status": "updated", "estimates": estimates}
-    
     raise HTTPException(status_code=404, detail="Session not found")
 
 
 @app.post("/api/judge-sessions/{session_id}/approve-action")
 async def approve_action_plan(session_id: str, action_data: dict):
-    """
-    Approve and deploy action plan. Updates session with action details
-    so the dashboard can display the approved intervention.
-    """
     sessions = _load_judge_sessions()
     for session in sessions:
         if session.get("sessionId") == session_id:
@@ -1868,218 +1686,137 @@ async def approve_action_plan(session_id: str, action_data: dict):
                 "actions": action_data.get("actions", []),
                 "expectedImpact": action_data.get("totalImpact", 0),
                 "timestamp": datetime.now().isoformat(),
-                "status": "deployed"
+                "status": "deployed",
             }
             _save_judge_sessions(sessions)
             return {
                 "status": "approved",
                 "message": f"Action plan deployed for {action_data.get('wardName')}",
-                "deployment": session["approvedAction"]
+                "deployment": session["approvedAction"],
             }
-    
     raise HTTPException(status_code=404, detail="Session not found")
 
 
 @app.get("/api/source-analysis/{ward_name}")
 async def get_source_analysis(ward_name: str):
-    """
-    AI-powered pollution source attribution analysis with health risks and actions.
-    Returns estimated contribution percentages from different sources + recommendations.
-    """
     try:
-        # Load dataset
         ward_data = build_ward_dataset()
-        
-        # Find the ward
         ward_row = ward_data[ward_data['Ward_Name'].str.contains(ward_name, case=False, na=False)]
-        
+
         if ward_row.empty:
-            # Fallback for unknown wards
             return {
-                "vehicular": 32,
-                "industrial": 48,
-                "construction": 12,
-                "seasonal": 8,
-                "insight": f"AI analysis based on Delhi-wide patterns. Ward-specific data not available.",
+                "vehicular": 32, "industrial": 48, "construction": 12, "seasonal": 8,
+                "insight": "AI analysis based on Delhi-wide patterns. Ward-specific data not available.",
                 "healthRisks": [
                     {"risk": "Respiratory Issues", "population": 45000, "severity": "high"},
                     {"risk": "Cardiovascular Stress", "population": 23000, "severity": "moderate"},
-                    {"risk": "Child Development Impact", "population": 12000, "severity": "high"}
+                    {"risk": "Child Development Impact", "population": 12000, "severity": "high"},
                 ],
                 "actions": [
                     {"text": "Traffic restrictions during peak hours", "impact": "15 AQI reduction"},
                     {"text": "Industrial emission controls", "impact": "20 AQI reduction"},
-                    {"text": "Emergency dust suppression", "impact": "8 AQI reduction"}
+                    {"text": "Emergency dust suppression", "impact": "8 AQI reduction"},
                 ],
-                "totalImpact": 43
+                "totalImpact": 43,
             }
-        
+
         ward_row = ward_row.iloc[0]
         aqi = ward_row.get('AQI', 200)
-        
-        # Calculate source attribution based on available data
         traffic_proxy = ward_row.get('traffic_proxy', 0.5)
         industry_proxy = ward_row.get('industry_proxy', 0.3)
-        
-        # Normalize to create realistic percentages
+
         vehicular_base = min(60, max(15, int(traffic_proxy * 60)))
         industrial_base = min(60, max(10, int(industry_proxy * 70)))
-        
-        # Seasonal factors (winter stubble burning)
-        import datetime
-        month = datetime.datetime.now().month
+        month = datetime.now().month
         seasonal_base = 15 if month in [10, 11, 12, 1] else 5
-        
-        # Construction dust (residual)
         total_known = vehicular_base + industrial_base + seasonal_base
         construction_base = max(5, 100 - total_known)
-        
-        # Normalize to 100%
+
         total = vehicular_base + industrial_base + construction_base + seasonal_base
         vehicular = round((vehicular_base / total) * 100)
         industrial = round((industrial_base / total) * 100)
         construction = round((construction_base / total) * 100)
         seasonal = 100 - vehicular - industrial - construction
-        
-        # Generate contextual insight
+
         dominant = max([
-            ("vehicular", vehicular),
-            ("industrial", industrial),
-            ("construction", construction),
-            ("seasonal", seasonal)
+            ("vehicular", vehicular), ("industrial", industrial),
+            ("construction", construction), ("seasonal", seasonal),
         ], key=lambda x: x[1])
-        
+
         insights = {
-            "industrial": f"This ward has significant factory presence. Satellite data shows industrial emissions correlate with AQI peaks at 6-9 AM.",
-            "vehicular": f"High traffic density detected. Rush hour emissions (7-10 AM, 5-8 PM) drive AQI spikes in this area.",
-            "seasonal": f"Stubble burning from nearby agricultural areas contributes heavily during Oct-Jan months.",
-            "construction": f"Multiple construction sites detected. Dust particles from ongoing projects elevate PM2.5 and PM10 levels."
+            "industrial": "This ward has significant factory presence. Satellite data shows industrial emissions correlate with AQI peaks at 6-9 AM.",
+            "vehicular": "High traffic density detected. Rush hour emissions (7-10 AM, 5-8 PM) drive AQI spikes in this area.",
+            "seasonal": "Stubble burning from nearby agricultural areas contributes heavily during Oct-Jan months.",
+            "construction": "Multiple construction sites detected. Dust particles from ongoing projects elevate PM2.5 and PM10 levels.",
         }
-        
-        # Calculate health risks based on AQI
-        population = 500000  # Average ward population
-        vulnerable_pct = 0.15 if aqi > 200 else 0.10
-        
+
+        population = 500000
         health_risks = []
         if aqi > 150:
-            health_risks.append({
-                "risk": "Respiratory Distress",
-                "population": int(population * 0.09),
-                "severity": "high" if aqi > 250 else "moderate"
-            })
+            health_risks.append({"risk": "Respiratory Distress", "population": int(population * 0.09), "severity": "high" if aqi > 250 else "moderate"})
         if aqi > 100:
-            health_risks.append({
-                "risk": "Cardiovascular Stress",
-                "population": int(population * 0.05),
-                "severity": "moderate"
-            })
-        health_risks.append({
-            "risk": "Child Development Impact",
-            "population": int(population * 0.03),
-            "severity": "high" if aqi > 200 else "moderate"
-        })
+            health_risks.append({"risk": "Cardiovascular Stress", "population": int(population * 0.05), "severity": "moderate"})
+        health_risks.append({"risk": "Child Development Impact", "population": int(population * 0.03), "severity": "high" if aqi > 200 else "moderate"})
         if aqi > 200:
-            health_risks.append({
-                "risk": "Elderly Complications",
-                "population": int(population * 0.04),
-                "severity": "high"
-            })
-        
-        # Generate recommended actions based on dominant sources
+            health_risks.append({"risk": "Elderly Complications", "population": int(population * 0.04), "severity": "high"})
+
         actions = []
         total_impact = 0
-        
         if vehicular >= 30:
             impact = min(20, int(vehicular * 0.5))
-            actions.append({
-                "text": "Odd-even vehicle restrictions during peak hours",
-                "impact": f"{impact} AQI reduction"
-            })
+            actions.append({"text": "Odd-even vehicle restrictions during peak hours", "impact": f"{impact} AQI reduction"})
             total_impact += impact
-        
         if industrial >= 25:
             impact = min(25, int(industrial * 0.6))
-            actions.append({
-                "text": "Emergency industrial emission controls",
-                "impact": f"{impact} AQI reduction"
-            })
+            actions.append({"text": "Emergency industrial emission controls", "impact": f"{impact} AQI reduction"})
             total_impact += impact
-        
         if construction >= 15:
             impact = min(10, int(construction * 0.7))
-            actions.append({
-                "text": "Water spraying on construction sites",
-                "impact": f"{impact} AQI reduction"
-            })
+            actions.append({"text": "Water spraying on construction sites", "impact": f"{impact} AQI reduction"})
             total_impact += impact
-        
         if seasonal >= 15:
-            actions.append({
-                "text": "Deploy mobile air purifiers in schools/hospitals",
-                "impact": "12 AQI reduction"
-            })
+            actions.append({"text": "Deploy mobile air purifiers in schools/hospitals", "impact": "12 AQI reduction"})
             total_impact += 12
-        
-        # Always add public advisory
-        actions.append({
-            "text": "Issue health advisory for vulnerable groups",
-            "impact": "Protective measure"
-        })
-        
+        actions.append({"text": "Issue health advisory for vulnerable groups", "impact": "Protective measure"})
+
         return {
-            "vehicular": vehicular,
-            "industrial": industrial,
-            "construction": construction,
-            "seasonal": seasonal,
+            "vehicular": vehicular, "industrial": industrial,
+            "construction": construction, "seasonal": seasonal,
             "insight": insights.get(dominant[0], "Mixed sources contribute to pollution levels."),
-            "healthRisks": health_risks,
-            "actions": actions,
-            "totalImpact": total_impact
+            "healthRisks": health_risks, "actions": actions, "totalImpact": total_impact,
         }
-        
+
     except Exception as e:
         print(f"Source analysis error: {e}")
-        # Fallback response
         return {
-            "vehicular": 35,
-            "industrial": 40,
-            "construction": 15,
-            "seasonal": 10,
-            "insight": "AI analysis based on Delhi pollution patterns. Industrial and vehicular emissions are primary contributors.",
+            "vehicular": 35, "industrial": 40, "construction": 15, "seasonal": 10,
+            "insight": "AI analysis based on Delhi pollution patterns.",
             "healthRisks": [
                 {"risk": "Respiratory Issues", "population": 45000, "severity": "high"},
-                {"risk": "Cardiovascular Stress", "population": 23000, "severity": "moderate"}
+                {"risk": "Cardiovascular Stress", "population": 23000, "severity": "moderate"},
             ],
             "actions": [
                 {"text": "Traffic restrictions during peak hours", "impact": "15 AQI reduction"},
-                {"text": "Industrial emission controls", "impact": "20 AQI reduction"}
+                {"text": "Industrial emission controls", "impact": "20 AQI reduction"},
             ],
-            "totalImpact": 35
+            "totalImpact": 35,
         }
 
 
 @app.get("/api/dashboard")
-
 async def get_dashboard_data():
     try:
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
+        ward_data_sorted = ward_data_clean.sort_values("avg_AQI", ascending=False)
 
-        ward_data_sorted = ward_data_clean.sort_values(
-            "avg_AQI", ascending=False
-        )
-
-        # 1. ALERTS (TOP 3)
         alerts = []
         for idx, row in ward_data_sorted.head(3).iterrows():
             alert_type = (
-                "Emergency"
-                if row["avg_AQI"] >= 300
-                else "Forecast Alert"
-                if row["avg_AQI"] >= 200
+                "Emergency" if row["avg_AQI"] >= 300
+                else "Forecast Alert" if row["avg_AQI"] >= 200
                 else "Hotspot Detected"
             )
-
             alerts.append({
                 "id": int(idx),
                 "severity": get_alert_severity(row["avg_AQI"]),
@@ -2089,25 +1826,16 @@ async def get_dashboard_data():
                 "time": f"{np.random.randint(1, 60)} min ago",
             })
 
-        # 2. KPIs
         city_aqi = ward_data_clean["avg_AQI"].mean()
         worst_aqi = ward_data_clean["avg_AQI"].max()
-        critical_count = len(
-            ward_data_clean[ward_data_clean["avg_AQI"] >= 200]
-        )
+        critical_count = len(ward_data_clean[ward_data_clean["avg_AQI"] >= 200])
 
         aqi_ts = AQI_TIMESERIES.dropna(subset=["date_parsed"]).copy()
         aqi_ts["date_ist"] = aqi_ts["date_parsed"]
-
-        recent_7days = aqi_ts[
-            aqi_ts["date_ist"]
-            >= (aqi_ts["date_ist"].max() - timedelta(days=7))
-        ]
-
+        recent_7days = aqi_ts[aqi_ts["date_ist"] >= (aqi_ts["date_ist"].max() - timedelta(days=7))]
         trend_pct = (
             (recent_7days["aqi_index"].mean() - aqi_ts["aqi_index"].mean())
-            / aqi_ts["aqi_index"].mean()
-            * 100
+            / aqi_ts["aqi_index"].mean() * 100
         )
 
         kpis = {
@@ -2117,71 +1845,31 @@ async def get_dashboard_data():
             "trend": f"{'+' if trend_pct > 0 else ''}{int(trend_pct)}%",
         }
 
-        # 3. TREND DATA
         def get_daily_avg(days):
-            last_n_days = aqi_ts[
-                aqi_ts["date_ist"]
-                >= (aqi_ts["date_ist"].max() - timedelta(days=days))
-            ]
-            daily = (
-                last_n_days.groupby("date_ist")["aqi_index"]
-                .mean()
-                .values
-            )
+            last_n_days = aqi_ts[aqi_ts["date_ist"] >= (aqi_ts["date_ist"].max() - timedelta(days=days))]
+            daily = last_n_days.groupby("date_ist")["aqi_index"].mean().values
             return [int(x) for x in daily]
 
-        trend_data = {
-            "7days": get_daily_avg(7),
-            "30days": get_daily_avg(30),
-            "90days": get_daily_avg(90),
-        }
+        trend_data = {"7days": get_daily_avg(7), "30days": get_daily_avg(30), "90days": get_daily_avg(90)}
 
-        # 4. WARD RISK RANKINGS
         ward_risks = []
-        for rank, (_, row) in enumerate(
-            ward_data_sorted.head(10).iterrows(), 1
-        ):
-            pollutant = (
-                "PM2.5" if row["pm2_5"] > row["pm10"] else "PM10"
+        for rank, (_, row) in enumerate(ward_data_sorted.head(10).iterrows(), 1):
+            pollutant = "PM2.5" if row["pm2_5"] > row["pm10"] else "PM10"
+            source = (
+                "Traffic" if row["vehicular_pct"] > row["industrial_pct"]
+                else "Industrial" if row["industrial_pct"] > 0
+                else "Mixed"
             )
-
-            if row["vehicular_pct"] > row["industrial_pct"]:
-                source = "Traffic"
-            elif row["industrial_pct"] > 0:
-                source = "Industrial"
-            else:
-                source = "Mixed"
-
             ward_risks.append({
-                "rank": rank,
-                "ward": row["name"],
-                "aqi": int(row["avg_AQI"]),
-                "pollutant": pollutant,
-                "source": source,
-                "status": get_aqi_status(row["avg_AQI"]),
+                "rank": rank, "ward": row["name"], "aqi": int(row["avg_AQI"]),
+                "pollutant": pollutant, "source": source, "status": get_aqi_status(row["avg_AQI"]),
             })
 
-        # 5. CITY SUMMARY
         city_summary = {
             "good": int(len(ward_data_clean[ward_data_clean["avg_AQI"] <= 50])),
-            "moderate": int(len(
-                ward_data_clean[
-                    (ward_data_clean["avg_AQI"] > 50)
-                    & (ward_data_clean["avg_AQI"] <= 100)
-                ]
-            )),
-            "unhealthy": int(len(
-                ward_data_clean[
-                    (ward_data_clean["avg_AQI"] > 100)
-                    & (ward_data_clean["avg_AQI"] <= 200)
-                ]
-            )),
-            "veryUnhealthy": int(len(
-                ward_data_clean[
-                    (ward_data_clean["avg_AQI"] > 200)
-                    & (ward_data_clean["avg_AQI"] <= 300)
-                ]
-            )),
+            "moderate": int(len(ward_data_clean[(ward_data_clean["avg_AQI"] > 50) & (ward_data_clean["avg_AQI"] <= 100)])),
+            "unhealthy": int(len(ward_data_clean[(ward_data_clean["avg_AQI"] > 100) & (ward_data_clean["avg_AQI"] <= 200)])),
+            "veryUnhealthy": int(len(ward_data_clean[(ward_data_clean["avg_AQI"] > 200) & (ward_data_clean["avg_AQI"] <= 300)])),
             "hazardous": int(len(ward_data_clean[ward_data_clean["avg_AQI"] > 300])),
         }
 
@@ -2189,11 +1877,8 @@ async def get_dashboard_data():
         forecast_payload = build_aqi_forecast_payload(city_hourly)
 
         return {
-            "alerts": alerts,
-            "kpis": kpis,
-            "trendData": trend_data,
-            "wardRisks": ward_risks,
-            "citySummary": city_summary,
+            "alerts": alerts, "kpis": kpis, "trendData": trend_data,
+            "wardRisks": ward_risks, "citySummary": city_summary,
             "weatherCorrelation": weather_correlation,
             "aqiForecast": forecast_payload,
             "lastUpdated": datetime.now().isoformat(),
@@ -2202,117 +1887,71 @@ async def get_dashboard_data():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/api/analytics/weather-correlation")
 async def get_weather_correlation_analytics():
     try:
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
-
         city_payload = build_weather_correlation_payload(city_hourly)
         station_payloads = build_station_weather_correlation_payloads()
         ward_insights = build_ward_weather_insights(ward_data_clean, station_payloads)
 
         return {
-            "city": city_payload,
-            "stations": station_payloads,
-            "wards": ward_insights,
+            "city": city_payload, "stations": station_payloads, "wards": ward_insights,
             "topImpactedWards": ward_insights[:15],
-            "metadata": {
-                "wardCount": len(ward_insights),
-                "stationCount": len(station_payloads),
-                "lastUpdated": datetime.now().isoformat(),
-            },
+            "metadata": {"wardCount": len(ward_insights), "stationCount": len(station_payloads), "lastUpdated": datetime.now().isoformat()},
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/api/analytics/predictive-aqi")
 async def get_predictive_aqi_analytics():
     try:
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
-
         city_forecast = build_aqi_forecast_payload(city_hourly)
         station_forecasts = build_station_forecast_payloads()
-        ward_forecasts = build_ward_forecast_insights(
-            ward_data_clean,
-            station_forecasts,
-            city_forecast,
-        )
+        ward_forecasts = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
 
         def ward_predicted(entry, horizon_hours):
             point = get_forecast_point(entry.get("points", []), horizon_hours)
-            if point:
-                return int(point.get("predictedAqi", entry.get("currentAqi", 0)))
-            return int(entry.get("currentAqi", 0))
-
-        top_risk_24 = sorted(
-            ward_forecasts,
-            key=lambda entry: ward_predicted(entry, 24),
-            reverse=True,
-        )[:15]
-        top_risk_72 = sorted(
-            ward_forecasts,
-            key=lambda entry: ward_predicted(entry, 72),
-            reverse=True,
-        )[:15]
-        top_improvers_72 = sorted(
-            ward_forecasts,
-            key=lambda entry: int(entry.get("delta72", 0)),
-        )[:15]
+            return int(point.get("predictedAqi", entry.get("currentAqi", 0))) if point else int(entry.get("currentAqi", 0))
 
         return {
-            "city": city_forecast,
-            "stations": station_forecasts,
-            "wards": ward_forecasts,
-            "topRisk24h": top_risk_24,
-            "topRisk72h": top_risk_72,
-            "topImprovers72h": top_improvers_72,
-            "metadata": {
-                "wardCount": len(ward_forecasts),
-                "stationCount": len(station_forecasts),
-                "lastUpdated": datetime.now().isoformat(),
-            },
+            "city": city_forecast, "stations": station_forecasts, "wards": ward_forecasts,
+            "topRisk24h": sorted(ward_forecasts, key=lambda e: ward_predicted(e, 24), reverse=True)[:15],
+            "topRisk72h": sorted(ward_forecasts, key=lambda e: ward_predicted(e, 72), reverse=True)[:15],
+            "topImprovers72h": sorted(ward_forecasts, key=lambda e: int(e.get("delta72", 0)))[:15],
+            "metadata": {"wardCount": len(ward_forecasts), "stationCount": len(station_forecasts), "lastUpdated": datetime.now().isoformat()},
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/api/analytics/solutions")
 async def get_policy_solution_analytics():
     try:
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
-
         station_correlations = build_station_weather_correlation_payloads()
-        ward_weather = build_ward_weather_insights(
-            ward_data_clean,
-            station_correlations,
-        )
-
+        ward_weather = build_ward_weather_insights(ward_data_clean, station_correlations)
         city_forecast = build_aqi_forecast_payload(city_hourly)
         station_forecasts = build_station_forecast_payloads()
-        ward_forecast = build_ward_forecast_insights(
-            ward_data_clean,
-            station_forecasts,
-            city_forecast,
-        )
-
+        ward_forecast = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
         recommendation_payload = generate_policy_recommendations(
-            ward_data_clean.to_dict("records"),
-            ward_weather,
-            ward_forecast,
-            cluster_count=4,
+            ward_data_clean.to_dict("records"), ward_weather, ward_forecast, cluster_count=4,
         )
-
         recommendation_payload["metadata"] = {
             "wardCount": len(recommendation_payload.get("wardRecommendations", [])),
-            "weatherWards": len(ward_weather),
-            "forecastWards": len(ward_forecast),
+            "weatherWards": len(ward_weather), "forecastWards": len(ward_forecast),
             "lastUpdated": datetime.now().isoformat(),
         }
         return recommendation_payload
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/api/consumer/overview")
 async def get_consumer_overview():
@@ -2332,11 +1971,8 @@ async def get_consumer_overview():
             aqi_value = int(round(safe_to_float(row.get("avg_AQI"), 0.0)))
             source = get_dominant_source_label(row.get("vehicular_pct"), row.get("industrial_pct"))
             alerts.append({
-                "id": idx + 1,
-                "ward": ward_name,
-                "aqi": aqi_value,
-                "severity": get_alert_severity(aqi_value),
-                "source": source,
+                "id": idx + 1, "ward": ward_name, "aqi": aqi_value,
+                "severity": get_alert_severity(aqi_value), "source": source,
                 "message": f"{ward_name} is in {get_aqi_band_label(aqi_value)} conditions with {source.lower()} pressure.",
             })
 
@@ -2346,21 +1982,13 @@ async def get_consumer_overview():
             aqi_value = int(round(safe_to_float(row.get("avg_AQI"), 0.0)))
             pm25 = round(safe_to_float(row.get("pm2_5"), 0.0), 2)
             pm10 = round(safe_to_float(row.get("pm10"), 0.0), 2)
-            vehicular_pct, industrial_pct, other_pct = normalize_contributions(
-                row.get("vehicular_pct"),
-                row.get("industrial_pct"),
-            )
+            vehicular_pct, industrial_pct, other_pct = normalize_contributions(row.get("vehicular_pct"), row.get("industrial_pct"))
             source = get_dominant_source_label(vehicular_pct, industrial_pct)
             item = {
-                "ward": str(row.get("name", "Unknown")),
-                "aqi": aqi_value,
-                "band": get_aqi_band_label(aqi_value),
-                "pm2_5": pm25,
-                "pm10": pm10,
-                "source": source,
-                "vehicularPct": vehicular_pct,
-                "industrialPct": industrial_pct,
-                "otherPct": other_pct,
+                "ward": str(row.get("name", "Unknown")), "aqi": aqi_value,
+                "band": get_aqi_band_label(aqi_value), "pm2_5": pm25, "pm10": pm10,
+                "source": source, "vehicularPct": vehicular_pct,
+                "industrialPct": industrial_pct, "otherPct": other_pct,
             }
             ward_table.append(item)
             if len(hotspots) < 20:
@@ -2374,10 +2002,7 @@ async def get_consumer_overview():
         strongest_factor = None
         factors = weather_correlation.get("factors", [])
         if factors:
-            strongest_factor = max(
-                factors,
-                key=lambda item: abs(safe_to_float(item.get("correlation"), 0.0)),
-            )
+            strongest_factor = max(factors, key=lambda item: abs(safe_to_float(item.get("correlation"), 0.0)))
 
         advisories = []
         if city_aqi >= 300:
@@ -2395,36 +2020,20 @@ async def get_consumer_overview():
             advisories.append("Forecast indicates gradual AQI improvement over the next 24 hours.")
 
         if strongest_factor:
-            factor_label = strongest_factor.get("label", "Weather")
-            factor_corr = strongest_factor.get("correlation", 0)
-            advisories.append(
-                f"{factor_label} currently shows the strongest AQI linkage (correlation {factor_corr})."
-            )
+            advisories.append(f"{strongest_factor.get('label', 'Weather')} currently shows the strongest AQI linkage (correlation {strongest_factor.get('correlation', 0)}).")
 
         advisories.append("Set ward alerts to receive immediate updates when AQI crosses severe thresholds.")
 
         return {
-            "city": {
-                "aqi": city_aqi,
-                "band": get_aqi_band_label(city_aqi),
-                "status": get_aqi_status(city_aqi),
-                "criticalWards": critical_wards,
-                "activeAlerts": len(alerts),
-            },
-            "alerts": alerts[:10],
-            "hotspots": hotspots,
-            "wardTable": ward_table,
-            "weatherCorrelation": weather_correlation,
-            "forecast": forecast_payload,
-            "generalAdvisories": advisories[:5],
-            "pricing": PRICING_PAYLOAD,
-            "metadata": {
-                "wardCount": len(ward_table),
-                "lastUpdated": datetime.now().isoformat(),
-            },
+            "city": {"aqi": city_aqi, "band": get_aqi_band_label(city_aqi), "status": get_aqi_status(city_aqi), "criticalWards": critical_wards, "activeAlerts": len(alerts)},
+            "alerts": alerts[:10], "hotspots": hotspots, "wardTable": ward_table,
+            "weatherCorrelation": weather_correlation, "forecast": forecast_payload,
+            "generalAdvisories": advisories[:5], "pricing": PRICING_PAYLOAD,
+            "metadata": {"wardCount": len(ward_table), "lastUpdated": datetime.now().isoformat()},
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/api/consumer/insights")
 async def get_consumer_insights(profile: ConsumerProfileInput):
@@ -2432,40 +2041,25 @@ async def get_consumer_insights(profile: ConsumerProfileInput):
         ward_data_clean = build_ward_dataset()
         city_hourly = get_city_hourly_snapshot()
         station_snapshot = get_station_snapshot(hours=24)
-
         city_weather = build_weather_correlation_payload(city_hourly)
         city_forecast = build_aqi_forecast_payload(city_hourly)
         station_forecasts = build_station_forecast_payloads()
-        ward_forecasts = build_ward_forecast_insights(
-            ward_data_clean,
-            station_forecasts,
-            city_forecast,
-        )
+        ward_forecasts = build_ward_forecast_insights(ward_data_clean, station_forecasts, city_forecast)
 
-        profile_payload = (
-            profile.model_dump()
-            if hasattr(profile, "model_dump")
-            else profile.dict()
-        )
-
+        profile_payload = profile.model_dump() if hasattr(profile, "model_dump") else profile.dict()
         return build_personalized_consumer_insight(
-            profile_payload,
-            ward_data_clean.to_dict("records"),
-            ward_forecasts,
-            station_snapshot.to_dict("records"),
-            city_weather,
+            profile_payload, ward_data_clean.to_dict("records"),
+            ward_forecasts, station_snapshot.to_dict("records"), city_weather,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/api/wards")
 async def get_all_wards():
     ward_data_clean = build_ward_dataset()
+    return {"wards": ward_data_clean.to_dict("records"), "count": len(ward_data_clean)}
 
-    return {
-        "wards": ward_data_clean.to_dict("records"),
-        "count": len(ward_data_clean),
-    }
 
 @app.get("/api/map/wards")
 async def get_map_wards():
@@ -2474,37 +2068,19 @@ async def get_map_wards():
         target_features = kml_features
         geometry_source = "kml"
     elif WARD_GEOJSON:
-        target_features = [
-            feature
-            for feature in WARD_GEOJSON.get("features", [])
-            if feature.get("properties", {}).get("name")
-        ]
+        target_features = [f for f in WARD_GEOJSON.get("features", []) if f.get("properties", {}).get("name")]
         geometry_source = "geojson"
     else:
-        raise HTTPException(
-            status_code=404,
-            detail="No geometry file found. Add delhi_wards.kml or delhi_wards.geojson in Backend/data"
-        )
+        raise HTTPException(status_code=404, detail="No geometry file found.")
 
     ward_data_clean = build_ward_dataset()
-
-    ward_lookup = {}
-    for _, row in ward_data_clean.iterrows():
-        ward_lookup[normalize_ward_name(row["name"])] = row.to_dict()
-
+    ward_lookup = {normalize_ward_name(row["name"]): row.to_dict() for _, row in ward_data_clean.iterrows()}
     locality_samples = build_locality_samples(ward_lookup)
     sample_name_set = {sample["name"] for sample in locality_samples}
-    unmatched_aqi_rows = sorted([
-        row.get("name")
-        for _, row in ward_data_clean.iterrows()
-        if row.get("name") not in sample_name_set
-    ])
+    unmatched_aqi_rows = sorted([row.get("name") for _, row in ward_data_clean.iterrows() if row.get("name") not in sample_name_set])
 
     features = []
-    observed_name_match = 0
-    observed_spatial = 0
-    estimated = 0
-    no_data = 0
+    observed_name_match = observed_spatial = estimated = no_data = 0
 
     for feature in target_features:
         props = feature.get("properties", {})
@@ -2526,21 +2102,14 @@ async def get_map_wards():
             observed_name_match += 1
         else:
             ward_centroid = geometry_centroid(geometry)
-            contained = []
-            if locality_samples:
-                for sample in locality_samples:
-                    if geometry_contains_point(sample["point"], geometry):
-                        contained.append(sample)
+            contained = [s for s in locality_samples if geometry_contains_point(s["point"], geometry)]
             if contained:
                 metrics = aggregate_metrics(contained)
                 data_quality = "observed_spatial"
-                source_names = [sample["name"] for sample in contained[:5]]
+                source_names = [s["name"] for s in contained[:5]]
                 observed_spatial += 1
             elif ward_centroid and locality_samples:
-                nearest = min(
-                    locality_samples,
-                    key=lambda sample: distance_sq(sample["point"], ward_centroid)
-                )
+                nearest = min(locality_samples, key=lambda s: distance_sq(s["point"], ward_centroid))
                 metrics = dict(nearest["metrics"])
                 data_quality = "estimated_nearest"
                 source_names = [nearest["name"]]
@@ -2548,121 +2117,60 @@ async def get_map_wards():
             else:
                 no_data += 1
                 data_quality = "no_data"
-                metrics = {
-                    "aqi": 0.0,
-                    "pm2_5": 0.0,
-                    "pm10": 0.0,
-                    "traffic_raw": 0.0,
-                    "industrial_count": 0.0,
-                    "distance_km": 0.0,
-                    "vehicular_pct": 0,
-                    "industrial_pct": 0,
-                    "other_pct": 100,
-                }
+                metrics = {"aqi": 0.0, "pm2_5": 0.0, "pm10": 0.0, "traffic_raw": 0.0, "industrial_count": 0.0, "distance_km": 0.0, "vehicular_pct": 0, "industrial_pct": 0, "other_pct": 100}
 
         features.append({
-            "type": "Feature",
-            "geometry": geometry,
+            "type": "Feature", "geometry": geometry,
             "properties": {
-                "name": ward_name,
-                "ward_no": props.get("ward_no"),
-                "ac_name": props.get("ac_name"),
-                "nw2022": props.get("nw2022"),
-                "aqi": int(round(metrics["aqi"])),
-                "pm2_5": float(metrics["pm2_5"]),
-                "pm10": float(metrics["pm10"]),
-                "traffic_raw": float(metrics["traffic_raw"]),
+                "name": ward_name, "ward_no": props.get("ward_no"),
+                "ac_name": props.get("ac_name"), "nw2022": props.get("nw2022"),
+                "aqi": int(round(metrics["aqi"])), "pm2_5": float(metrics["pm2_5"]),
+                "pm10": float(metrics["pm10"]), "traffic_raw": float(metrics["traffic_raw"]),
                 "industrial_count": int(round(metrics["industrial_count"])),
                 "vehicular_pct": int(metrics["vehicular_pct"]),
                 "industrial_pct": int(metrics["industrial_pct"]),
                 "other_pct": int(metrics["other_pct"]),
                 "distance_km": float(metrics["distance_km"]),
-                "data_quality": data_quality,
-                "source_localities": source_names,
+                "data_quality": data_quality, "source_localities": source_names,
                 "source_count": len(source_names),
             },
         })
 
     return {
-        "type": "FeatureCollection",
-        "features": features,
+        "type": "FeatureCollection", "features": features,
         "metadata": {
-            "geometrySource": geometry_source,
-            "wardFeatures": len(features),
-            "aqiRows": len(ward_lookup),
-            "localitySamples": len(locality_samples),
-            "observedNameMatchWards": observed_name_match,
-            "observedSpatialWards": observed_spatial,
-            "estimatedWards": estimated,
-            "noDataWards": no_data,
-            "unmatchedAqiRows": unmatched_aqi_rows,
-            "lastUpdated": datetime.now().isoformat(),
+            "geometrySource": geometry_source, "wardFeatures": len(features),
+            "aqiRows": len(ward_lookup), "localitySamples": len(locality_samples),
+            "observedNameMatchWards": observed_name_match, "observedSpatialWards": observed_spatial,
+            "estimatedWards": estimated, "noDataWards": no_data,
+            "unmatchedAqiRows": unmatched_aqi_rows, "lastUpdated": datetime.now().isoformat(),
         },
     }
+
 
 # --------------------------------------------------
 # STATIC FRONTEND (OPTIONAL)
 # --------------------------------------------------
 
 if DIST_DIR.exists():
-    app.mount(
-        "/assets",
-        StaticFiles(directory=DIST_DIR / "assets"),
-        name="assets",
-    )
+    app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
 
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
         if full_path.startswith("api/"):
             raise HTTPException(status_code=404, detail="Not Found")
-
         file_path = DIST_DIR / full_path
-
         if file_path.is_file():
             return FileResponse(file_path)
-
         return FileResponse(DIST_DIR / "index.html")
+
 
 # --------------------------------------------------
 # LOCAL RUN SUPPORT
 # --------------------------------------------------
 if __name__ == "__main__":
-    import os
     import uvicorn
-    
-    # Use Render.com production URL as primary, fallback to local
     port = int(os.getenv("PORT", 8000))
-    
-    # Add CORS middleware for frontend compatibility
-    from fastapi.middleware.cors import CORSMiddleware
-    from fastapi import FastAPI
-    
-    # Add this proxy endpoint to forward to Render.com API
-    @app.get("/api/consumer/overview")
-    async def proxy_overview():
-        import aiohttp
-        async with aiohttp.ClientSession() as session:
-            async with session.get("https://delhi-pollution-2.onrender.com/api/consumer/overview") as resp:
-                return await resp.json()
-    
-    @app.post("/api/consumer/insights")
-    async def proxy_insights(request: dict):
-        import aiohttp
-        async with aiohttp.ClientSession() as session:
-            async with session.post("https://delhi-pollution-2.onrender.com/api/consumer/insights", 
-                                   json=request) as resp:
-                return await resp.json()
-    
-    # Add CORS for your React frontend
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],  # Or specify your frontend URL
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-    
-    print(f"🚀 Starting server on port {port}")
-    print(f"📡 Proxying to https://delhi-pollution-2.onrender.com")
-    
+    print(f"Starting server on port {port}")
+    print(f"XGBoost models: {'loaded' if predict_aqi_forecast else 'not found, using ridge fallback'}")
     uvicorn.run(app, host="0.0.0.0", port=port)
