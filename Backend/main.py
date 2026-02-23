@@ -15,6 +15,10 @@ from datetime import datetime, timedelta
 import os
 import io
 import qrcode
+ 
+
+
+ 
 
 try:
     from .policy_model import generate_policy_recommendations
@@ -2053,7 +2057,168 @@ async def get_consumer_insights(profile: ConsumerProfileInput):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+import httpx
+from io import StringIO
 
+FIRMS_API_KEY = os.getenv("FIRMS_API_KEY", "")
+FIRMS_BBOX = "73.5,27.5,77.5,32.5"# Punjab + Haryana
+def fetch_firms_day(date_str: str) -> dict:
+    PRODUCTS = [
+        "VIIRS_SNPP_NRT",
+        "VIIRS_NOAA20_NRT",
+        "VIIRS_SNPP_SP",
+    ]
+
+    BBOX = "73.5,27.5,77.5,32.5"
+
+    empty = {
+        "date": date_str,
+        "hotspot_count": 0,
+        "hotspot_count_high": 0,
+        "total_frp": 0.0,
+        "mean_frp": 0.0,
+        "max_frp": 0.0,
+        "product": None,
+    }
+
+    import requests
+    from io import StringIO
+
+    for product in PRODUCTS:
+        try:
+            url = (
+                "https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
+                f"{FIRMS_API_KEY}/{product}/{BBOX}/1/{date_str}"
+            )
+
+            r = requests.get(
+                url,
+                timeout=30,
+                headers={"User-Agent": "Mozilla/5.0"}  # 🔥 VERY IMPORTANT
+            )
+
+            if r.status_code != 200:
+                continue
+
+            lines = r.text.strip().split("\n")
+            if len(lines) <= 1:
+                continue  # header only
+
+            df = pd.read_csv(StringIO(r.text))
+
+            if "frp" not in df.columns:
+                continue
+
+            df["frp"] = pd.to_numeric(df["frp"], errors="coerce").fillna(0)
+
+            high = (
+                df[df["confidence"].astype(str).str.lower() == "high"]
+                if "confidence" in df.columns else df
+            )
+
+            return {
+                "date": date_str,
+                "product": product,
+                "hotspot_count": len(df),
+                "hotspot_count_high": len(high),
+                "total_frp": round(df["frp"].sum(), 2),
+                "mean_frp": round(df["frp"].mean(), 2),
+                "max_frp": round(df["frp"].max(), 2),
+            }
+
+        except Exception as e:
+            print("[FIRMS ERROR]", product, e)
+
+    return empty
+@app.get("/api/fire-intensity")
+async def get_fire_intensity():
+    csv_path = "data/fire_aqi_combined.csv"
+    
+    if not Path(csv_path).exists():
+        return {"rows": [], "available": False, "error": f"{csv_path} not found"}
+    
+    df = pd.read_csv(csv_path)
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Sept-Dec 2025 filter (months 9,10,11,12)
+    mask = df['date'].dt.month.isin([9, 10, 11, 12]) & (df['date'].dt.year == 2025)
+    dashboard_df = df[mask].copy()
+    
+    def safe_float(x, default=0.0):
+        """Convert to float, handle NaN/inf, return default"""
+        try:
+            val = float(x) if pd.notna(x) else default
+            return val if np.isfinite(val) else default
+        except:
+            return default
+    
+    def safe_corr(x, y, default=0.0):
+        """Safe correlation, handles empty/short series"""
+        if len(x) < 3 or len(y) < 3:
+            return default
+        mask = (pd.notna(x) & pd.notna(y))
+        if mask.sum() < 3:
+            return default
+        return safe_float(pd.Series(x)[mask].corr(pd.Series(y)[mask]), default)
+    
+    # 🔥 ALL MATHEMATICAL ANALYSIS - SAFE VERSION
+    analysis = {
+        # Basic Stats
+        "total_days": int(len(dashboard_df)),
+        "total_hotspots": int(dashboard_df['hotspot_count'].sum()),
+        "total_frp_mw": safe_float(dashboard_df['total_frp'].sum()),
+        "peak_day": dashboard_df.loc[dashboard_df['hotspot_count'].idxmax(), 'date'].strftime('%Y-%m-%d') if len(dashboard_df) > 0 else "N/A",
+        "peak_hotspots": safe_float(dashboard_df['hotspot_count'].max()),
+        "peak_aqi": safe_float(dashboard_df['aqi'].max()),
+        
+        # Safe Correlations
+        "corr_frp_aqi": safe_corr(dashboard_df['total_frp'], dashboard_df['aqi']),
+        "corr_count_aqi": safe_corr(dashboard_df['hotspot_count'], dashboard_df['aqi']),
+        "corr_frp_lag1_aqi": safe_corr(dashboard_df['frp_lag1'].fillna(0), dashboard_df['aqi']),
+        
+        # Rolling Stats (safe)
+        "frp_7d_avg": safe_float(dashboard_df['frp_roll7'].mean()),
+        "aqi_7d_avg": safe_float(dashboard_df['aqi_roll7'].mean()),
+        "fire_risk_days": int((dashboard_df['fire_cat'] == 'High').sum()) if 'fire_cat' in dashboard_df else 0,
+        "moderate_days": int((dashboard_df['fire_cat'] == 'Moderate').sum()) if 'fire_cat' in dashboard_df else 0,
+        
+        # Advanced Metrics (safe)
+        "frp_growth_rate": safe_float(
+            (dashboard_df['total_frp'].iloc[-1] / dashboard_df['total_frp'].iloc[0] - 1) 
+            if len(dashboard_df) > 1 and dashboard_df['total_frp'].iloc[0] > 0 else 0
+        ),
+        "aqi_fire_correlation_lag3": safe_corr(dashboard_df['total_frp'].shift(3).fillna(0), dashboard_df['aqi']),
+        "zscore_extremes": int((abs(dashboard_df['frp_z'].dropna()) > 2).sum()) if 'frp_z' in dashboard_df else 0,
+        
+        # Monthly totals
+        "sept_frp_total": safe_float(dashboard_df[df['date'].dt.month == 9]['total_frp'].sum()),
+        "oct_frp_total": safe_float(dashboard_df[df['date'].dt.month == 10]['total_frp'].sum()),
+        "nov_frp_total": safe_float(dashboard_df[df['date'].dt.month == 11]['total_frp'].sum()),
+        "dec_frp_total": safe_float(dashboard_df[df['date'].dt.month == 12]['total_frp'].sum()),
+        "frp_nov_vs_oct": safe_float(
+            dashboard_df[df['date'].dt.month == 11]['total_frp'].sum() / 
+            dashboard_df[df['date'].dt.month == 10]['total_frp'].sum()
+            if len(dashboard_df[df['date'].dt.month == 10]) > 0 else 0
+        ),
+        
+        # ML Features
+        "avg_lag_correlation": safe_corr(
+            dashboard_df[['frp_lag1', 'frp_lag2', 'frp_lag3']].mean(axis=1).fillna(0), 
+            dashboard_df['aqi']
+        ),
+        "rolling_features_r2": safe_float((safe_corr(dashboard_df['frp_roll7'].fillna(0), dashboard_df['aqi']) ** 2)),
+    }
+    
+    # Ensure all values are JSON-safe
+    rows = dashboard_df.fillna(0).to_dict('records')
+    
+    return {
+        "rows": rows,
+        "analysis": {k: v for k, v in analysis.items() if isinstance(v, (int, float, str))},
+        "available": len(rows) > 0,
+        "count": len(rows)
+    }
 
 @app.get("/api/wards")
 async def get_all_wards():
@@ -2061,6 +2226,7 @@ async def get_all_wards():
     return {"wards": ward_data_clean.to_dict("records"), "count": len(ward_data_clean)}
 
 
+ 
 @app.get("/api/map/wards")
 async def get_map_wards():
     kml_features = load_kml_features()
@@ -2163,8 +2329,7 @@ if DIST_DIR.exists():
         if file_path.is_file():
             return FileResponse(file_path)
         return FileResponse(DIST_DIR / "index.html")
-
-
+ 
 # --------------------------------------------------
 # LOCAL RUN SUPPORT
 # --------------------------------------------------

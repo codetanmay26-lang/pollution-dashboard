@@ -418,6 +418,7 @@ const Dashboard = () => {
           <button className="btn-ghost" onClick={() => navigate('/predictive-aqi')}>Predictive</button>
           <button className="btn-ghost" onClick={() => navigate('/solutions')}>Solutions</button>
           <button className="btn-ghost" onClick={() => navigate('/map')}>Map</button>
+          <button className="btn-ghost" onClick={() => navigate('/fire-intel')}>Fire Intel</button>
           <button className="btn-solid" onClick={() => navigate('/wards')}>All Wards</button>
         </div>
       </header>

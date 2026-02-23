@@ -14,7 +14,11 @@ import TicketStatus from "./pages/TicketStatus/TicketStatus";
 import CitizenReview from "./pages/CitizenReview/CitizenReview";
 import JudgeMode from "./pages/JudgeMode/JudgeMode";
 import OmniQRGenerator from "./pages/OmniQRGenerator/OmniQRGenerator";
+import FireAQICorrelation from "./pages/FireIntel/FireAQICorrelation";
 
+
+ 
+ 
 
 function App() {
   return (
@@ -35,6 +39,7 @@ function App() {
         <Route path="/map" element={<MapView />} />
         <Route path="/wards" element={<AllWards />} />
         <Route path="/wards/:wardName" element={<WardDetails />} />
+        <Route path="/fire-intel" element={<FireAQICorrelation />} />
       </Routes>
     </BrowserRouter>
   );
