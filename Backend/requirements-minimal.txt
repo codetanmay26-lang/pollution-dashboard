@@ -6,6 +6,7 @@ pandas==2.3.3
 
 pydantic==2.12.5
 starlette==0.50.0
+httpx==0.28.1
 qrcode==8.0
 pillow==11.0.0
 
