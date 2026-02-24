@@ -13,7 +13,6 @@ import ConsumerDashboard from "./pages/ConsumerDashboard/ConsumerDashboard";
 import TicketStatus from "./pages/TicketStatus/TicketStatus";
 import CitizenReview from "./pages/CitizenReview/CitizenReview";
 import JudgeMode from "./pages/JudgeMode/JudgeMode";
-import OmniQRGenerator from "./pages/OmniQRGenerator/OmniQRGenerator";
 import FireAQICorrelation from "./pages/FireIntel/FireAQICorrelation";
 
 
@@ -32,7 +31,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/citizen-review" element={<CitizenReview />} />
         <Route path="/judge/:sessionId" element={<JudgeMode />} />
-        <Route path="/omniqr" element={<OmniQRGenerator />} />
         <Route path="/weather-correlation" element={<WeatherCorrelation />} />
         <Route path="/predictive-aqi" element={<PredictiveAQI />} />
         <Route path="/solutions" element={<Solutions />} />

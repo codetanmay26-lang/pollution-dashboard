@@ -400,7 +400,7 @@ const JudgeMode = () => {
 
         if (response.ok) {
           // Fast path on newer backend: single deploy call only.
-          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the same laptop QR session page (Pollution Interaction Console).\nThe implemented action appears in Live Action Feed.`);
+          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nThe implemented action appears in Live Action Feed.`);
           setCurrentView("ward-select");
           return;
         }
@@ -413,7 +413,7 @@ const JudgeMode = () => {
           // Backward-compatible fallback for older backend
           await persistApprovedAction();
 
-          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nCheck the same laptop QR session page (Pollution Interaction Console).\nImplemented action is shown there (compatibility mode).`);
+          alert(`✓ Action plan deployed for ${selectedWard?.name}!\n\nImplemented action is shown there (compatibility mode).`);
         } catch (fallbackErr) {
           console.error("Compatibility deploy failed:", fallbackErr);
           alert(`Deploy sync failed for session ${sessionId?.slice(0, 8)}.\nPlease keep same QR session open and retry once.\n(${fallbackErr.message})`);

@@ -101,16 +101,6 @@ const PortalSelect = () => {
           <p>
             One platform with two focused experiences: government operations intelligence and consumer personal protection insights.
           </p>
-          <div className="portal-demo-section">
-            <p className="demo-label">Pollution Interaction</p>
-            <button 
-              className="portal-btn-showcase" 
-              onClick={() => navigate('/omniqr')}
-            >
-              Open Pollution Interaction Console
-            </button>
-            <p className="demo-hint">Generate QR and watch implemented actions live on laptop</p>
-          </div>
         </section>
       </main>
     </div>
