@@ -236,6 +236,41 @@
   }
 }
 
+/* Ward not found / error styling */
+.ward-not-found {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.ward-not-found .not-found-icon {
+  font-size: 3.5rem;
+  opacity: 0.7;
+}
+
+.ward-not-found h2 {
+  margin: 0;
+  color: #ffd99a;
+  font-size: 1.4rem;
+}
+
+.ward-not-found p {
+  margin: 0;
+  color: #9eb8e2;
+  max-width: 400px;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 900px) {
   .overview-grid,
   .details-grid,

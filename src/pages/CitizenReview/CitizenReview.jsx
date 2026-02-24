@@ -136,8 +136,6 @@ const CitizenReview = () => {
           <p>Current ward condition, citizen report, and model-generated action playbook in one place.</p>
         </div>
         <div className="review-actions">
-          <button className="review-btn ghost" onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button className="review-btn ghost" onClick={() => navigate('/solutions')}>Solutions</button>
           <button className="review-btn solid" onClick={fetchReview}>Refresh</button>
         </div>
       </header>

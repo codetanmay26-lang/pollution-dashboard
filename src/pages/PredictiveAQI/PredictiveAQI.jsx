@@ -156,12 +156,6 @@ const PredictiveAQI = () => {
           <h1>Predictive AQI Command Center</h1>
           <p>24-72 hour AQI forecasts from weather-aware ridge models, with station-level and ward-wise risk ranking.</p>
         </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button className="btn-ghost" onClick={() => navigate('/weather-correlation')}>Weather</button>
-          <button className="btn-ghost" onClick={() => navigate('/solutions')}>Solutions</button>
-          <button className="btn-solid" onClick={() => navigate('/map')}>Map</button>
-        </div>
       </header>
 
       <section className="city-forecast pa-reveal">

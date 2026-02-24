@@ -166,12 +166,6 @@ const Solutions = () => {
             ML-driven ward recommendations combining AQI forecast, weather impact, and source attribution.
           </p>
         </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button className="btn-ghost" onClick={() => navigate('/weather-correlation')}>Weather</button>
-          <button className="btn-ghost" onClick={() => navigate('/predictive-aqi')}>Predictive</button>
-          <button className="btn-solid" onClick={() => navigate('/map')}>Map</button>
-        </div>
       </header>
 
       <section className="model-overview sol-reveal">

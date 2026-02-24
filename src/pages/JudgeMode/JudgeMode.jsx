@@ -10,6 +10,7 @@ const JudgeMode = () => {
   const [session, setSession] = useState(null);
   const [wardData, setWardData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [selectedWard, setSelectedWard] = useState(null);
   const [currentView, setCurrentView] = useState("ward-select"); // ward-select, detective, comparison, overview, health, action
   const [topWards, setTopWards] = useState([]);
@@ -23,30 +24,33 @@ const JudgeMode = () => {
   });
   const [aiAnalysis, setAiAnalysis] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch session data
-        const sessionRes = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}`);
-        if (sessionRes.ok) {
-          const sessionData = await sessionRes.json();
-          setSession(sessionData);
-        }
-
-        // Fetch crisis wards for selection
-        const crisisRes = await fetch(`${API_BASE}/api/crisis-detection`);
-        if (crisisRes.ok) {
-          const crisisData = await crisisRes.json();
-          setTopWards(crisisData.crisisWards || []);
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to load data:", err);
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setLoadError('');
+      // Fetch session data
+      const sessionRes = await fetch(`${API_BASE}/api/judge-sessions/${sessionId}`);
+      if (sessionRes.ok) {
+        const sessionData = await sessionRes.json();
+        setSession(sessionData);
       }
-    };
 
+      // Fetch crisis wards for selection
+      const crisisRes = await fetch(`${API_BASE}/api/crisis-detection`);
+      if (crisisRes.ok) {
+        const crisisData = await crisisRes.json();
+        setTopWards(crisisData.crisisWards || []);
+      }
+
+      setLoading(false);
+    } catch (err) {
+      console.error("Failed to load data:", err);
+      setLoadError(err.message || 'Unable to load judge session data.');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [sessionId]);
 
@@ -186,23 +190,30 @@ const JudgeMode = () => {
   };
 
   const revealAIAnalysis = async () => {
+    const fallbackData = {
+      vehicular: 32,
+      industrial: 48,
+      construction: 12,
+      seasonal: 8,
+      insight: "This ward has 8 factories within 3km radius. Industrial emissions contribute heavily."
+    };
+    
     try {
       const res = await fetch(`${API_BASE}/api/source-analysis/${selectedWard?.name || 'default'}`);
       if (res.ok) {
         const data = await res.json();
         setAiAnalysis(buildFallbackAnalysis(data));
         setCurrentView("comparison");
+      } else {
+        // Fallback for non-OK responses
+        console.warn(`AI analysis returned status ${res.status}, using fallback`);
+        setAiAnalysis(buildFallbackAnalysis(fallbackData));
+        setCurrentView("comparison");
       }
     } catch (err) {
       console.error("Failed to get AI analysis:", err);
       // Fallback AI data
-      setAiAnalysis(buildFallbackAnalysis({
-        vehicular: 32,
-        industrial: 48,
-        construction: 12,
-        seasonal: 8,
-        insight: "This ward has 8 factories within 3km radius. Industrial emissions contribute heavily."
-      }));
+      setAiAnalysis(buildFallbackAnalysis(fallbackData));
       setCurrentView("comparison");
     }
   };
@@ -212,6 +223,26 @@ const JudgeMode = () => {
       <div className="judge-loading">
         <div className="judge-spinner"></div>
         <p>Loading Decision Theater...</p>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="judge-container">
+        <div className="judge-error-state">
+          <div className="error-icon">🔌</div>
+          <h2>Connection Issue</h2>
+          <p>{loadError}</p>
+          <button className="action-button" onClick={fetchData}>Retry Connection</button>
+          <button 
+            className="action-button" 
+            onClick={() => navigate('/dashboard')}
+            style={{ marginTop: '0.5rem', background: 'rgba(255,255,255,0.1)' }}
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     );
   }

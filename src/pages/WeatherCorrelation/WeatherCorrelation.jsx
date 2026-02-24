@@ -102,10 +102,13 @@ const WeatherCorrelation = () => {
 
   if (error && !payload) {
     return (
-      <div className="wc-loading">
-        <h2>Unable to load weather analytics</h2>
-        <p>{error}</p>
-        <button className="btn-solid" onClick={fetchData}>Retry</button>
+      <div className="weather-page">
+        <div className="weather-error-state">
+          <div className="error-icon">⚠️</div>
+          <h2>Unable to load weather data</h2>
+          <p>{error}</p>
+          <button className="btn-solid" onClick={fetchData}>Retry</button>
+        </div>
       </div>
     );
   }
@@ -117,12 +120,6 @@ const WeatherCorrelation = () => {
           <p className="page-kicker">Delhi Ward Pollution Monitor</p>
           <h1>Weather Correlation Intelligence</h1>
           <p>Understand how wind, humidity and inversion dynamics align with AQI pressure, then inspect ward-wise impact.</p>
-        </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button className="btn-ghost" onClick={() => navigate('/predictive-aqi')}>Predictive</button>
-          <button className="btn-ghost" onClick={() => navigate('/solutions')}>Solutions</button>
-          <button className="btn-solid" onClick={() => navigate('/wards')}>All Wards</button>
         </div>
       </header>
 

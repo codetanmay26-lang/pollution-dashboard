@@ -1,3 +1,31 @@
+/* ========== GLOBAL AQI COLOR VARIABLES ========== */
+:root {
+  /* AQI Band Colors - Consistent across all components */
+  --aqi-good: #22c55e;
+  --aqi-good-bg: rgba(34, 197, 94, 0.15);
+  --aqi-good-text: #90f4aa;
+  
+  --aqi-moderate: #4ac9ff;
+  --aqi-moderate-bg: rgba(74, 201, 255, 0.15);
+  --aqi-moderate-text: #9fe6ff;
+  
+  --aqi-unhealthy: #f59e0b;
+  --aqi-unhealthy-bg: rgba(245, 158, 11, 0.15);
+  --aqi-unhealthy-text: #ffd99a;
+  
+  --aqi-very-unhealthy: #f97316;
+  --aqi-very-unhealthy-bg: rgba(249, 115, 22, 0.15);
+  --aqi-very-unhealthy-text: #ffc9a8;
+  
+  --aqi-hazardous: #ef4444;
+  --aqi-hazardous-bg: rgba(239, 68, 68, 0.15);
+  --aqi-hazardous-text: #ff9d9d;
+  
+  --aqi-severe: #991b1b;
+  --aqi-severe-bg: rgba(153, 27, 27, 0.2);
+  --aqi-severe-text: #fca5a5;
+}
+
 *,
 *::before,
 *::after {

@@ -1705,7 +1705,7 @@ async def approve_action_plan(session_id: str, action_data: dict):
 async def get_source_analysis(ward_name: str):
     try:
         ward_data = build_ward_dataset()
-        ward_row = ward_data[ward_data['Ward_Name'].str.contains(ward_name, case=False, na=False)]
+        ward_row = ward_data[ward_data['name'].str.contains(ward_name, case=False, na=False)]
 
         if ward_row.empty:
             return {
@@ -1725,7 +1725,7 @@ async def get_source_analysis(ward_name: str):
             }
 
         ward_row = ward_row.iloc[0]
-        aqi = ward_row.get('AQI', 200)
+        aqi = ward_row.get('avg_AQI', 200)
         traffic_proxy = ward_row.get('traffic_proxy', 0.5)
         industry_proxy = ward_row.get('industry_proxy', 0.3)
 
@@ -2192,14 +2192,13 @@ async def get_fire_intensity():
         "zscore_extremes": int((abs(dashboard_df['frp_z'].dropna()) > 2).sum()) if 'frp_z' in dashboard_df else 0,
         
         # Monthly totals
-        "sept_frp_total": safe_float(dashboard_df[df['date'].dt.month == 9]['total_frp'].sum()),
-        "oct_frp_total": safe_float(dashboard_df[df['date'].dt.month == 10]['total_frp'].sum()),
-        "nov_frp_total": safe_float(dashboard_df[df['date'].dt.month == 11]['total_frp'].sum()),
-        "dec_frp_total": safe_float(dashboard_df[df['date'].dt.month == 12]['total_frp'].sum()),
+        "sept_frp_total": safe_float(dashboard_df[dashboard_df['date'].dt.month == 9]['total_frp'].sum()),
+        "oct_frp_total": safe_float(dashboard_df[dashboard_df['date'].dt.month == 10]['total_frp'].sum()),
+        "nov_frp_total": safe_float(dashboard_df[dashboard_df['date'].dt.month == 11]['total_frp'].sum()),
+        "dec_frp_total": safe_float(dashboard_df[dashboard_df['date'].dt.month == 12]['total_frp'].sum()),
         "frp_nov_vs_oct": safe_float(
-            dashboard_df[df['date'].dt.month == 11]['total_frp'].sum() / 
-            dashboard_df[df['date'].dt.month == 10]['total_frp'].sum()
-            if len(dashboard_df[df['date'].dt.month == 10]) > 0 else 0
+            dashboard_df[dashboard_df['date'].dt.month == 11]['total_frp'].sum() / 
+            max(1.0, dashboard_df[dashboard_df['date'].dt.month == 10]['total_frp'].sum())
         ),
         
         # ML Features

@@ -169,10 +169,6 @@ const AllWards = () => {
             Compare ward AQI and dominant source patterns, then open a ward profile for targeted action.
           </p>
         </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/map')}>Map View</button>
-          <button className="btn-ghost" onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
-        </div>
       </header>
 
       <section className="summary-row">
@@ -254,12 +250,12 @@ const AllWards = () => {
                   </td>
                   <td>
                     <span className={`aqi-chip ${ward.band.className}`}>
-                      {Math.round(ward.avg_AQI)}
+                      {Math.round(ward.avg_AQI || 0)}
                     </span>
                   </td>
                   <td>{ward.band.label}</td>
-                  <td>{Math.round(ward.pm2_5)}</td>
-                  <td>{Math.round(ward.pm10)}</td>
+                  <td>{Math.round(ward.pm2_5 || 0)}</td>
+                  <td>{Math.round(ward.pm10 || 0)}</td>
                   <td>{Number(ward.distance_km || 0).toFixed(1)} km</td>
                   <td>
                     <div className="source-mini-bar">
@@ -271,7 +267,7 @@ const AllWards = () => {
                       V {normalized.vehicular}% | I {normalized.industrial}% | O {normalized.other}%
                     </small>
                   </td>
-                  <td>{ward.industrial_count}</td>
+                  <td>{ward.industrial_count ?? 0}</td>
                   <td className="ward-actions-cell">
                     <button
                       className="btn-solid small"

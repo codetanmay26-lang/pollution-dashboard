@@ -100,28 +100,32 @@ const ConsumerOnboarding = () => {
           <p>
             This profile powers personalized AQI risk scoring, health alerts, and cleaner route suggestions.
           </p>
-          <div className="onboard-nav">
-            <button className="onboard-btn-ghost" onClick={() => navigate('/')}>Portal</button>
-            <button className="onboard-btn-ghost" onClick={() => navigate('/government')}>Government</button>
-            <button className="onboard-btn-ghost" onClick={() => navigate('/consumer')}>Consumer Dashboard</button>
-          </div>
         </header>
 
         <form className="onboard-form onboard-reveal" onSubmit={handleSubmit}>
           <label className="field">
             <span>Ward / Locality</span>
-            <input
-              list="consumer-ward-options"
-              value={form.ward}
-              onChange={(event) => updateField('ward', event.target.value)}
-              placeholder={loadingWards ? 'Loading wards...' : 'Start typing your ward'}
-              required
-            />
-            <datalist id="consumer-ward-options">
-              {wardNames.map((ward) => (
-                <option value={ward} key={ward} />
-              ))}
-            </datalist>
+            {loadingWards ? (
+              <div className="field-loading">
+                <span className="field-spinner"></span>
+                Loading wards...
+              </div>
+            ) : (
+              <>
+                <input
+                  list="consumer-ward-options"
+                  value={form.ward}
+                  onChange={(event) => updateField('ward', event.target.value)}
+                  placeholder="Start typing your ward"
+                  required
+                />
+                <datalist id="consumer-ward-options">
+                  {wardNames.map((ward) => (
+                    <option value={ward} key={ward} />
+                  ))}
+                </datalist>
+              </>
+            )}
           </label>
 
           <div className="field-grid">

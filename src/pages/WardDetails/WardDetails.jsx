@@ -139,10 +139,16 @@ const WardDetails = () => {
 
   if (!requestedWard || !ward) {
     return (
-      <div className="ward-details-loading">
-        <h2>Ward not found</h2>
-        <p>Could not find data for the requested ward profile.</p>
-        <button className="btn-solid" onClick={() => navigate('/wards')}>Back to All Wards</button>
+      <div className="ward-details-page">
+        <div className="ward-not-found">
+          <div className="not-found-icon">🔍</div>
+          <h2>Ward Not Found</h2>
+          <p>The ward "{wardName}" could not be found or data is temporarily unavailable.</p>
+          <div className="not-found-actions">
+            <button className="btn-solid" onClick={() => navigate('/wards')}>View All Wards</button>
+            <button className="btn-ghost" onClick={fetchWards}>Retry</button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -155,7 +161,6 @@ const WardDetails = () => {
   return (
     <div className="ward-details-page">
       <header className="details-header details-animate">
-        <button className="btn-ghost" onClick={() => navigate('/wards')}>Back to All Wards</button>
         <p className="page-kicker">Ward Drill-Down</p>
         <h1>{ward.name}</h1>
         <p className="header-note">
@@ -166,7 +171,7 @@ const WardDetails = () => {
       <section className="overview-grid">
         <article className="overview-card details-animate">
           <p>Current AQI</p>
-          <h2>{Math.round(ward.avg_AQI)}</h2>
+          <h2>{Math.round(ward.avg_AQI || 0)}</h2>
           <span className={`band ${band.className}`}>{band.label}</span>
         </article>
         <article className="overview-card details-animate">
@@ -185,10 +190,10 @@ const WardDetails = () => {
         <article className="panel details-animate">
           <h3>Pollutant Snapshot</h3>
           <div className="stats-stack">
-            <div><p>PM2.5</p><strong>{Math.round(ward.pm2_5)}</strong></div>
-            <div><p>PM10</p><strong>{Math.round(ward.pm10)}</strong></div>
+            <div><p>PM2.5</p><strong>{Math.round(ward.pm2_5 || 0)}</strong></div>
+            <div><p>PM10</p><strong>{Math.round(ward.pm10 || 0)}</strong></div>
             <div><p>Traffic Raw Score</p><strong>{Math.round(ward.traffic_raw || 0)}</strong></div>
-            <div><p>Industrial Sites</p><strong>{ward.industrial_count}</strong></div>
+            <div><p>Industrial Sites</p><strong>{ward.industrial_count ?? 0}</strong></div>
           </div>
         </article>
 

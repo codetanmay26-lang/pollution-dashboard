@@ -341,6 +341,27 @@
   }
 }
 
+/* Laptop screen optimization (1366x768) */
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .city-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .station-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .risk-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .pred-table th,
+  .pred-table td {
+    padding: 0.45rem 0.55rem;
+    font-size: 0.78rem;
+  }
+}
+
 @media (max-width: 1180px) {
   .city-grid,
   .station-grid {

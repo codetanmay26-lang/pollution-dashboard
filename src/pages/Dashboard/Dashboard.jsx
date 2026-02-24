@@ -411,16 +411,6 @@ const Dashboard = () => {
           <h1 className="page-title">Command Dashboard</h1>
           <p className="page-subtitle">Live city signal, focused alert queue, and faster ward-level drill-down.</p>
         </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/')}>Portal</button>
-          <button className="btn-ghost" onClick={() => navigate('/citizen-review')}>Ward Review</button>
-          <button className="btn-ghost" onClick={() => navigate('/weather-correlation')}>Weather</button>
-          <button className="btn-ghost" onClick={() => navigate('/predictive-aqi')}>Predictive</button>
-          <button className="btn-ghost" onClick={() => navigate('/solutions')}>Solutions</button>
-          <button className="btn-ghost" onClick={() => navigate('/map')}>Map</button>
-          <button className="btn-ghost" onClick={() => navigate('/fire-intel')}>Fire Intel</button>
-          <button className="btn-solid" onClick={() => navigate('/wards')}>All Wards</button>
-        </div>
       </header>
 
       <section className="hero-insight dash-reveal">

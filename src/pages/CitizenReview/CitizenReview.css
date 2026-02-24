@@ -216,3 +216,72 @@
     flex: 1;
   }
 }
+
+/* Loading & Error States */
+.review-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: #9cb4df;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.review-loading::before {
+  content: '';
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: review-spin 0.8s linear infinite;
+}
+
+@keyframes review-spin {
+  to { transform: rotate(360deg); }
+}
+
+.review-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #fca5a5;
+  font-size: 0.85rem;
+}
+
+.review-error::before {
+  content: '⚠';
+  font-size: 1rem;
+}
+
+.review-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #7a90b8;
+  border: 1px dashed rgba(156, 180, 223, 0.2);
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+.review-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.6;
+}
+
+.review-empty p {
+  margin: 0;
+  font-size: 0.9rem;
+}

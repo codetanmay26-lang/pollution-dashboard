@@ -208,10 +208,6 @@ const MapView = () => {
             AQI is rendered on actual ward polygons from your `{metadata.geometrySource || 'map'}` geometry source.
           </p>
         </div>
-        <div className="header-actions">
-          <button className="btn-ghost" onClick={() => navigate('/dashboard')}>Dashboard</button>
-          <button className="btn-ghost" onClick={() => navigate('/wards')}>All Wards</button>
-        </div>
       </header>
 
       <section className="map-controls">
