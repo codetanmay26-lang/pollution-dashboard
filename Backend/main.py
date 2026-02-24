@@ -2133,9 +2133,9 @@ def fetch_firms_day(date_str: str) -> dict:
     return empty
 @app.get("/api/fire-intensity")
 async def get_fire_intensity():
-    csv_path = "data/fire_aqi_combined.csv"
+    csv_path = DATA_DIR / "fire_aqi_combined.csv"
     
-    if not Path(csv_path).exists():
+    if not csv_path.exists():
         return {"rows": [], "available": False, "error": f"{csv_path} not found"}
     
     df = pd.read_csv(csv_path)
