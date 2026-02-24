@@ -46,13 +46,26 @@ def _load_models():
         _models_available = False
         return False
 
-    with open(feat_path, "rb") as f:
-        _xgb_feature_cols = pickle.load(f)
+    try:
+        with open(feat_path, "rb") as f:
+            _xgb_feature_cols = pickle.load(f)
 
-    _xgb_models = {}
-    for h in HORIZONS:
-        with open(MODELS_DIR / f"xgb_pm25_{h}h.pkl", "rb") as f:
-            _xgb_models[h] = pickle.load(f)
+        _xgb_models = {}
+        for h in HORIZONS:
+            with open(MODELS_DIR / f"xgb_pm25_{h}h.pkl", "rb") as f:
+                _xgb_models[h] = pickle.load(f)
+    except ModuleNotFoundError as e:
+        print(f"[XGB] Dependency missing during model load ({e}) — using ridge fallback")
+        _xgb_models = None
+        _xgb_feature_cols = None
+        _models_available = False
+        return False
+    except Exception as e:
+        print(f"[XGB] Model load failed ({e}) — using ridge fallback")
+        _xgb_models = None
+        _xgb_feature_cols = None
+        _models_available = False
+        return False
 
     print("[XGB] Models loaded successfully")
     _models_available = True

@@ -8,7 +8,7 @@ import {
 const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
 
-.fac-root { font-family:'Manrope',sans-serif; color:#f0f4ff; width:100%; }
+.fac-root { font-family:'Manrope',sans-serif; color:#f0f4ff; width:100%; padding-top:.35rem; }
 
 .fac-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; gap:1rem; flex-wrap:wrap; }
 .fac-kicker  { margin:0 0 .28rem; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.13em; color:#ff7c40; }
@@ -93,6 +93,13 @@ const STYLES = `
 .fac-lag-track { height:7px; border-radius:999px; background:rgba(179,200,239,.12); overflow:hidden; }
 .fac-lag-fill  { height:100%; border-radius:999px; transition:width .9s ease; }
 
+.fac-summary-list { display:grid; gap:.5rem; }
+.fac-summary-item { border:1px solid rgba(179,200,239,.14); background:rgba(10,18,34,.62); border-radius:10px; padding:.55rem .65rem; }
+.fac-summary-top { display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.fac-summary-label { font-size:.72rem; color:#9eb2da; }
+.fac-summary-value { font-size:.86rem; font-weight:700; color:#dce8ff; }
+.fac-summary-desc { margin-top:.15rem; font-size:.65rem; color:#6a82a8; }
+
 .fac-insights { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; }
 .fac-ins-card { border-radius:12px; border:1px solid rgba(179,200,239,.16);
                 background:rgba(16,26,44,.72); padding:.7rem .8rem; }
@@ -138,6 +145,21 @@ function stdDev(values) {
   const mean = values.reduce((a, b) => a + b, 0) / n;
   const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / (n - 1);
   return Math.sqrt(variance);
+}
+
+function isFiniteNumber(value) {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function formatNumber(value, decimals = 2) {
+  return isFiniteNumber(value) ? Number(value).toFixed(decimals) : "—";
+}
+
+function formatPercent(value, decimals = 2, signed = false) {
+  if (!isFiniteNumber(value)) return "—";
+  const absFormatted = Math.abs(value).toFixed(decimals);
+  if (!signed) return `${absFormatted}%`;
+  return `${value > 0 ? "+" : value < 0 ? "-" : ""}${absFormatted}%`;
 }
 
 function buildWeeklyData(rows) {
@@ -300,9 +322,11 @@ export default function FireAQICorrelation() {
   // Advanced math metrics
   const frpStd = stdDev(allFRP);
   const aqiStd = stdDev(allAQI);
-  const cvFRP = frpStd ? (frpStd / avgFRP) * 100 : 0; // Coefficient of variation
-  const trendFRP = allFRP.length > 1 ? ((allFRP[allFRP.length-1] - allFRP[0]) / allFRP[0]) * 100 : 0;
-  const zMaxFRP = frpStd ? Math.max(...allFRP.map(x => Math.abs((x - avgFRP) / frpStd))) : 0;
+  const cvFRP = frpStd && avgFRP > 0 ? (frpStd / avgFRP) * 100 : null; // Coefficient of variation
+  const trendFRP = allFRP.length > 1 && allFRP[0] > 0
+    ? ((allFRP[allFRP.length - 1] - allFRP[0]) / allFRP[0]) * 100
+    : null;
+  const zMaxFRP = frpStd ? Math.max(...allFRP.map((x) => Math.abs((x - avgFRP) / frpStd))) : null;
   const lag1R = allFRP.length > 1 ? pearson(allFRP.slice(1), allAQI.slice(0,-1)) : 0;
   const autocorrFRP = allFRP.length > 1 ? pearson(allFRP.slice(0,-1), allFRP.slice(1)) : 0;
 
@@ -361,12 +385,12 @@ export default function FireAQICorrelation() {
         </div>
         <div className="fac-stat aqi">
           <p className="fac-stat-label">Peak Delhi AQI</p>
-          <p className="fac-stat-value aqi">{peakAQI || "—"}</p>
+          <p className="fac-stat-value aqi">{formatNumber(peakAQI, 2)}</p>
           <p className="fac-stat-sub">Worst day in period</p>
         </div>
         <div className="fac-stat corr">
           <p className="fac-stat-label">Correlation (r)</p>
-          <p className="fac-stat-value corr">{r ? r.toFixed(2) : "—"}</p>
+          <p className="fac-stat-value corr">{formatNumber(r, 2)}</p>
           <p className="fac-stat-sub">FRP vs AQI Pearson</p>
         </div>
         <div className="fac-stat peak">
@@ -382,22 +406,22 @@ export default function FireAQICorrelation() {
       <div className="fac-math-stats">
         <div className="fac-math-stat trend">
           <p className="fac-math-label">FRP Trend</p>
-          <p className="fac-math-value fac-math-trend">{trendFRP > 0 ? `+${trendFRP.toFixed(0)}%` : `${trendFRP.toFixed(0)}%`}</p>
+          <p className="fac-math-value fac-math-trend">{formatPercent(trendFRP, 2, true)}</p>
           <p className="fac-math-sub">Seasonal growth rate</p>
         </div>
         <div className="fac-math-stat vola">
           <p className="fac-math-label">FRP Volatility</p>
-          <p className="fac-math-value fac-math-vola">{cvFRP ? `${cvFRP.toFixed(0)}%` : "—"}</p>
+          <p className="fac-math-value fac-math-vola">{formatPercent(cvFRP, 2)}</p>
           <p className="fac-math-sub">Coef. of variation</p>
         </div>
         <div className="fac-math-stat lag">
           <p className="fac-math-label">Lag-1 Corr.</p>
-          <p className="fac-math-value fac-math-lag">{lag1R ? lag1R.toFixed(2) : "—"}</p>
+          <p className="fac-math-value fac-math-lag">{formatNumber(lag1R, 2)}</p>
           <p className="fac-math-sub">FRP(t) vs AQI(t-1)</p>
         </div>
         <div className="fac-math-stat anom">
           <p className="fac-math-label">Max Z-Score</p>
-          <p className="fac-math-value fac-math-anom">{zMaxFRP ? zMaxFRP.toFixed(1) : "—"}</p>
+          <p className="fac-math-value fac-math-anom">{formatNumber(zMaxFRP, 2)}</p>
           <p className="fac-math-sub">Extreme day outlier</p>
         </div>
       </div>
@@ -541,9 +565,23 @@ export default function FireAQICorrelation() {
                 </ResponsiveContainer>
               )}
 
-              {(!weekly.length || activeTab === "weekly") && (
+              {activeTab === "weekly" && !weekly.length && (
                 <div className="fac-no-data">
-                  {activeTab === "weekly" ? "No weekly data" : activeTab === "timeline" ? "No daily data for week" : "No correlation data"}
+                  No weekly data
+                  <span>Check API data or the selected period</span>
+                </div>
+              )}
+
+              {activeTab === "timeline" && !currentDayData.length && (
+                <div className="fac-no-data">
+                  No daily data for week
+                  <span>Check API data or the selected period</span>
+                </div>
+              )}
+
+              {activeTab === "scatter" && !scatterData.length && (
+                <div className="fac-no-data">
+                  No correlation data
                   <span>Check API data or the selected period</span>
                 </div>
               )}
@@ -585,18 +623,26 @@ export default function FireAQICorrelation() {
                 <p style={{ margin: "0 0 .5rem", fontSize: ".68rem", color: "#8fa4cc", textTransform: "uppercase", letterSpacing: ".07em" }}>
                   Statistical Summary
                 </p>
-                {[
-                  { label: "Autocorrelation", value: `${autocorrFRP ? autocorrFRP.toFixed(2) : "—"}`, desc: "FRP(t) vs FRP(t+1)" },
-                  { label: "FRP Std. Dev.", value: `${frpStd ? Math.round(frpStd).toLocaleString() : "—"} MW`, desc: "Daily variation" },
-                  { label: "High Z-days", value: `${analysis.zscore_extremes || allFRP.filter(x => Math.abs((x - avgFRP) / frpStd) > 2).length}`, desc: ">2σ outliers" },
-                  { label: "Fire Risk Days", value: `${analysis.fire_risk_days || 0}`, desc: "High category days" },
-                ].map(({ label, value, desc }) => (
-                  <div key={label} style={{ display: "flex", justifyContent: "space-between", marginBottom: ".28rem", fontSize: ".7rem" }}>
-                    <span style={{ color: "#8fa4cc" }}>{label}</span>
-                    <span style={{ fontWeight: 700, color: "#dce8ff" }}>{value}</span>
-                    <span style={{ color: "#6a82a8", fontSize: ".65rem" }}>{desc}</span>
-                  </div>
-                ))}
+                <div className="fac-summary-list">
+                  {[
+                    { label: "Autocorrelation", value: formatNumber(autocorrFRP, 2), desc: "FRP(t) vs FRP(t+1)" },
+                    { label: "FRP Std. Dev.", value: `${isFiniteNumber(frpStd) ? frpStd.toFixed(2) : "—"} MW`, desc: "Daily variation" },
+                    {
+                      label: "High Z-days",
+                      value: `${analysis.zscore_extremes || (frpStd ? allFRP.filter((x) => Math.abs((x - avgFRP) / frpStd) > 2).length : 0)}`,
+                      desc: ">2σ outliers",
+                    },
+                    { label: "Fire Risk Days", value: `${analysis.fire_risk_days || 0}`, desc: "High category days" },
+                  ].map(({ label, value, desc }) => (
+                    <div key={label} className="fac-summary-item">
+                      <div className="fac-summary-top">
+                        <span className="fac-summary-label">{label}</span>
+                        <span className="fac-summary-value">{value}</span>
+                      </div>
+                      <div className="fac-summary-desc">{desc}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -612,13 +658,13 @@ export default function FireAQICorrelation() {
             <div className="fac-ins-card">
               <span className="fac-ins-icon">Lag</span>
               <p className="fac-ins-title">Transport Lag</p>
-              <p className="fac-ins-body">Max correlation at +1 day lag (r={lag1R ? lag1R.toFixed(2) : "—"}), 12-36hr travel time.</p>
+              <p className="fac-ins-body">Max correlation at +1 day lag (r={formatNumber(lag1R, 2)}), 12-36hr travel time.</p>
               <span className="fac-ins-val">18hr avg</span>
             </div>
             <div className="fac-ins-card">
               <span className="fac-ins-icon">Stats</span>
               <p className="fac-ins-title">Statistical Power</p>
-              <p className="fac-ins-body">{cvFRP ? `${cvFRP.toFixed(0)}%` : "—"} FRP volatility vs {aqiStd ? Math.round(aqiStd) : "—"} AQI, {zMaxFRP ? zMaxFRP.toFixed(1) : "—"}σ max outlier.</p>
+              <p className="fac-ins-body">{formatPercent(cvFRP, 2)} FRP volatility vs {formatNumber(aqiStd, 2)} AQI, {formatNumber(zMaxFRP, 2)}σ max outlier.</p>
               <span className="fac-ins-val">{allData.length} days</span>
             </div>
           </div>
